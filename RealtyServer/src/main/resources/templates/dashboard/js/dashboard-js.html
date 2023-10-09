@@ -1,0 +1,37 @@
+<div th:fragment="dashboard-js">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<!--ConnectionType 파이 차트 script 분리 안되어서 dashboard.html 에 내장되어있음-->
+<!--	<script>
+		alert("hi")
+		var ctx = document.getElementById("a");
+		var myPieChart = new Chart(ctx, {
+			type: 'doughnut',
+			data: {
+				
+				datasets: [{
+					data: [60, 40],
+					backgroundColor: ['#1cc88a', '#36b9cc'],
+					hoverBackgroundColor: ['#17a673', '#2c9faf'],
+					hoverBorderColor: "rgba(234, 236, 244, 1)",
+				}],
+			},
+			options: {
+				maintainAspectRatio: false,
+				tooltips: {
+					backgroundColor: "rgb(255,255,255)",
+					bodyFontColor: "#858796",
+					borderColor: '#dddfeb',
+					borderWidth: 1,
+					xPadding: 15,
+					yPadding: 15,
+					displayColors: false,
+					caretPadding: 10,
+				},   
+				legend: {
+					display: false
+				},
+				cutoutPercentage: 80,
+			},
+		});
+	</script>-->
+</div>
