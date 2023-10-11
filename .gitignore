@@ -1,3 +1,14 @@
+### common ###
 .idea
 *.iml
 target/*
+
+### batch ###
+Batch/.gradle/*
+Batch/build/*
+
+
+### Realty ###
+RealtyServer/.gradle/*
+RealtyServer/build/*
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="content">
+	<div class="container-fluid">
+
+		<!-- Page Heading -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">USER INFORMATION</h1>
+		</div>
+
+		<!-- Content Row -->
+		<div class="row">
+
+			<div class="col-lg-6 mb-4">
+
+				<!--User Information-->
+				<div class="card shadow mb-4 h-100">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+					</div>
+					<div class="card-body">
+						<div class="col-md">
+							<div class="form-floating">
+								<label for="floatingInputGrid">USER ID</label>
+								<input type="text" class="form-control" th:value="${user.userId}" readonly>
+							</div>
+							<hr>
+							<div class="form-floating">
+								<label for="floatingInputGrid">USER NAME</label>
+								<input type="text" class="form-control" th:value="${user.userName}" readonly>
+							</div>
+							<hr>
+							
+							<!--<div class="form-floating">
+								<label for="floatingInputGrid">E-MAIL</label>
+								<input type="text" class="form-control" placeholder="example@example.com" readonly>
+							</div>
+							<hr>
+							<div class="form-floating">
+								<label for="floatingInputGrid">PHONE</label>
+								<input type="text" class="form-control" placeholder="phone Number" readonly>
+							</div>
+							<hr>
+							<div class="form-floating">
+								<label for="floatingInputGrid">DESCRIPTION</label>
+								
+								<input type="text" class="form-control"
+									placeholder="DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION " disabled>
+							</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!--End Content Row-->
+	</div>
+	<!-- /.container-fluid -->
+</th:block>
+
+</html>

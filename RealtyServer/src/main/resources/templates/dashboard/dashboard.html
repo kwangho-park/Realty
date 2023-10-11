@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="content">
+	<div th:insert="dashboard/js/dashboard-js.html :: dashboard-js"></div>
+	<div class="container-fluid">
+		<div class="container-fluid">
+			<!-- Page Heading -->
+			<!--<div class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+					</div>-->
+
+			<!-- Content Row -->
+			<div class="row">
+
+				<div class="col-lg-4 mb-4">
+					<!--User Information-->
+					<div class="card shadow mb-4 h-750">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+						</div>
+						<div class="card-body">
+							<div class="col-md">
+								<div class="form-floating">
+									<label for="floatingInputGrid">USER ID</label>
+									<input type="text" class="form-control" th:value="${user.userId}" readonly>
+								</div>
+								<hr>
+								<div class="form-floating">
+									<label for="floatingInputGrid">USER NAME</label>
+									<input type="text" class="form-control" th:value="${user.userName}" readonly>
+								</div>
+								<hr>
+								
+								<div class="form-floating">
+									<label for="floatingInputGrid">DESCRIPTION</label>
+									<input type="text" class="form-control"
+										placeholder="DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION " disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Pie Chart -->
+					<div class="card shadow mb-4 h-45">
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">Connection Type</h6>
+						</div>
+						<div class="card-body">
+							<div class="chart-pie pt-4 pb-2">
+								<canvas id="connTypePie"></canvas>
+							</div>
+							<div class="mt-4 text-center">
+								<span class="mr-2">
+									<i class="fas fa-circle text-success"></i> SSH : <span id="typeSSH" th:text="${typeSSH.size}"></span>개
+								</span>
+								<span class="mr-2">
+									<i class="fas fa-circle text-info"></i> RDP : <span id="typeRDP" th:text="${typeRDP.size}"></span>개
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- Start application List -->
+				<div class="col-lg-8 mb-4">
+					<div class="card shadow mb-4 h-100">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">Application List (Total : <span th:text="${app.size}"></span> 개)</h6>
+						</div>
+						<div class="card-body row ">
+							<div class="col-xl-4 col-md-6 mb-4" th:each="app : ${app}">
+								<div class="card border-left-success shadow h-80 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="">
+												<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+													<span th:text="${app.id}"></span></div>
+												<!--새탭열기-->
+												<a th:href="${app.appURI}" target="_blank">
+													<div class="h8 mb-0 font-weight-bold text-gray-800" th:text="${app.appName}"></div>
+												</a>
+												<hr>
+												<li>IP : <span th:text="${app.appIp}"></span></li>
+												<br>
+												<li>Port : <span th:text="${app.appPort}"></span></li>
+												<br>
+												<li>Protocol: <span th:text="${app.appProtocol}"></span></li>
+											</div>
+												<!--<hr>-->
+												<!--<i class="fas fa-dollar-sign fa-5x text-gray-300"></i>-->
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<li class="page-item disabled">
+									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item">
+									<a class="page-link" href="#">Next</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- End application List -->
+
+			</div> <!--End Content Row-->
+
+
+		</div>
+		<!-- /.container-fluid -->
+	<script>
+		var ctx = document.getElementById("connTypePie");
+		
+		var myPieChart = new Chart(ctx, {
+			type: 'doughnut',
+			data: {
+				
+				datasets: [{
+					data: [40, 60],
+					backgroundColor: ['#1cc88a', '#36b9cc'],
+					hoverBackgroundColor: ['#17a673', '#2c9faf'],
+					hoverBorderColor: "rgba(234, 236, 244, 1)",
+				}],
+			},
+			options: {
+				maintainAspectRatio: false,
+				tooltips: {
+					backgroundColor: "rgb(255,255,255)",
+					bodyFontColor: "#858796",
+					borderColor: '#dddfeb',
+					borderWidth: 1,
+					xPadding: 15,
+					yPadding: 15,
+					displayColors: false,
+					caretPadding: 10,
+				},   
+				legend: {
+					display: false
+				},
+				cutoutPercentage: 80,
+			},
+		});
+	</script>
+</th:block>
+
+<body>
+
+</body>
+
+</html>
