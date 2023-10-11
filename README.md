@@ -4,5 +4,4 @@
 # RealtyServer
 - spec : java, Spring boot, 
 
-# Batch
-- spec : java, Spring boot 2.0 , Spring batch 4.0
+
