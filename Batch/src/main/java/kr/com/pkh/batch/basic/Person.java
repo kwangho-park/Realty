@@ -1,4 +1,4 @@
-package com.example.batchInitalizr;
+package kr.com.pkh.batch.basic;
 
 
 // DTO
