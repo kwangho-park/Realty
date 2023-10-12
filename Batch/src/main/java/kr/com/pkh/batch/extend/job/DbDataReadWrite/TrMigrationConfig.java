@@ -1,9 +1,9 @@
 package kr.com.pkh.batch.extend.job.DbDataReadWrite;
 
-import kr.com.pkh.batch.extend.domain.accounts.AccountEntity;
-import kr.com.pkh.batch.extend.domain.accounts.AccountRepository;
-import kr.com.pkh.batch.extend.domain.orders.OrderEntity;
-import kr.com.pkh.batch.extend.domain.orders.OrderRepository;
+import kr.com.pkh.batch.extend.job.DbDataReadWrite.accounts.AccountEntity;
+import kr.com.pkh.batch.extend.job.DbDataReadWrite.accounts.AccountRepository;
+import kr.com.pkh.batch.extend.job.DbDataReadWrite.orders.OrderEntity;
+import kr.com.pkh.batch.extend.job.DbDataReadWrite.orders.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -16,17 +16,14 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
-import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder;
-import org.springframework.batch.item.data.builder.RepositoryItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
 
-import java.rmi.AccessException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,10 +57,20 @@ public class TrMigrationConfig {
 
     @JobScope
     @Bean
-    public Step trMigrationStep(ItemReader trOrdersReader, ItemProcessor trOrderProcessor, ItemWriter trOrderWriter){         // reader, processor 주입
+    public Step trMigrationStep(@Qualifier("trOrderReader") ItemReader trOrdersReader,  // reader, processor 주입
+                                ItemProcessor trOrderProcessor,
+                                ItemWriter trOrderWriter){
         return stepBuilderFactory.get("trMigrationStep")
-                .<OrderEntity, AccountEntity>chunk(5)      // 어떤데이터로 읽어서 어떤데이터로 쓸껀지 + 몇개단위로 사용할건지 : 5개 (트랜잭션의 단위)
+                .<OrderEntity, AccountEntity>chunk(5)      // OrderEntity로 조회하여, AccountEntity 로 데이터를 추가하며, 5개 row 단위로 트랜잭션
                 .reader(trOrdersReader)                             // reader 지정
+
+                // Reader 함수 테스트용 출력 : 사용 시 ( SimpleStepBuiler 의 processor(), writer() 객체함수 주석처리
+//                .writer(new ItemWriter() {
+//                    @Override
+//                    public void write(List items) throws Exception {
+//                        items.forEach(System.out::println);
+//                    }
+//                })
                 .processor(trOrderProcessor)
                 .writer(trOrderWriter)
                 .build();

@@ -1,10 +1,8 @@
-package kr.com.pkh.batch.extend.domain.accounts;
+package kr.com.pkh.batch.extend.job.DbDataReadWrite.accounts;
 
-import kr.com.pkh.batch.extend.domain.orders.OrderEntity;
+import kr.com.pkh.batch.extend.job.DbDataReadWrite.orders.OrderEntity;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;

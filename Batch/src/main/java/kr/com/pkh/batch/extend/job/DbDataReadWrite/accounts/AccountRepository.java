@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.extend.domain.accounts;
+package kr.com.pkh.batch.extend.job.DbDataReadWrite.accounts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
