@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.extend.validationParam;
+package kr.com.pkh.batch.extend.job.validationParam;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;

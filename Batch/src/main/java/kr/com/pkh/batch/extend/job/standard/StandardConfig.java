@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.extend.standard;
+package kr.com.pkh.batch.extend.job.standard;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

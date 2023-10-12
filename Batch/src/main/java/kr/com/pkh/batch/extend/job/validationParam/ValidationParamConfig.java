@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.extend.validationParam;
+package kr.com.pkh.batch.extend.job.validationParam;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
