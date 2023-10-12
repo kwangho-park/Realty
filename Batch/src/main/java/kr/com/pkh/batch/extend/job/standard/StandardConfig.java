@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * IntelliJ 실행 시 설정 : edit config > program args 설정
  */
-@Configuration
+@Configuration		// Batch job 실행하기위해 필요한 어노테이션
 @RequiredArgsConstructor
 public class StandardConfig {
 
