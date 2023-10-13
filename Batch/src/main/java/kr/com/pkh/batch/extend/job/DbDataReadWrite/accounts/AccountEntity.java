@@ -1,12 +1,14 @@
 package kr.com.pkh.batch.extend.job.DbDataReadWrite.accounts;
 
 import kr.com.pkh.batch.extend.job.DbDataReadWrite.orders.OrderEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity

@@ -6,6 +6,7 @@ target/*
 ### batch ###
 Batch/.gradle/*
 Batch/build/*
+Batch/out/*
 
 
 ### Realty ###

@@ -14,8 +14,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * 하나의 테스트 코드는 하나의 job 테스트가능함
+ * Batch job 기본 테스트 코드 (정상)
  * 테스트 대상 job : StandardConfig.class
+ * 참고 : 하나의 테스트 코드는 하나의 job 테스트 가능
  */
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -27,7 +28,7 @@ class StandardConfigTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @Test
-    public void successTest() throws Exception {
+    public void success() throws Exception {
 
         // given
 
