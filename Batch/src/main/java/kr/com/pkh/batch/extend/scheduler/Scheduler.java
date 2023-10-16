@@ -23,7 +23,7 @@ public class Scheduler {
     @Autowired
     private JobLauncher jobLauncher;
 
-    @Scheduled(cron = "0 */1 * * * *")      // 1분단위 동작 (cron expression)
+    @Scheduled(cron = "${jobs.cronSchedule}")
     public void standardJobRun() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         JobParameters jobParameters = new JobParameters(
                 Collections.singletonMap("requestTime", new JobParameter(System.currentTimeMillis()))

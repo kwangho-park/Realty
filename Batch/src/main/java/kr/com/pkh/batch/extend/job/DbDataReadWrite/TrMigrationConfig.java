@@ -49,7 +49,7 @@ public class TrMigrationConfig {
 
     @Bean
     public Job trMigrationJob(Step trMigrationStep){
-        return jobBuilderFactory.get("trMigrationJob")
+        return jobBuilderFactory.get("trMigrationJob")      // Define job name and return job builder
                 .incrementer(new RunIdIncrementer())
                 .start(trMigrationStep)
                 .build();
