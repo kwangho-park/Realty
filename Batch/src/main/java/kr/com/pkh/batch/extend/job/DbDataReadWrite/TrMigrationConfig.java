@@ -84,7 +84,7 @@ public class TrMigrationConfig {
                 .name("trOrderReader")
                 .repository(orderRepository)        // Read 시 사용하는 JPA Repository 지정 (=DAO)
                 .methodName("findAll")              // 전체 데이터 조회
-                .pageSize(5)                        // 조회 할 row 수 단위 : 보편적으로는 chunk 와 pageSize 를 동일하게함
+                .pageSize(10)                        // view page size (=row count)
                 .arguments(Arrays.asList())         // query 의 parameter 지정
                 .sorts(Collections.singletonMap("id", Sort.Direction.ASC))      // ID 기준으로 정렬
                 .build();
