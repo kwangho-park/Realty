@@ -11,16 +11,13 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.security.MessageDigest;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -343,8 +340,60 @@ public class Util
 		return regex;
 	}
 
-	
-	// VPN subnet -> route value  타입변경 
+
+	/**
+	 *  SHA256 단방향 암호화 + base64 함수
+	 * @param inputStr 암호화 대상 문자열
+	 * @return sha256 암호화+base64 인코딩된 문자열 (length : 88 byte)
+	 * @throws Exception
+	 */
+	public static String getHashValue(String inputStr) throws Exception
+	{
+		byte[] byteArray = inputStr.getBytes();
+
+		MessageDigest md = null;
+		md = MessageDigest.getInstance("SHA-256");
+
+		if (md == null)
+			return null;
+
+		md.reset();
+		md.update(byteArray);
+
+		byte digest[] = md.digest();
+
+		StringBuffer buffer = new StringBuffer();		// Spring 보다 SpringBuffer 가 연산 속도가 빠름, muti thread 처리 가능
+
+		for (int i = 0; i < digest.length; i++) {
+
+			if (Integer.toHexString(0xFF & digest[i]).length() == 1)
+				buffer.append("0" + Integer.toHexString(0xFF & digest[i]));
+			else
+				buffer.append(Integer.toHexString(0xFF & digest[i]));
+		}
+
+		return encode64(buffer.toString());
+	}
+
+	// base64 encoding 함수
+	public static String encode64(String plainStr)
+	{
+		byte[] bytesToEncode = plainStr.getBytes();
+
+		return Base64.getEncoder().encodeToString(bytesToEncode);
+	}
+
+
+	// base64 decoding 함수
+	public static String decode64(String encodedStr){
+		byte[] decodedBytes = Base64.getDecoder().decode(encodedStr);
+
+		return new String(decodedBytes);
+	}
+
+
+
+	// VPN subnet -> route value  타입변경
 	// ex 10.10.10.177/24 -> 10.10.10.177 255.255.255.0
 //	public static String convertToRouteType(String IPsubnet) {
 //	

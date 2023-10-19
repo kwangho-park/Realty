@@ -61,7 +61,7 @@ public class TrMigrationConfig {
                                 ItemProcessor trOrderProcessor,
                                 ItemWriter trOrderWriter){
         return stepBuilderFactory.get("trMigrationStep")
-                .<OrderEntity, AccountEntity>chunk(5)      // OrderEntity로 조회하여, AccountEntity 로 데이터를 추가하며, 5개 row 단위로 트랜잭션
+                .<OrderEntity, AccountEntity>chunk(5)      // [중요] OrderEntity로 조회하여, AccountEntity 로 데이터를 추가하며, 5개 row 단위로 트랜잭션 (chunk ; 덩어리)
                 .reader(trOrdersReader)                             // reader 지정
 
                 // Reader 함수 테스트용 출력 : 사용 시 ( SimpleStepBuiler 의 processor(), writer() 객체함수 주석처리
