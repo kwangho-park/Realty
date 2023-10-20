@@ -14,3 +14,7 @@
 - 통계 제공 (차트 등)
 - 전세가/매매가 상승하락 알람 등
 
+# openAPI  
+- 공공 데이터 포털 : https://www.data.go.kr/data/15099361/openapi.do#/
+- 부동산 거래현황 통계조회 서비스 (공공데이터 포털) : https://www.data.go.kr/data/15099361/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/getgetRealEstateTradingAreaDealer
+- 부동산 거래현황통계 조회서비스 **'가이드'** 및 **'지역코드'** (한국 부동산원) : https://www.reb.or.kr/reb/na/ntt/selectNttInfo.do?mi=10251&bbsId=1268&nttSn=79542![image](https://github.com/kwangho-park/Realty/assets/44250982/cdff3400-eeb8-4399-a9bc-062227a62c20)
