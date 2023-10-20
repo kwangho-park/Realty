@@ -2,6 +2,7 @@ package kr.com.pkh.batch.basic;
 
 
 // DTO
+// test 
 public class Person {
 
 	private String lastName;
