@@ -4,14 +4,16 @@
 target/*
 *.properties
 
-### batch ###
+### Batch ###
 Batch/.gradle/*
 Batch/build/*
 Batch/out/*
 !Batch/sampleProperties/*
+Batch/src/main/resources/application.properties
 
-### Realty ###
+### RealtyServer###
 RealtyServer/.gradle/*
 RealtyServer/build/*
 !RealtyServer/sampleProperties/*
+RealtyServer/src/main/resources/application.properties
 
