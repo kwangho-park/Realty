@@ -2,14 +2,16 @@
 .idea
 *.iml
 target/*
+*.properties
 
 ### batch ###
 Batch/.gradle/*
 Batch/build/*
 Batch/out/*
-
+!Batch/sampleProperties/*
 
 ### Realty ###
 RealtyServer/.gradle/*
 RealtyServer/build/*
+!RealtyServer/sampleProperties/*
 
