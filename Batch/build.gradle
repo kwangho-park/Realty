@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'  // spring batch 4.0
     implementation 'org.mariadb.jdbc:mariadb-java-client'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.16.0'     // base64 encoding
 
     runtimeOnly 'org.hsqldb:hsqldb'
 
@@ -37,6 +38,7 @@ dependencies {
     testRuntimeOnly 'com.h2database:h2'
 
     compileOnly 'org.projectlombok:lombok'
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.0.0'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
