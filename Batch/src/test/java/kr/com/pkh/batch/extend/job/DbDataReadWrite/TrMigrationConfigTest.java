@@ -1,11 +1,9 @@
 package kr.com.pkh.batch.extend.job.DbDataReadWrite;
 
-import kr.com.pkh.batch.extend.job.BatchTestConfig;
+import kr.com.pkh.batch.BatchTestConfig;
 import kr.com.pkh.batch.extend.job.DbDataReadWrite.accounts.AccountRepository;
 import kr.com.pkh.batch.extend.job.DbDataReadWrite.orders.OrderEntity;
 import kr.com.pkh.batch.extend.job.DbDataReadWrite.orders.OrderRepository;
-import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,17 +14,9 @@ import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 
 /**

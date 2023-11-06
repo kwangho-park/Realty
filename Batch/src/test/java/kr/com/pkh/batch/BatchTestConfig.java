@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.extend.job;
+package kr.com.pkh.batch;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.extend.job;
+package kr.com.pkh.batch;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.test.context.SpringBatchTest;
