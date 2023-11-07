@@ -2,7 +2,8 @@ package kr.com.pkh.batch.basic;
 
 import kr.com.pkh.batch.BatchTestConfig;
 import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import kr.com.pkh.batch.publicData.PublicData;
+import kr.com.pkh.batch.openAPI.AptTransactionSvc;
+import kr.com.pkh.batch.openAPI.RealEstateTradingSvc;
 import kr.com.pkh.batch.util.json.JSONObject;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import org.junit.jupiter.api.Test;
@@ -25,18 +26,19 @@ class OpenAPITest {
 
 
 
-    @Value("${publicData.openApi.apiKey}")
+    @Value("${publicDataPotal.openApi.apiKey}")
     private String apiKey;
 
 
+    // 부동산 거래면적 조회 API
     @Test
-    public void requestWebAPITest() throws IOException, ParseException {
+    public void realEstateTradingSvcTest() throws IOException, ParseException {
 
         // given //
-        PublicData publicData = new PublicData();
+        RealEstateTradingSvc realEstateTradingSvc = new RealEstateTradingSvc();
 
         String method = "GET";
-        String path = "getRealEstateTradingArea";       // 부동산 거래면적 조회 API
+        String path = "getRealEstateTradingArea";
 
         Map<String, String> parameters = Map.of(
                 "page", "1",            // default
@@ -52,14 +54,46 @@ class OpenAPITest {
         System.out.println("public data potal API key : "+this.apiKey);
 
         // when //
-        JSONObject jsonObject = publicData.requestOpenAPI(method, path, parameters);
+        JSONObject jsonObject = realEstateTradingSvc.requestAPI(method, path, parameters);
 
 
 
         // then //
 
+    }
+
+
+    // error msg : SERVICE ACCESS DENIED ERROR (승인 처리전으로 추정됨)
+    // api key 를 인코딩된값, 디코딩된값으로 사용해도 동일한 결과가 반환됨
+    // 서울 아파트 매매가 조회
+    @Test
+    public void AptTransactionSvcTest() throws IOException, ParseException {
+
+        // given //
+        AptTransactionSvc aptTransactionSvc = new AptTransactionSvc();
+
+        String method = "GET";
+        String path = "";
+
+        Map<String, String> parameters = Map.of(
+                "serviceKey",this.apiKey,
+                "LAWD_CD", "11110",     // 지역 코드 (법정동코드 10자리 중 앞 5자리)
+                "DEAL_YMD", "201512"           // 계약월 (실거래 자료의 계약년월 6자리)
+        );
+
+
+        System.out.println("public data potal API key : "+this.apiKey);
+
+        // when //
+        JSONObject jsonObject = aptTransactionSvc.requestAPI(method, path, parameters);
+
+
+
+        // then //
 
     }
+
+    // 서울 아파트 전세가 조회
 
 
 }

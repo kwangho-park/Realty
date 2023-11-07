@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.publicData;
+package kr.com.pkh.batch.openAPI;
 
 import kr.com.pkh.batch.util.json.JSONObject;
 import kr.com.pkh.batch.util.json.parser.JSONParser;
@@ -16,17 +16,16 @@ import java.net.URL;
 import java.util.Map;
 
 /**
- * 공공 데이터포탈 openAPI 테스트
- * 인증인가 방식 : API key
  * 서비스 명 : 부동산 거래현황 통계 조회 서비스 (RealEstateTradingSvc)
+ * 인증인가 방식 : API key
  * http method : GET 방식만 지원
  *
- * batic uri : https://api.odcloud.kr/api/RealEstateTradingSvc/v1/상세서비스명?page=1&perPage=10&serviceKey=서비스키
+ * basic uri : https://api.odcloud.kr/api/RealEstateTradingSvc/v1/상세서비스명?page=1&perPage=10&serviceKey=서비스키
  *
  */
 @Slf4j
 @Component
-public class PublicData {
+public class RealEstateTradingSvc {
 
 
     /**
@@ -42,7 +41,7 @@ public class PublicData {
      * @throws IOException
      * @throws ParseException
      */
-    public JSONObject requestOpenAPI(String method, String path, Map<String, String> parameters) throws IOException, ParseException {
+    public JSONObject requestAPI(String method, String path, Map<String, String> parameters) throws IOException, ParseException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
@@ -70,7 +69,7 @@ public class PublicData {
             }
             urlBuilder.deleteCharAt(urlBuilder.length()-1);     // 마지막 & 제거
 
-            System.out.println("request URI : "+ urlBuilder.toString());
+            log.info("request URI : "+ urlBuilder.toString());
 
             URL url = new URL(urlBuilder.toString());
 
@@ -92,8 +91,8 @@ public class PublicData {
             responseCode = connection.getResponseCode();
             responseMsg = connection.getResponseMessage();
 
-            System.out.println("responseCode : " + responseCode);
-            System.out.println("responseMsg : " + responseMsg);
+            log.info("responseCode : " + responseCode);
+            log.info("responseMsg : " + responseMsg);
 
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -112,7 +111,7 @@ public class PublicData {
                 // response 결과 //
                 String response = stringBuffer.toString();
 
-                System.out.println("[success] response : " + response);
+                log.info("[success] response : " + response);
 
 
                 JSONParser parser = new JSONParser();
@@ -120,17 +119,17 @@ public class PublicData {
 
                 jsonObject = (JSONObject) obj;
 
-                System.out.println("[END] request API : "+path);
+                log.info("[END] request API : "+path);
                 return jsonObject;
             }else{
 
-                System.out.println("[END] request API : "+path);
+                log.info("[END] request API : "+path);
                 return jsonObject;      // null
             }
 
 
         }catch(ConnectException e){
-            System.out.println("[Exception] 서버 접속 실패");
+            log.info("[Exception] 서버 접속 실패");
             e.printStackTrace();
 
         }catch(IOException e){
