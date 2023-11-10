@@ -28,7 +28,7 @@
 			<!-- Nav Item - User Information & logout -->
 			<li class="nav-item text-grey">
 				<div class="nav-link">
-					<span class="mr-2 d-none d-lg-inline text-grey-600 small">WELCOME~ USER NAME</span>
+					<span class="mr-2 d-none d-lg-inline text-grey-600 small" th:text="${user.userId}"></span>
 					<div class="topbar-divider d-none d-sm-block"></div>
 					<form id="logoutForm" method="post" action="/logout">
 						<!--<a href="#" class="text-grey">

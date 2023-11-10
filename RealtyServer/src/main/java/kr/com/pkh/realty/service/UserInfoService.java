@@ -16,27 +16,18 @@ import lombok.RequiredArgsConstructor;
 public class UserInfoService {
 
     private final UserInfoRepository userInfoRepository;
+    private final ModelMapper modelMapper;
 
-    private ModelMapper modelMapper;
-    
-    public List<UserInfoDTO> getUserList(){
-        List<UserInfoDTO> userInfoList = new ArrayList<UserInfoDTO>();
 
-        List<UserInfoEntity> userInfoEntityList = this.userInfoRepository.findAll();
+    public UserInfoDTO getUser(){
+        UserInfoDTO userInfoDto = null;
 
+        List<UserInfoEntity> userInfoEntities = userInfoRepository.findAll();
         // Entity -> DTO 파싱
-        for(UserInfoEntity userInfoEntity:userInfoEntityList){
-            userInfoList.add(modelMapper.map(userInfoEntity, UserInfoDTO.class));
+        for(UserInfoEntity entity : userInfoEntities){
+            userInfoDto = modelMapper.map(entity, UserInfoDTO.class);
         }
 
-        return userInfoList;
-    }
-    
-    public UserInfoDTO getUser(){
-    	List<UserInfoEntity> userInfoEntities = userInfoRepository.findAll();
-    	
-    	UserInfoDTO userInfoDto = modelMapper.map(userInfoEntities, UserInfoDTO.class);
-    	
-    	return userInfoDto;
+        return userInfoDto;
     }
 }

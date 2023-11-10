@@ -1,11 +1,11 @@
 package kr.com.pkh.realty.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 
 @Data   // @Getter, @Setter, @RequiredArgsConstructor 등이 포함된 어노테이션
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @ToString
 public class UserInfoDTO {

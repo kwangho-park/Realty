@@ -32,16 +32,10 @@ public class AuthenticationController {
 						RedirectAttributes redirectAttributes, HttpServletResponse reponse, HttpServletRequest request, Model model)
 			throws Exception {
 
-		System.out.println("id: " + form.getUserId() + " / pw: " + form.getUserPw());
-
-//		if (bindingResult.hasErrors()) {
-//			// model.addAttribute("error", true);
-//			return "login/index";
-//		}
+		log.info("id: " + form.getUserId() + " / pw: " + form.getUserPw());
 
 		UserInfoEntity user = authenticationService.login(form.getUserId(), form.getUserPw());
-		// 작업중
-//		List<UserInfoDTO> user = authenticationService.login(form.getUserId(), form.getUserPw());
+
 
 		if (user == null) {
 			model.addAttribute("msg", "로그인 실패");

@@ -2,7 +2,7 @@
 
 create database realty;
 
--- 임시 테이블로써 향후 Manager 에서 인증받은 정보로 로그인 처리하는 것으로 변경예정
+-- 향후 테이블 변경예정
 CREATE TABLE IF NOT EXISTS realty.TB_USER_INFO (
     `UI_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
     `UI_USER_ID` varchar(20) DEFAULT NULL COMMENT '사용자 ID',
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS realty.TB_USER_INFO (
 
 
 
-
+-- 향후 테이블 변경예정
 CREATE TABLE IF NOT EXISTS realty.TB_APP_INFO (
   AI_ID VARCHAR(36) NOT NULL,
   AI_NAME VARCHAR(45) NULL,
