@@ -1,13 +1,13 @@
 package kr.com.pkh.batch.openAPI;
 
+import kr.com.pkh.batch.util.HTTPrequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
 import kr.com.pkh.batch.util.json.JSONObject;
-import kr.com.pkh.batch.util.json.parser.JSONParser;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -34,8 +35,43 @@ import java.util.Map;
 @Component
 public class AptTransactionSvc {
 
+    @Value("${publicDataPotal.openApi.apiKey}")
+    private String apiKey;
 
-    public JSONObject requestAPI(String method, String path, Map<String, String> parameters) throws IOException, ParseException {
+    public AptTransactionSvc(){}
+
+    public AptTransactionSvc(String apiKey){
+        this.apiKey = apiKey;
+    }
+
+    private String serviceDomain="http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
+
+    /**
+     *
+     * @param lawdCd 지역 코드 (법정동코드 10자리 중 앞 5자리)
+     * @param dealYmd 계약월 (실거래 자료의 계약년월 6자리)
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
+    public JSONObject getRTMSDataSvcAptTrade(String lawdCd, String dealYmd)throws IOException, ParseException {
+        String path = "getRTMSDataSvcAptTrade";
+
+        Map<String, String> parameters = Map.of(
+                "serviceKey","F8P3P63kAIgLt62qlcSKDPRIh%2FbfDJ5KzMyUw9%2FcHSZUJMk3T13KQH3HcQFPvvLODzABAe2%2BU91rYsCRrxBi4Q%3D%3D",
+                "LAWD_CD", lawdCd,
+                "DEAL_YMD", dealYmd
+        );
+
+
+        JSONObject result = HTTPrequest.responseXML(serviceDomain, path, parameters);
+
+        return result;
+    }
+
+
+    //// old 제거예정
+    public JSONObject requestAPIforXML(String method, String path, Map<String, String> parameters) throws IOException, ParseException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
