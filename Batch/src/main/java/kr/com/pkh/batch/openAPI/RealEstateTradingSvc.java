@@ -33,7 +33,7 @@ import java.util.Map;
 @Component
 public class RealEstateTradingSvc {
 
-    @Value("${publicDataPotal.openApi.apiKey}")
+    @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
 
     // constructor //
@@ -46,12 +46,12 @@ public class RealEstateTradingSvc {
 
     /**
      *
-     * @param page
-     * @param perPage
-     * @param researchDate_gte : 조사 시작일자
-     * @param researchDate_lte : 조사 종료일자
-     * @param regionCd_eq : 지역코드 (11000 : 서울)
-     * @param dealObj_eq : 거래유형 (05: 아파트)
+     * @param page             : 명세서에 정의 미표기
+     * @param perPage          : 명세서에 정의 미표기
+     * @param researchDate_gte : 조사 시작일자 (옵션)
+     * @param researchDate_lte : 조사 종료일자 (옵션)
+     * @param regionCd_eq : 지역코드 (11000 : 서울) (옵션)
+     * @param dealObj_eq : 거래유형 (05: 아파트) (옵션)
      * @return
      * @throws IOException
      * @throws ParseException

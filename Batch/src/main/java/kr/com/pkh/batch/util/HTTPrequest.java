@@ -8,13 +8,11 @@ import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -46,7 +44,6 @@ public class HTTPrequest {
 
         JSONObject jsonObject=null;
 
-
         try {
 
             // Create for HTTP get method URI //
@@ -68,17 +65,10 @@ public class HTTPrequest {
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();     // https 를 요청하는경우 인증서 검증 비활성화 설정 필요
 
-            // http header 설정 //
+            // http header 설정 (GET) //
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-
-            connection.setDoOutput(true);
-            DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-
-            //outputStream.writeBytes(json);
-            outputStream.flush();
-            outputStream.close();
 
             responseCode = connection.getResponseCode();
             responseMsg = connection.getResponseMessage();
@@ -145,7 +135,7 @@ public class HTTPrequest {
      * @throws IOException
      * @throws ParseException
      */
-    public static JSONObject responseXML(String serviceDomain,String path, Map<String, String> parameters) throws IOException, ParseException {
+    public static JSONObject responseXML(String serviceDomain, String servicePort, String commonPath, String path, Map<String, String> parameters) throws IOException, ParseException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
@@ -159,7 +149,7 @@ public class HTTPrequest {
         try {
 
             // Create for HTTP get method URI //
-            StringBuilder urlBuilder = new StringBuilder(serviceDomain+"/"+path);
+            StringBuilder urlBuilder = new StringBuilder(serviceDomain+servicePort+commonPath+path);
             urlBuilder.append("?");
 
             for(Map.Entry<String, String> entry : parameters.entrySet()){
@@ -177,67 +167,56 @@ public class HTTPrequest {
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();     // https 를 요청하는경우 인증서 검증 비활성화 설정 필요
 
-            // http header 설정 //
+            // http header 설정 및 GET 요청//
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Content-type", "application/json");
-            connection.setRequestProperty("Accept", "application/json");
-
-            connection.setDoOutput(true);
-            DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-
-            //outputStream.writeBytes(json);
-            outputStream.flush();
-            outputStream.close();
+            connection.setRequestProperty("Content-type", "text/xml");
 
             responseCode = connection.getResponseCode();
             responseMsg = connection.getResponseMessage();
 
-            log.info("responseCode : " + responseCode);
-            log.info("responseMsg : " + responseMsg);
+            log.info("HTTP status code : " + responseCode);
+            log.info("HTTP status msg : " + responseMsg);
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
 
 
-//            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuffer stringBuffer = new StringBuffer();
+                String inputLine = "";
 
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuffer stringBuffer = new StringBuffer();
-            String inputLine = "";
+                while ((inputLine = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(inputLine);
+                }
+                bufferedReader.close();
 
+                // response 결과 //
+                String responseXml = stringBuffer.toString();
 
-            while ((inputLine = bufferedReader.readLine()) != null) {
-                stringBuffer.append(inputLine);
-            }
-            bufferedReader.close();
+                log.info("[success] response : " + responseXml);
 
-            // response 결과 //
-            String responseXml = stringBuffer.toString();
-
-            log.info("[success] response : " + responseXml);
-
-            // http response 파싱작업 (XML -> java object) //
-
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-
-            Document document = builder.parse(responseXml);
-
-            Element root = document.getDocumentElement();
-
-            NodeList nodeList = root.getElementsByTagName("header");
-
-            for(int loop=0;loop<nodeList.getLength();loop++){
-                Element element = (Element) nodeList.item(loop);
-                String value = element.getTextContent();
-                log.info(element +":" +value);
-            }
-
-            log.info("[END] success request API : "+path);
-            return jsonObject;
-//            }else{
+                // http response XML 출력 (향후 parsing 예정)   //
+//                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//                DocumentBuilder builder = factory.newDocumentBuilder();
 //
-//                log.info("[END] failed request API : "+path);
-//                return jsonObject;      // null
-//            }
+//                Document doc = builder.parse(new InputSource(new StringReader(responseXml)));
+//
+//                NodeList nodeList = doc.getElementsByTagName("*");
+//
+//
+//                for (int i = 0; i < nodeList.getLength(); i++) {
+//                    Element element = (Element) nodeList.item(i);
+//                    log.info(element.getNodeName() + ": " + element.getTextContent());
+//                }
+
+                log.info("[END] success request API : "+path);
+                return jsonObject;
+
+            }else{
+
+                log.info("[END] failed request API : "+path);
+                return jsonObject;      // null
+            }
 
 
         }catch(ConnectException e){
@@ -256,3 +235,4 @@ public class HTTPrequest {
 
 
 }
+
