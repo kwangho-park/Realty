@@ -126,8 +126,9 @@ public class HTTPrequest {
 
 
     /**
-     *
-     * @param serviceDomain web api service domain
+     * @param serviceDomain service domain
+     * @param servicePort   service port
+     * @param commonPath    web api common path
      * @param path          web api path
      * @param parameters    web api parameter
      * @return JSONObject web api 반환 데이터 XML을  java json format 으로 파싱하여 반환
