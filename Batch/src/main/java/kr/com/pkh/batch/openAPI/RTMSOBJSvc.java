@@ -23,11 +23,12 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 /**
- * 서비스 명 : 아파트 매매 신고 데이터 조회 서비스(개략/상세)
+ * 서비스 명 : 아파트 매매,전/월세 신고 데이터 조회 서비스(개략/상세)
+ *
  * 인증인가 방식 : API key
  * http method : GET 방식만 지원
  *
- * basic uri : http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade
+ * domain : http://openapi.molit.go.kr
  *
  *
  */
@@ -44,8 +45,6 @@ public class RTMSOBJSvc {
         this.apiKey = apiKey;
     }
 
-//    private String serviceDomain="http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
-//    private String serviceDomain="http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
     private String serviceDomain="http://openapi.molit.go.kr";
     private String servicePort=null;
     /**
@@ -114,8 +113,8 @@ public class RTMSOBJSvc {
     /**
      * 아파트 매매 신고 데이터 상세 조회 <br>
      *
-     * @param lawdCd 지역코드 (필수)
-     * @param dealYmd 계약월 (필수)
+     * @param lawdCd 지역코드 5자리 (필수)
+     * @param dealYmd 계약월 6자리 (필수)
      *
      * @return
      * @throws IOException
@@ -138,5 +137,31 @@ public class RTMSOBJSvc {
 
         return result;
     }
+
+
+    /**
+     * 전월세 신고 데이터 조회
+     * @param lawdCd 지역코드 5자리 (필수)
+     * @param dealYmd 계약월 6자리 (필수)
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
+    public JSONObject getRTMSDataSvcAptRent(String lawdCd, String dealYmd) throws IOException, ParseException{
+        servicePort=":8081";
+        String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
+        String path = "/getRTMSDataSvcAptRent";
+
+        Map<String, String> parameters = Map.of(
+                "serviceKey",apiKey,
+                "LAWD_CD", lawdCd,
+                "DEAL_YMD", dealYmd
+        );
+
+        JSONObject result = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+
+        return result;
+    }
+
 
 }

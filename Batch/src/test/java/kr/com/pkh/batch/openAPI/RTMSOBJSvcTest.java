@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * 서비스 명 : 아파트 매매 신고 데이터 조회 서비스 (Apartment Transaction Data)
+ * 서비스 명 : 아파트 매매,전/월세 신고 데이터 조회 서비스 (Apartment Transaction Data)
  */
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -25,27 +25,44 @@ public class RTMSOBJSvcTest {
     @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
 
+    // 아파트 매매 신고 개략 데이터 조회
     @Test
     public void getRTMSDataSvcAptTradeTest() throws  Exception{
         // given //
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptTrade("11110", "201512");
+        // 지역코드 11590 : 서울시 동작구
+        // 지역코드 41190 : 부천시
+        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptTrade("41190", "202311");
 
 
         // then //
     }
 
 
+    // 아파트 매매 신고 상세 데이터 조회
     @Test
     public void getRTMSDataSvcAptTradeDevTest() throws  Exception{
         // given //
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptTradeDev("11110", "201512");
+        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptTradeDev("41190", "202311");
 
         // then //
     }
+
+    // 아파트 전/월세 신고 데이터 조회
+    @Test
+    public void getRTMSDataSvcAptRentTest() throws  Exception{
+        // given //
+        RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
+
+        // when //
+        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptRent("41190", "202311");
+
+        // then //
+    }
+
 }

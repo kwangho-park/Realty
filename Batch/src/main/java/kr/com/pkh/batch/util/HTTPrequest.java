@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -100,6 +101,7 @@ public class HTTPrequest {
                 Object obj = parser.parse(response);
 
                 jsonObject = (JSONObject) obj;
+
 
                 log.info("[END] request API : "+path);
                 return jsonObject;
@@ -196,21 +198,44 @@ public class HTTPrequest {
 
                 log.info("[success] response : " + responseXml);
 
-                // http response XML 출력 (향후 parsing 예정)   //
-//                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//                DocumentBuilder builder = factory.newDocumentBuilder();
-//
-//                Document doc = builder.parse(new InputSource(new StringReader(responseXml)));
-//
-//                NodeList nodeList = doc.getElementsByTagName("*");
-//
-//
-//                for (int i = 0; i < nodeList.getLength(); i++) {
-//                    Element element = (Element) nodeList.item(i);
-//                    log.info(element.getNodeName() + ": " + element.getTextContent());
-//                }
+                // http response XML 출력 //
+                // document 객체로 변환
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document document = builder.parse(new InputSource(new StringReader(responseXml)));
 
-                log.info("[END] success request API : "+path);
+
+                // 루트 요소 얻기
+                Element root = document.getDocumentElement();
+
+                // 자식 노드 목록 가져오기
+                NodeList nodeList = root.getChildNodes();
+
+                log.info("xml 의 header / body 노드 출력");
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node node = nodeList.item(i);
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element element = (Element) node;
+                        String nodeName = element.getNodeName();
+                        String nodeValue = element.getTextContent();
+                        log.info(nodeName + " : " + nodeValue);
+                    }
+                }
+                // 노드 이름이 "item"인 요소 가져오기
+                NodeList nameNodes = document.getElementsByTagName("item");
+
+                // 해당 노드들 하위노드들의 요소값들 출력
+                for (int i = 0; i < nameNodes.getLength(); i++) {
+                    NodeList childNodes = nameNodes.item(i).getChildNodes();
+
+                        for(int f=0;f<childNodes.getLength();f++){
+                            Element element = (Element) childNodes.item(i);
+                            String nameValue = element.getTextContent();
+                            String tagName = element.getTagName();
+                            System.out.print(tagName + " : " + nameValue);
+                        }
+                }
+
                 return jsonObject;
 
             }else{
