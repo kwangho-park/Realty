@@ -56,7 +56,7 @@ public class RealEstateTradingSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public JSONObject getRealEstateTradingArea(int page, int perPage,
+    public void getRealEstateTradingArea(int page, int perPage,
                                                String researchDate_gte, String researchDate_lte,
                                                String regionCd_eq, String dealObj_eq)throws IOException, ParseException {
 
@@ -73,9 +73,9 @@ public class RealEstateTradingSvc {
         );
 
 
-        JSONObject result = HTTPrequest.responseJSON(serviceDomain, path, parameters);
+        HTTPrequest.responseJSON(serviceDomain, path, parameters);
 
-        return result;
+
     }
 
 }

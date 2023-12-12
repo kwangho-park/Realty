@@ -34,7 +34,7 @@ public class RTMSOBJSvcTest {
         // when //
         // 지역코드 11590 : 서울시 동작구
         // 지역코드 41190 : 부천시
-        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptTrade("41190", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptTrade("41190", "202311");
 
 
         // then //
@@ -48,7 +48,7 @@ public class RTMSOBJSvcTest {
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptTradeDev("41190", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptTradeDev("41190", "202311");
 
         // then //
     }
@@ -60,7 +60,7 @@ public class RTMSOBJSvcTest {
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        JSONObject jsonObject = RTMSOBJSvc.getRTMSDataSvcAptRent("41190", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptRent("41190", "202311");
 
         // then //
     }

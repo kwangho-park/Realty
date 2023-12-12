@@ -56,7 +56,7 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public JSONObject getRTMSDataSvcAptTrade(String lawdCd, String dealYmd)throws IOException, ParseException {
+    public void getRTMSDataSvcAptTrade(String lawdCd, String dealYmd)throws IOException, ParseException {
 
         servicePort=":8081";
         String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
@@ -71,9 +71,8 @@ public class RTMSOBJSvc {
 
 
 
-        JSONObject result = HTTPrequest.responseXML(serviceDomain, servicePort, commonPath, path, parameters);
+        HTTPrequest.responseXML(serviceDomain, servicePort, commonPath, path, parameters);
 
-        return result;
     }
 
 
@@ -89,7 +88,7 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public JSONObject getRTMSDataSvcAptTradeDev(String lawdCd, String dealYmd, int pageNo, int numOfRows)throws IOException, ParseException {
+    public void getRTMSDataSvcAptTradeDev(String lawdCd, String dealYmd, int pageNo, int numOfRows)throws IOException, ParseException {
 
         servicePort="";
         String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
@@ -104,9 +103,8 @@ public class RTMSOBJSvc {
         );
 
 
-        JSONObject result = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+        HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
 
-        return result;
     }
 
 
@@ -120,7 +118,7 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public JSONObject getRTMSDataSvcAptTradeDev(String lawdCd, String dealYmd)throws IOException, ParseException {
+    public void getRTMSDataSvcAptTradeDev(String lawdCd, String dealYmd)throws IOException, ParseException {
 
         servicePort="/";
         String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
@@ -133,9 +131,8 @@ public class RTMSOBJSvc {
         );
 
 
-        JSONObject result = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+        HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
 
-        return result;
     }
 
 
@@ -147,7 +144,7 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public JSONObject getRTMSDataSvcAptRent(String lawdCd, String dealYmd) throws IOException, ParseException{
+    public void getRTMSDataSvcAptRent(String lawdCd, String dealYmd) throws IOException, ParseException{
         servicePort=":8081";
         String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
         String path = "/getRTMSDataSvcAptRent";
@@ -158,9 +155,8 @@ public class RTMSOBJSvc {
                 "DEAL_YMD", dealYmd
         );
 
-        JSONObject result = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+        HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
 
-        return result;
     }
 
 

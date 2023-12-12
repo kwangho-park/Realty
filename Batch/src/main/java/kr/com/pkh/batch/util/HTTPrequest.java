@@ -35,7 +35,7 @@ public class HTTPrequest {
      * @throws IOException
      * @throws ParseException
      */
-    public static JSONObject responseJSON(String serviceDomain, String path, Map<String, String> parameters) throws IOException, ParseException {
+    public static void responseJSON(String serviceDomain, String path, Map<String, String> parameters) throws IOException, ParseException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
@@ -43,7 +43,6 @@ public class HTTPrequest {
         String result = "";                   // http response code
         String message = "";                  // http response message
 
-        JSONObject jsonObject=null;
 
         try {
 
@@ -100,15 +99,11 @@ public class HTTPrequest {
                 JSONParser parser = new JSONParser();
                 Object obj = parser.parse(response);
 
-                jsonObject = (JSONObject) obj;
 
-
-                log.info("[END] request API : "+path);
-                return jsonObject;
             }else{
 
-                log.info("[END] request API : "+path);
-                return jsonObject;      // null
+                log.info("[fail] request API : "+path);
+
             }
 
 
@@ -122,7 +117,6 @@ public class HTTPrequest {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return jsonObject;
 
     }   // responseJSON() END
 
@@ -138,15 +132,13 @@ public class HTTPrequest {
      * @throws IOException
      * @throws ParseException
      */
-    public static JSONObject responseXML(String serviceDomain, String servicePort, String commonPath, String path, Map<String, String> parameters) throws IOException, ParseException {
+    public static void responseXML(String serviceDomain, String servicePort, String commonPath, String path, Map<String, String> parameters) throws IOException, ParseException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
 
         String result = "";                   // http response code
         String message = "";                  // http response message
-
-        JSONObject jsonObject=null;
 
 
         try {
@@ -198,7 +190,7 @@ public class HTTPrequest {
 
                 log.info("[success] response : " + responseXml);
 
-                // http response XML 출력 //
+                // http response XML 로그 출력 //
                 // document 객체로 변환
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
@@ -211,7 +203,7 @@ public class HTTPrequest {
                 // 자식 노드 목록 가져오기
                 NodeList nodeList = root.getChildNodes();
 
-                log.info("xml 의 header / body 노드 출력");
+                log.info("[xml 의 header / body 노드 출력] START");
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     Node node = nodeList.item(i);
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -221,27 +213,43 @@ public class HTTPrequest {
                         log.info(nodeName + " : " + nodeValue);
                     }
                 }
-                // 노드 이름이 "item"인 요소 가져오기
-                NodeList nameNodes = document.getElementsByTagName("item");
+                log.info("[xml 의 header / body 노드 출력] END");
 
-                // 해당 노드들 하위노드들의 요소값들 출력
-                for (int i = 0; i < nameNodes.getLength(); i++) {
-                    NodeList childNodes = nameNodes.item(i).getChildNodes();
 
-                        for(int f=0;f<childNodes.getLength();f++){
-                            Element element = (Element) childNodes.item(i);
-                            String nameValue = element.getTextContent();
-                            String tagName = element.getTagName();
-                            System.out.print(tagName + " : " + nameValue);
-                        }
+                log.info("[xml element 출력] START");
+
+                NodeList itemNodes = document.getElementsByTagName("item");
+
+                System.out.println("total 'item' count : "+itemNodes.getLength());
+
+                for (int i = 0; i < itemNodes.getLength(); i++) {
+
+                    NodeList elementList = itemNodes.item(i).getChildNodes();
+                    System.out.println("total element count in 'item' : "+elementList.getLength());
+
+                    //log.info("num : "+i);
+                    System.out.println("num : "+i);         // 데이터 분석을 위한 임시 로그 (향후제거예정)
+
+                    String childNodesLog="";
+
+
+                    for(int j=0;j<elementList.getLength();j++){
+
+                        Element element = (Element) elementList.item(j);
+                        String tagName = element.getTagName().trim();
+                        String tagValue = element.getTextContent().trim();
+                        childNodesLog+=(tagName+":"+tagValue+"/");
+                    }
+                    //log.info(childNodesLog);
+                    System.out.println(childNodesLog);      // 데이터 분석을 위한 임시 로그 (향후제거예정)
                 }
+                log.info("[xml element 출력] END");
 
-                return jsonObject;
+
 
             }else{
 
-                log.info("[END] failed request API : "+path);
-                return jsonObject;      // null
+                log.info("[fail] failed request API : "+path);
             }
 
 
@@ -255,7 +263,6 @@ public class HTTPrequest {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return jsonObject;
     }
 
 

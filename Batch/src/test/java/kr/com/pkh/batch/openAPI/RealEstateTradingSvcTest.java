@@ -39,7 +39,7 @@ class RealEstateTradingSvcTest {
 
 
         // when //
-        JSONObject jsonObject = realEstateTradingSvc.getRealEstateTradingArea(
+        realEstateTradingSvc.getRealEstateTradingArea(
                 1,10,
                 "202301","202304",
                 "11000","05");
