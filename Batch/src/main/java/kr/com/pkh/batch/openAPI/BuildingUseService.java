@@ -31,7 +31,7 @@ public class BuildingUseService {
     private String servicePort=null;
 
     /**
-     * 용도별 건물 WFS 조회 (vector data for map)
+     * 좌표등의 위치정보를 통해 지정한 범위내의 용도별 건물 WFS 조회 (vector data for map)
      *
      * @param typeName 피처 유형 (요청 대상인 피처유형이름??)
      * @param bbox 검색범위 (lc1,lc2,uc1,uc2,좌표체계) = 좌표로 검색
@@ -60,5 +60,41 @@ public class BuildingUseService {
         // pnu (필지 고유번호) 로 조회 시 특정 지번에 속한 모든건물 정보를 조회함
         HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
     }
+
+
+    /**
+     * 용도, pnu 정보를 통해 용도별건물속성 조회
+     *
+     * @param pnu 필지 고유번호 (시도[2]+시군구[3]+읍면동[3]) = 특정 필지 검색
+     * @param mainPrposCode 주요용도코드
+     * @param detailPrposCode  세부용도코드
+     * @param format 응답결과 형식(xml or json)
+     * @param numOfRows 검색건수
+     * @param pageNo 페이지 번호
+     * @throws Exception
+     */
+    public void getBuildingUse(String pnu, String mainPrposCode,String detailPrposCode , String format,
+                               String numOfRows, String pageNo
+                            ) throws  Exception{
+
+
+        servicePort="";
+        String commonPath = "/1611000/nsdi/BuildingUseService";
+        String path = "/attr/getBuildingUse";
+
+        Map<String, String> parameters = Map.of(
+                "serviceKey",apiKey,        // 필수
+                "pnu",pnu                       // 필수
+//                "mainPrposCode",mainPrposCode,        // 옵션
+//                "detailPrposCode",detailPrposCode,    // 옵션
+//                "format",format,                      // 옵션
+//                "numOfRows",numOfRows,                // 옵션
+//                "pageNo",pageNo                       // 옵션
+        );
+
+        // pnu (필지 고유번호) 로 조회 시 특정 지번에 속한 모든건물 정보를 조회함
+        HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+    }
+
 
 }
