@@ -79,10 +79,10 @@ public class RTMSOBJSvc {
     /**
      * 아파트 매매 신고 데이터 상세 조회 <br>
      *
-     * @param lawdCd 지역코드 (필수)
-     * @param dealYmd 계약월 (필수)
-     * @param pageNo 페이지 번호 (옵션)
-     * @param numOfRows 한 페이지 row 수 (옵션)
+     * @param lawdCd 지역코드
+     * @param dealYmd 계약월
+     * @param pageNo 페이지 번호
+     * @param numOfRows 한 페이지 row 수
      *
      * @return
      * @throws IOException
@@ -95,11 +95,11 @@ public class RTMSOBJSvc {
         String path = "/getRTMSDataSvcAptTradeDev";
 
         Map<String, String> parameters = Map.of(
-                "serviceKey",apiKey,
-                "LAWD_CD", lawdCd,
-                "DEAL_YMD", dealYmd,
-                "pageNo",String.valueOf(pageNo),
-                "numOfRows",String.valueOf(numOfRows)
+                "serviceKey",apiKey,        // 필수
+                "LAWD_CD", lawdCd,              // 필수
+                "DEAL_YMD", dealYmd,            // 필수
+                "pageNo",String.valueOf(pageNo),        // 옵션
+                "numOfRows",String.valueOf(numOfRows)   // 옵션
         );
 
 
