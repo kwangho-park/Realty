@@ -63,7 +63,7 @@ public class BuildingUseService {
 
 
     /**
-     * 용도, pnu 정보를 통해 용도별건물속성 조회
+     * 용도, 필지고유정보(pnu) 정보를 통해 건물속성 조회
      *
      * @param pnu 필지 고유번호 (시도[2]+시군구[3]+읍면동[3]) = 특정 필지 검색
      * @param mainPrposCode 주요용도코드
