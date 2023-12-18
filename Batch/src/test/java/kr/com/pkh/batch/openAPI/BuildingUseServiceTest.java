@@ -19,6 +19,29 @@ public class BuildingUseServiceTest {
     private String apiKey;
 
     @Test
+    public void getBuildingUseWMS() throws Exception{
+
+        // given
+        BuildingUseService buildingUseService = new BuildingUseService(apiKey);
+
+        String layers = "F253";
+        String crs = "EPSG:5174";
+        String bbox1 = "217694,448235,218608,449094";       // lc1,lc2,uc1,uc2 (좌측 하단좌표 x,y 우측 상단좌표 x,y)
+        String bbox2 = "217894,448235,218808,449094";       // 하단/상단의 x축 좌표를 200씩 증가시켰더니, 오른쪽으로 이동된 bit map 반환됨
+        String width = "700";
+        String height = "700";
+        String format = "image/png";
+        String transparent = "";
+        String bgcolor = "";
+        String exceptions = "";
+
+        // when
+        buildingUseService.getBuildingUseWMS(layers,crs,bbox1,width,height,format, transparent, bgcolor, exceptions);
+
+        // then
+    }
+
+    @Test
     public void getBuildingUseWFS() throws  Exception{
 
         // given

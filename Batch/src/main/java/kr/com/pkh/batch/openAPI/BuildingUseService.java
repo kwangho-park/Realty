@@ -2,6 +2,7 @@ package kr.com.pkh.batch.openAPI;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.configuration.xml.ExceptionElementParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,43 @@ public class BuildingUseService {
     public BuildingUseService(String apiKey){this.apiKey = apiKey;}
     private String serviceDomain="http://apis.data.go.kr";
     private String servicePort=null;
+
+    /**
+     *
+     * 좌표등의 위치정보를 통해 지정한 범위내의 용도별 건물 WFS 조회 (bit map)
+     *
+     * @param layers 레이어목록
+     * @param crs 좌표체계
+     * @param bbox 크기범위 (lc1,lc2,uc1,uc2) = 데이터가 조금만 날라져도 이미지가 반환되지않음 (하단좌표, 상단좌표)
+     * @param width 너비 (bit map 이미지의 너비)
+     * @param height 높이 (bit map 이미지의 높이)
+     * @param format 산출물 형식 (png or jpeg or gif)
+     * @param transparent 투명여부
+     * @param bgcolor 배경색
+     * @param exceptions 예외보고
+     */
+    public void getBuildingUseWMS(String layers, String crs, String bbox, String width,
+                                  String height, String format, String transparent, String bgcolor,
+                                  String exceptions) throws Exception {
+        servicePort="";
+        String commonPath = "/1611000/nsdi/BuildingUseService";
+        String path = "/wms/getBuildingUseWMS";
+
+        Map<String, String> parameters = Map.of(
+                "serviceKey",apiKey,        // 필수
+                "layers" , layers ,
+                "crs" , crs ,               // 필수
+                "bbox" , bbox ,                 // 필수
+                "width" , width ,               // 필수
+                "height" , height ,             // 필수
+                "format" , format              // 필수
+//                "transparent" , transparent ,
+//                "bgcolor" , bgcolor ,
+//                "exceptions" , exceptions
+        );
+
+        HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+    }
 
     /**
      * 좌표등의 위치정보를 통해 지정한 범위내의 용도별 건물 WFS 조회 (vector data for map)
