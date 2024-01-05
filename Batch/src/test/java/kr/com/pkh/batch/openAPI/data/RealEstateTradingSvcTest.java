@@ -1,8 +1,8 @@
-package kr.com.pkh.batch.openAPI;
+package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.BatchTestConfig;
 import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import kr.com.pkh.batch.util.json.JSONObject;
+import kr.com.pkh.batch.openAPI.data.RealEstateTradingSvc;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import org.junit.jupiter.api.Test;
 //import org.junit.Test;

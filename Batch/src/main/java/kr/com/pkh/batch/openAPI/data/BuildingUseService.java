@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.openAPI;
+package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * 서비스명 : 용도별 건물 정보 서비스
+ * 공급자 : 공공데이터 포털
+ * 서비스명 : 용도별 건물 정보 서비스  (BuildingUseService) - 서비스 종료 및 vworld 이관
  *
  * 인증인가 방식 : API key
  * http method : GET 방식만 지원
@@ -77,6 +78,8 @@ public class BuildingUseService {
      * @param maxFeatures 피처의 최대값 (max 100)
      * @param srsName 좌표체계 (?)
      * @param resultType 응답형태  ??
+     *
+     * @return (예정) 건물공간정보 DB 식별자, PNU(고유번호) , 법정동 , 본번/부번 , 용적률 , 용도코드
      * @throws Exception
      */
     public void getBuildingUseWFS(String typeName,String bbox, String pnu,
@@ -101,7 +104,7 @@ public class BuildingUseService {
 
 
     /**
-     * 용도, 필지고유정보(pnu) 정보를 통해 건물속성 조회
+     * 필지고유정보(pnu), 용도 정보를 통해 건물속성 조회
      *
      * @param pnu 필지 고유번호 (시도[2]+시군구[3]+읍면동[3]) = 특정 필지 검색
      * @param mainPrposCode 주요용도코드

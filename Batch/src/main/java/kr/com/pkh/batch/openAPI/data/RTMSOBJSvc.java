@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.openAPI;
+package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +23,15 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 /**
- * 서비스 명 : 아파트 매매,전/월세 신고 데이터 조회 서비스(개략/상세)
+ * 공급자 : 공공데이터 포털
+ * 서비스 명 : 아파트 매매,전/월세 신고 데이터 조회 서비스(개략/상세) (RTMSOBJSvc)
  *
- * 인증인가 방식 : API key
- * http method : GET 방식만 지원
+ * - 조회 데이터가 없는 경우 반환 데이터 : http 200 code 반환, http body (xml) 의  <resultCode>00</<resultCode> , <resultMsg> NORMAL SERVICE.</resultMsg>
  *
- * domain : http://openapi.molit.go.kr
+ * -인증인가 방식 : API key <br>
+ * - http method : GET 방식만 지원 <br>
+ *
+ * domain : http://openapi.molit.go.kr <br>
  *
  *
  */

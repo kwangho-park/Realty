@@ -1,8 +1,8 @@
-package kr.com.pkh.batch.openAPI;
+package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.BatchTestConfig;
 import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import kr.com.pkh.batch.util.json.JSONObject;
+import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class RTMSOBJSvcTest {
         // when //
         // 지역코드 11590 : 서울시 동작구
         // 지역코드 41190 : 부천시
-        RTMSOBJSvc.getRTMSDataSvcAptTrade("41190", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptTrade("11590", "202312");
 
 
         // then //
@@ -48,7 +48,7 @@ public class RTMSOBJSvcTest {
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        RTMSOBJSvc.getRTMSDataSvcAptTradeDev("41190", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptTradeDev("11590", "202311");
 
         // then //
     }
@@ -60,7 +60,7 @@ public class RTMSOBJSvcTest {
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        RTMSOBJSvc.getRTMSDataSvcAptRent("41190", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptRent("11590", "202311");
 
         // then //
     }
