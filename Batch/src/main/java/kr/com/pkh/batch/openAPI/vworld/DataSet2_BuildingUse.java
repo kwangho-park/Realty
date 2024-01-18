@@ -39,6 +39,7 @@ public class DataSet2_BuildingUse {
      * @param pageNo 페이지 번호
      * @param key 인증키 (개발키 or 운영키)
      * @param domain API KEY를 발급받을때 입력했던 URL
+     * @return (예정) 건물명, gis 건물통합식별번호, pnu(고유번호) , 용적율 등
      * @throws Exception
      */
     public void getBuildingUse(String pnu, String mainPrposCode,String detailPrposCode , String format,
@@ -47,22 +48,62 @@ public class DataSet2_BuildingUse {
         String path = "/ned/data/getBuildingUse";
 
         Map<String, String> parameters = Map.of(
-                "key", URLEncoder.encode(key,"UTF-8"),         // 필수
+                "pnu",URLEncoder.encode(pnu,"UTF-8"),           // 필수
 //                "mainPrposCode",mainPrposCode,                        // 옵션
 //                "detailPrposCode",detailPrposCode,                    // 옵션
-                "format",format,                                      // 옵션
+                "format",format,                                        // 옵션
 //                "numOfRows",numOfRows,                                // 옵션
 //                "pageNo",pageNo                                       // 옵션
-                "pnu",URLEncoder.encode(pnu,"UTF-8")               // 필수
+                "key", URLEncoder.encode(key,"UTF-8")               // 필수
 //                "domain",domain                                       // 옵션
         );
-
-        //HTTPrequest.responseXML(serviceDomain, "",path, "",parameters);
 
         HTTPrequest.responseJSON(serviceDomain, path,parameters);
 
     }
 
+
+    /**
+     * 좌표등의 위치정보를 통해 지정한 범위내의 용도별 건물 WFS 조회 (vector data for map)
+     *
+     * @param typename 피처 유형 (요청 대상인 피처유형이름??)
+     * @param bbox 검색범위 (lc1,lc2,uc1,uc2,좌표체계) = 좌표로 검색
+     *             (EPSG:4326 경우 좌측하단(y,x), 우측상단(y,x) => ymin,xmin,ymax,xmax)
+     *
+     * @param pnu 필지 고유번호 (시도[2]+시군구[3]+읍면동[3]) = 특정 필지 검색
+     * @param maxFeatures 피처의 최대값 (max 100)
+     * @param resultType 응답형태 (?)
+     * @param srsName 좌표체계 (?)
+     * @param key api key
+     * @param domain API KEY를 발급받을때 입력했던 URL
+     *
+     * @return (예정)
+     * @throws Exception
+     */
+    public void getBuildingUseWFS(String typename, String bbox, String pnu, String maxFeatures,
+                                  String resultType, String srsName, String key, String domain)
+            throws Exception {
+
+        String servicePort = "";
+        String commonPath = "";
+        String path ="/ned/wfs/getBuildingUseWFS";
+
+
+        Map<String, String> parameters = Map.of(
+
+//                "typename",typename,            // 옵션
+                "bbox", bbox,                   // 옵션
+//                "pnu", pnu,                   // 옵션
+//                "maxFeatures",maxFeatures,    // 옵션
+//                "resultType",resultType,      // 옵션
+                "srsName",srsName,              // 옵션 (테스트 결과 필수값으로 확인됨)
+                "key",key                       // 필수
+//                "domain",domain               // 옵션
+
+        );
+
+        HTTPrequest.responseXML( serviceDomain,  servicePort,  commonPath,  path, parameters);
+    }
 
 
 }
