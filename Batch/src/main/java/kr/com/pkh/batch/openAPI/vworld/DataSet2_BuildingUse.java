@@ -73,7 +73,7 @@ public class DataSet2_BuildingUse {
      * @param pnu 필지 고유번호 (시도[2]+시군구[3]+읍면동[3]) = 특정 필지 검색
      * @param maxFeatures 피처의 최대값 (max 100)
      * @param resultType 응답형태 (?)
-     * @param srsName 좌표체계 (?)
+     * @param srsName GPS 좌표체계 (EPSG:4326 등)
      * @param key api key
      * @param domain API KEY를 발급받을때 입력했던 URL
      *

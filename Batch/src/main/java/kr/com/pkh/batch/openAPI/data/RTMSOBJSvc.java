@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * 공급자 : 공공데이터 포털
- * 서비스 명 : 아파트 매매,전/월세 신고 데이터 조회 서비스(개략/상세) (RTMSOBJSvc)
+ * 서비스 명 : 지역과 기간을 설정하여 아파트 매매,전/월세 신고 데이터 조회 서비스(개략/상세) (RTMSOBJSvc)
  *
  * - 조회 데이터가 없는 경우 반환 데이터 : http 200 code 반환, http body (xml) 의  <resultCode>00</<resultCode> , <resultMsg> NORMAL SERVICE.</resultMsg>
  *
@@ -51,7 +51,7 @@ public class RTMSOBJSvc {
     private String serviceDomain="http://openapi.molit.go.kr";
     private String servicePort=null;
     /**
-     * 아파트 매매 신고데이터 개략 조회 <br>
+     * 아파트 매매 신고데이터 개략 조회 (by 지역/기간) <br>
      *
      * @param lawdCd 지역 코드 (법정동코드 10자리 중 앞 5자리)
      * @param dealYmd 계약월 (실거래 자료의 계약년월 6자리)
@@ -80,7 +80,7 @@ public class RTMSOBJSvc {
 
 
     /**
-     * 아파트 매매 신고 데이터 상세 조회 <br>
+     * 아파트 매매 신고 데이터 상세 조회  (by 지역/기간)  <br>
      *
      * @param lawdCd 지역코드
      * @param dealYmd 계약월
@@ -112,7 +112,7 @@ public class RTMSOBJSvc {
 
 
     /**
-     * 아파트 매매 신고 데이터 상세 조회 <br>
+     * 아파트 매매 신고 데이터 상세 조회 (by 지역/기간) <br>
      *
      * @param lawdCd 지역코드 5자리 (필수)
      * @param dealYmd 계약월 6자리 (필수)
@@ -140,7 +140,7 @@ public class RTMSOBJSvc {
 
 
     /**
-     * 전월세 신고 데이터 조회
+     * 전월세 신고 데이터 조회 (by 지역/기간)
      * @param lawdCd 지역코드 5자리 (필수)
      * @param dealYmd 계약월 6자리 (필수)
      * @return
