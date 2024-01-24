@@ -26,6 +26,7 @@ public class RTMSOBJSvcTest {
     private String apiKey;
 
     // 아파트 매매 신고 개략 데이터 조회
+    // [이슈] 부천시 지역코드로 데이터가 조회되지않음
     @Test
     public void getRTMSDataSvcAptTradeTest() throws  Exception{
         // given //
@@ -34,8 +35,7 @@ public class RTMSOBJSvcTest {
         // when //
         // 지역코드 11590 : 서울시 동작구
         // 지역코드 41190 : 부천시
-        RTMSOBJSvc.getRTMSDataSvcAptTrade("11590", "202312");
-
+        RTMSOBJSvc.getRTMSDataSvcAptTrade("11590", "202310");
 
         // then //
     }
@@ -48,7 +48,7 @@ public class RTMSOBJSvcTest {
         RTMSOBJSvc RTMSOBJSvc = new RTMSOBJSvc(apiKey);
 
         // when //
-        RTMSOBJSvc.getRTMSDataSvcAptTradeDev("11590", "202311");
+        RTMSOBJSvc.getRTMSDataSvcAptTradeDev("11590", "202210");
 
         // then //
     }
