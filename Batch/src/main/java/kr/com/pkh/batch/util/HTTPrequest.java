@@ -132,7 +132,7 @@ public class HTTPrequest {
      * @throws IOException
      * @throws ParseException
      */
-    public static void responseXML(String serviceDomain, String servicePort, String commonPath, String path, Map<String, String> parameters) throws IOException, ParseException {
+    public static String responseXML(String serviceDomain, String servicePort, String commonPath, String path, Map<String, String> parameters) throws IOException, ParseException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
@@ -140,6 +140,7 @@ public class HTTPrequest {
         String result = "";                   // http response code
         String message = "";                  // http response message
 
+        String responseXml="";
 
         try {
 
@@ -186,69 +187,15 @@ public class HTTPrequest {
                 bufferedReader.close();
 
                 // response 결과 //
-                String responseXml = stringBuffer.toString();
+                responseXml = stringBuffer.toString();
 
                 log.info("[success] response : " + responseXml);
-
-                // http response XML 로그 출력 (for RTMSOBJSvc 서비스) //
-                // document 객체로 변환
-//                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//                DocumentBuilder builder = factory.newDocumentBuilder();
-//                Document document = builder.parse(new InputSource(new StringReader(responseXml)));
-//
-//
-//                // 루트 요소 얻기
-//                Element root = document.getDocumentElement();
-//
-//                // 자식 노드 목록 가져오기
-//                NodeList nodeList = root.getChildNodes();
-//
-//                log.info("[xml 의 header / body 노드 출력] START");
-//                for (int i = 0; i < nodeList.getLength(); i++) {
-//                    Node node = nodeList.item(i);
-//                    if (node.getNodeType() == Node.ELEMENT_NODE) {
-//                        Element element = (Element) node;
-//                        String nodeName = element.getNodeName();
-//                        String nodeValue = element.getTextContent();
-//                        log.info(nodeName + " : " + nodeValue);
-//                    }
-//                }
-//                log.info("[xml 의 header / body 노드 출력] END");
-//
-//
-//                log.info("[xml element 출력] START");
-//
-//                NodeList itemNodes = document.getElementsByTagName("item");
-//
-//                System.out.println("total 'item' count : "+itemNodes.getLength());
-//
-//                for (int i = 0; i < itemNodes.getLength(); i++) {
-//
-//                    NodeList elementList = itemNodes.item(i).getChildNodes();
-//                    System.out.println("total element count in 'item' : "+elementList.getLength());
-//
-//                    System.out.println("num : "+i);
-//
-//                    String childNodesLog="";
-//
-//
-//                    for(int j=0;j<elementList.getLength();j++){
-//
-//                        Element element = (Element) elementList.item(j);
-//                        String tagName = element.getTagName().trim();
-//                        String tagValue = element.getTextContent().trim();
-//                        childNodesLog+=(tagName+":"+tagValue+"/");
-//                    }
-//                    System.out.println(childNodesLog);
-//                }
-//                log.info("[xml element 출력] END");
-
-
 
             }else{
 
                 log.info("[fail] failed request API : "+path);
             }
+
 
 
         }catch(ConnectException e){
@@ -261,6 +208,7 @@ public class HTTPrequest {
         }catch(Exception e){
             e.printStackTrace();
         }
+        return responseXml;
     }
 
 
