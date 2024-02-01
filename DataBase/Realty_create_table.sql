@@ -1,7 +1,7 @@
 
 
 -- 아파트 거래정보 테이블 (로그성 테이블)
-CREATE TABLE IF NOT EXISTS `mydb`.`AT_APT_TRADE` (
+CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_TRADE` (
   `AT_ID` INT(11) NOT NULL COMMENT '매매거래를 증명하는 일련번호 (in부동산거래계약신고필증) , format : xxxxx-xxxxx',
   `AT_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
   `AT_TRADE_DATETIME` VARCHAR(50) NULL COMMENT '거래일자',
@@ -19,7 +19,7 @@ ENGINE = InnoDB
 COMMENT = '아파트 거래 정보 테이블 ';
 
 -- 지역코드 테이블 
-CREATE TABLE IF NOT EXISTS `mydb`.`RC_REGION_CODE` (
+CREATE TABLE IF NOT EXISTS `realty`.`TB_REGION_CODE` (
   `RC_ID` INT(11) NOT NULL,
   `RC_REGION_CODE` VARCHAR(45) NULL COMMENT '지역코드',
   `RC_SIDO_CODE` VARCHAR(45) NULL COMMENT '시도코드',
