@@ -1,6 +1,6 @@
 
 
-
+-- 아파트 거래정보 테이블 (로그성 테이블)
 CREATE TABLE IF NOT EXISTS `mydb`.`AT_APT_TRADE` (
   `AT_ID` INT(11) NOT NULL COMMENT '매매거래를 증명하는 일련번호 (in부동산거래계약신고필증) , format : xxxxx-xxxxx',
   `AT_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`AT_APT_TRADE` (
 ENGINE = InnoDB
 COMMENT = '아파트 거래 정보 테이블 ';
 
-
+-- 지역코드 테이블 
 CREATE TABLE IF NOT EXISTS `mydb`.`RC_REGION_CODE` (
   `RC_ID` INT(11) NOT NULL,
   `RC_REGION_CODE` VARCHAR(45) NULL COMMENT '지역코드',
@@ -43,3 +43,47 @@ CREATE TABLE IF NOT EXISTS `mydb`.`RC_REGION_CODE` (
 ENGINE = InnoDB
 COMMENT = '법정동 코드 테이블';
 
+
+-- 사용자 테이블 
+CREATE TABLE IF NOT EXISTS realty.TB_USER_INFO (
+    `UI_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `UI_USER_ID` varchar(20) DEFAULT NULL COMMENT '사용자 ID',
+    `UI_USER_PW` varchar(20) NOT NULL COMMENT '사용자 PW',
+    `UI_USER_NAME` varchar(50) NOT NULL COMMENT '사용자명',
+    PRIMARY KEY (`UI_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='사용자 정보 테이블 (Manager를 통해 인증 받은 정보)';
+
+
+
+-- batch 테스트 테이블 (제거예정)
+CREATE TABLE orders (
+  id INT NOT NULL AUTO_INCREMENT,
+  order_item VARCHAR(45) NULL,
+  price INT NULL,
+  order_date DATE NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '주문테이블';
+
+
+-- batch 테스트 테이블 (제거예정)
+CREATE TABLE accounts (
+  id INT NOT NULL AUTO_INCREMENT,
+  order_item VARCHAR(45) NULL,
+  price INT NULL,
+  order_date DATE NULL,
+  account_date DATE NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '정산테이블';
+
+
+-- RealtyServer 테스트 테이블 (제거예정)
+CREATE TABLE IF NOT EXISTS realty.TB_APP_INFO (
+  AI_ID VARCHAR(36) NOT NULL,
+  AI_NAME VARCHAR(45) NULL,
+  AI_PROXY_IP VARCHAR(45) NULL,
+  AI_PROXY_PORT INT(10) NULL,
+  AI_PROTOCOL VARCHAR(45) NULL,
+  AI_URI VARCHAR(1024) NULL,
+  AI_DESCRIPTION VARCHAR(45) NULL,
+  PRIMARY KEY (AI_ID))
+ENGINE = InnoDB;
