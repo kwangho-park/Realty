@@ -1,5 +1,5 @@
 # Realty
-- 요약 : 부동산 투자 앱
+- 설명 : 부동산 레버리지 투자 앱으로써, 개인화된 투자 정보를 제공하여 사용자의 투자 수익실현에 기여하는 서비스를 개발하는것을 목표로 함 
 - language : java, HTML/CSS/JS, JSP
 - framework / lib : Spring boot, Spring batch, bootstrap, JPA 
 
