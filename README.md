@@ -1,20 +1,30 @@
 # Realty
-부동산 정보 수집 및 모니터링 앱
+부동산 투자 정보 수집 및 모니터링 앱
 
 # RealtyServer
-- spec : java, Spring boot, 
+- language : java, HTML/CSS/JS, JSP
+- framework / lib : Spring boot, Spring batch, bootstrap, JPA 
 
 # 설계 
-- front-end 는 web app (1차) 과 mobile app (2차) 으로 제공
-- 구조 : 부동산 정보 수집 batch , 데이터 가공 및 모니터링 서버
-
-# 기능 
-- 부동산 데이터 수집 및 가공 
-- JPA 를 활용한 멀티테넌트 기능 (향후 필수) 
-- 통계 제공 (차트 등)
-- 전세가/매매가 상승하락 알람 등
-
+- front-end 는 web app 과 mobile app 으로 서비스
+- 서버 구조 : 부동산 정보 수집 batch , 데이터 가공 및 모니터링 서버
+- 클라우드 적용을 위한 멀티테넌트 기능
+  
+# 운영환경 
+- AWS 클라우드 EC2 또는 Elastic Beanstalk 배포 및 운영
+  
+# 주요 기능 
+- 부동산 실거래 데이터 수집 및 통계연산 (전세가율, 평단가 등)
+- kakao map 으로 지역별 부동산 매물정보 제공
+- 부동산 매물에 대한 상세정보 제공 (건축연도, 용적률, 건폐율, 대지지분 등)
+- 사용자의 사용패턴 분석통계 /로그
+- 부동산 투자관련 통계차트 제공
+- 전세가/매매가 상승하락 알람
+  
 # openAPI  
 - 공공 데이터 포털 : https://www.data.go.kr/data/15099361/openapi.do#/
+- 브이월드 : https://www.vworld.kr/dtna/dtna_apiSvcFc_s001.do?apiNum=6
 - 부동산 거래현황 통계조회 서비스 (공공데이터 포털) : https://www.data.go.kr/data/15099361/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/getgetRealEstateTradingAreaDealer
 - 부동산 거래현황통계 조회서비스 **'가이드'** 및 **'지역코드'** (한국 부동산원) : https://www.reb.or.kr/reb/na/ntt/selectNttInfo.do?mi=10251&bbsId=1268&nttSn=79542![image](https://github.com/kwangho-park/Realty/assets/44250982/cdff3400-eeb8-4399-a9bc-062227a62c20)
+- kakao map API : https://apis.map.kakao.com/
+
