@@ -5,7 +5,9 @@
 
 # 설계 
 - front-end 는 web app 과 mobile app 으로 서비스
-- 서버 구조 : 부동산 정보 수집 batch , 데이터 가공 및 모니터링 서버
+- 서버 구조  
+  = batch : 부동산 정보 수집  
+  = realtyServer : 데이터 가공 및 web view 제공  
 - 클라우드 적용을 위한 멀티테넌트 기능
   
 # 운영환경 
