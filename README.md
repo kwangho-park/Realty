@@ -8,7 +8,7 @@
 - 서버 구조  
   = batch : 부동산 정보 수집  
   = realtyServer : 데이터 가공 및 web view 제공  
-- 클라우드 적용을 위한 멀티테넌트 기능
+- 클라우드 서버 운영을 위한 멀티테넌트 기능
   
 # 운영환경 
 - AWS 클라우드 EC2 또는 Elastic Beanstalk 배포 및 운영
