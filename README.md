@@ -1,7 +1,5 @@
 # Realty
-부동산 투자 정보 수집 및 모니터링 앱
-
-# RealtyServer
+- 요약 : 부동산 투자 앱
 - language : java, HTML/CSS/JS, JSP
 - framework / lib : Spring boot, Spring batch, bootstrap, JPA 
 
