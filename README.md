@@ -3,7 +3,12 @@
 - language : java, HTML/CSS/JS, JSP
 - framework / lib : Spring boot, Spring batch, bootstrap, JPA 
 
-# 설계 
+# UI 설계  
+(by Figma)  
+![realty ui 설계](https://github.com/kwangho-park/Realty/assets/44250982/8dba90da-19e9-4f56-8c9e-255808e9fb25)
+
+
+# 구조 설계 
 - front-end 는 web app 과 mobile app 으로 서비스
 - 서버 구조  
   = batch : 부동산 정보 수집  
