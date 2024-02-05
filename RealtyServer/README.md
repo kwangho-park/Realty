@@ -3,6 +3,6 @@
 
 # spec
 - openJDK 20
-- Spring boot
+- Spring boot 3
 
 
