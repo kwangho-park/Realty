@@ -8,3 +8,6 @@
 - DB : MariaDB 11.1.2
 - Build tool : gradle 8.3
 - IDEA : IntelliJ
+
+# batch 개발환경 설정 
+- [테스트 코드로 추후 제거예정] JVM argument 추가 : --spring.batch.job.names=trMigrationJob
