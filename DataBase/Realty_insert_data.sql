@@ -1,3 +1,4 @@
+-- 테스트용 관리자 데이터 
 insert into tb_user_info  (UI_USER_ID, UI_USER_PW, UI_USER_NAME ) values('pkh','pkh','박광호');
 
 -- batch 테스트 데이터 (제거예정)
