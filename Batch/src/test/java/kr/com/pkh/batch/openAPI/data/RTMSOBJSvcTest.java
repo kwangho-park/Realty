@@ -41,7 +41,6 @@ public class RTMSOBJSvcTest {
 
 
     // 아파트 매매 신고 상세 데이터 조회
-    // [이슈] 부천시 지역코드로 데이터가 조회되지않음
     @Test
     public void getRTMSDataSvcAptTradeDevTest() throws  Exception{
 
@@ -51,8 +50,8 @@ public class RTMSOBJSvcTest {
         String serviceKey=this.apiKey;
         String pageNo="";
         String numOfRows="";
-        String LAWD_CD ="11590";        // 11590 : 서울시 동작구, 41190 : 부천시
-        String DEAL_YMD ="202310";
+        String LAWD_CD ="41192";        // 11590 : 서울시 동작구, 41192 : 부천시 원미구
+        String DEAL_YMD ="202312";
 
 
         // when //

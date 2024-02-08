@@ -135,6 +135,9 @@ public class RTMSOBJSvc {
     /**
      * 아파트 매매 신고 데이터 상세 조회 (by 지역/기간) <br>
      *
+     * [중요] openAPI 테스트 결과 지역코드 (법정동코드 앞 5자리)는 구단위 구분코드로 조회해야되는것으로 확인됨
+     * (가능 : 부천시 원미구 41192, 불가능 : 부천시 41190)
+     *
      * @param serviceKey 인증키
      * @param pageNo 페이지 번호
      * @param numOfRows 한 페이지 결과 수
