@@ -10,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 
 
 java {
-    sourceCompatibility = '12'
+    sourceCompatibility = '20'
 }
 
 configurations {
