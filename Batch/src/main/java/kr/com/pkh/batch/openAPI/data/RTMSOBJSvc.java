@@ -1,6 +1,8 @@
 package kr.com.pkh.batch.openAPI.data;
 
+import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.util.HTTPrequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
 import kr.com.pkh.batch.util.json.JSONObject;
@@ -46,6 +48,7 @@ public class RTMSOBJSvc {
 
     @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
+
 
     public RTMSOBJSvc(){}
 
@@ -144,12 +147,14 @@ public class RTMSOBJSvc {
      * @param LAWD_CD 지역코드 5자리 (필수)
      * @param DEAL_YMD  계약월 6자리 (필수)
      *
-     * @return
+     * @return AptTradeDTO 아파트 매매 신고 상세 데이터
      * @throws IOException
      * @throws ParseException
      */
-    public void getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
+    public  List<String> getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
                                           String LAWD_CD, String DEAL_YMD) {
+
+        List<String> aptTradeList = new ArrayList<String>();
 
         try{
             servicePort="/";
@@ -167,7 +172,7 @@ public class RTMSOBJSvc {
 
             String responseXml = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
 
-            xmlParsingToObject(responseXml);
+            aptTradeList = xmlParsingToObject(responseXml);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -175,6 +180,9 @@ public class RTMSOBJSvc {
             e.printStackTrace();
         }catch(Exception e){
             e.printStackTrace();
+
+        }finally {
+            return aptTradeList;
         }
     }
 
@@ -212,9 +220,15 @@ public class RTMSOBJSvc {
     }
 
     // 아파트 매매 상세 데이터 파싱 (xml string -> java Map)
-    public void xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
+    public List<String> xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
 
-        Map<String, String> pnuMap = new HashMap<>();      // key : 단지명 , value : pnu
+        // test  1
+//        AptTradeDTO aptTradeDTO = new AptTradeDTO();
+//        Map<String, String> pnuMap = new HashMap<>();      // key : 단지명 , value : pnu
+
+
+        // test 2
+        List<String> aptTradeList = new ArrayList<String>();
 
 
         // http response XML 로그 출력 (for RTMSOBJSvc 서비스) //
@@ -231,6 +245,9 @@ public class RTMSOBJSvc {
         log.info("total 'item' count : "+itemNodes.getLength());
 
         for (int i = 0; i < itemNodes.getLength(); i++) {
+
+            // test 2
+            AptTradeDTO aptTradeDTO = new AptTradeDTO();
 
             String childNodesLog="";
             String pnu = "";
@@ -271,15 +288,25 @@ public class RTMSOBJSvc {
                     + pnuData.get("법정동지번코드")
                     + pnuData.get("법정동본번코드")  + pnuData.get("법정동부번코드");
 
-            pnuMap.put(pnuData.get("아파트"),pnu);
+            // test  1
+//            pnuMap.put(pnuData.get("아파트"),pnu);           //key : 아파트명, value : pnu
+
+            // test 2
+            aptTradeList.add(pnuData.get("아파트"));       // 아파트명
         }
 
-        for (Map.Entry<String, String> entry : pnuMap.entrySet()) {
-            log.info(entry.getKey() + " : " + entry.getValue());
-        }
+        // test 1
+//        for (Map.Entry<String, String> entry : pnuMap.entrySet()) {
+//            log.info(entry.getKey() + " : " + entry.getValue());
+//        }
+
+        // test 1
+//        aptTradeDTO.setPnuMap(pnuMap);
+
 
         log.info("[xml element] 아파트 단지별 pnu 출력 END");
 
+        return aptTradeList;
 
     }
 

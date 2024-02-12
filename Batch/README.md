@@ -9,5 +9,8 @@
 - Build tool : gradle 8.3
 - IDEA : IntelliJ
 
+# Spring batch 설정 
+- Spring batch 4 를 실행하기위해서는 batch META-DATA table (6ea) 를 DB에 생성해야 함
+
 # batch 개발환경 설정 
-- [테스트 코드로 추후 제거예정] JVM argument 추가 : --spring.batch.job.names=trMigrationJob
+- program argument 추가 : --spring.batch.job.names=aptSyncJob
