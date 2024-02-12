@@ -65,17 +65,33 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e594070f5e090971964662267b642f4&libraries=services,clusterer,drawing"></script>
 
 	<script>
-		var container = document.getElementById('map');	//지도를 담을 영역의 DOM 레퍼런스
-		var options = {		 							//지도를 생성할 때 필요한 기본 옵션
-			center: new kakao.maps.LatLng(33.450701, 126.570667),	//지도의 중심좌표.
-			level: 3	//지도의 레벨(확대, 축소 정도)
+		var geocoder = new kakao.maps.services.Geocoder();
+		let longitude , latitude;
+
+		var callback = function(result, status) {
+			if (status === kakao.maps.services.Status.OK) {
+				console.log("x : 	" + result[0].x );
+				console.log("y :    " + +result[0].y );
+				longitude = result[0].x;	// 경도
+				latitude = result[0].y;		// 위도
+
+				var container = document.getElementById('map');	//지도를 담을 영역의 DOM 레퍼런스
+				var options = {		 							//지도를 생성할 때 필요한 기본 옵션
+					center: new kakao.maps.LatLng(latitude, longitude),	//지도의 중심좌표.
+					level: 3	//지도의 레벨(확대, 축소 정도)
+				};
+
+				var map = new kakao.maps.Map(container, options);		// id가 'map' 인 태그에 지도 생성 및 kakao map 객체 리턴
+
+				var bounds = map.getBounds();
+
+				console.log("log: "+ bounds.toString());		// 좌측 하단(y,x), 우측 상단(y,x)
+
+			}
 		};
+		geocoder.addressSearch('다산중앙로82번길106', callback);
 
-		var map = new kakao.maps.Map(container, options);		// id가 'map' 인 태그에 지도 생성 및 kakao map 객체 리턴
 
-		var bounds = map.getBounds();
-
-		console.log("log: "+ bounds.toString());		// 좌측 하단(y,x), 우측 상단(y,x)
 
 	</script>
 
