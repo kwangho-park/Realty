@@ -2,7 +2,6 @@ package kr.com.pkh.batch.job;
 
 
 import kr.com.pkh.batch.dao.AptTradeRepository;
-import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.dto.AptTradeEntity;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptTradeProcessor;
@@ -26,11 +25,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
- * 데이터 파싱 job ([HR DB] hrtb_user_info -> [Manager DB] tb_tmp_info )
- * run : --spring.batch.job.names=aptSyncJob
+ * run : --spring.batch.job.names=collectRealtyJob
  */
 @Slf4j
 @Configuration
@@ -49,10 +46,9 @@ public class BatchJob {
     @Autowired
     private AptTradeRepository aptTradeRepository;
 
-    // 무한실행
     @Bean
-    public Job aptSyncJob(Step aptTradeStep){
-        return jobBuilderFactory.get("aptSyncJob")        // job 이름 정의
+    public Job collectRealtyJob(Step aptTradeStep){
+        return jobBuilderFactory.get("collectRealtyJob")        // job 이름 정의
                 .incrementer(new RunIdIncrementer())
                 .start(aptTradeStep)
                 .build();
@@ -66,14 +62,13 @@ public class BatchJob {
                              ItemWriter aptTradeWriter
         ){
         return stepBuilderFactory.get("aptTradeStep")
-                .<List<String>, AptTradeEntity>chunk(1)         // AptTradeDTO 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  parsing step 을 트랜잭션
+                .<List<String>, AptTradeEntity>chunk(1)   // List<String> 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  parsing step 을 트랜잭션
                 .reader(restItemReader)                       // reader 지정
                 .processor(aptTradeProcessor)                 // processor 지정
                 .writer(aptTradeWriter)                       // writer 지정
                 .build();
     }
 
-    // [작업중] reader 에서 processor 로직으로 넘어가지않음
     @StepScope
     @Bean
     public ItemReader<List<String>> restItemReader() {
@@ -94,37 +89,6 @@ public class BatchJob {
                 .methodName("save")
                 .build();
     }
-
-
-    // tasklet 방식 step test
-//    @Bean
-//    public Job job(Step step){
-//        return jobBuilderFactory.get("job")        // job 이름 정의
-//                .incrementer(new RunIdIncrementer())
-//                .start(step)
-//                .build();
-//    }
-//    @JobScope
-//    @Bean
-//    public Step step(){
-//        return stepBuilderFactory.get("step")
-//                .tasklet(taskLet())
-//                .build();
-//    }
-//
-//
-//    @StepScope
-//    @Bean
-//    public Tasklet taskLet(){
-//        return new Tasklet() {
-//            @Override
-//            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-//
-//                System.out.println("[tasklet] standard task");
-//                return RepeatStatus.FINISHED;
-//            }
-//        };
-//    }
 
 
 

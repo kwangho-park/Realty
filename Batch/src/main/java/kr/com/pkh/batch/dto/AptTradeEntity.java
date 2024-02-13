@@ -17,8 +17,8 @@ import java.util.Date;
 @Table(name="tb_apt_trade")
 public class AptTradeEntity {
 
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) // pk 생성을 DB에 위임 (by mysql DB)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="AT_ID", length = 11)
     private int id;                     // 부동산거래계약신고 필증 일련번호
 

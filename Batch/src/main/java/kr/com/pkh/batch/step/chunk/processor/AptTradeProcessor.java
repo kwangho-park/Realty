@@ -22,27 +22,20 @@ public class AptTradeProcessor implements ItemProcessor<List<String>, AptTradeEn
 
         // 반복문으로 아파트이름을 Entity 리스트에 저장
         Random random = new Random();
-//        int testId = 0;                 // id
+        int testId = 0;                 // id
         Long testPnu = null;            // pnu
         String name = "";               // apt name
 
         for(int loop=0;loop<aptTradeList.size();loop++){
 
-//            testId = random.nextInt(100);
+            testId = random.nextInt(100);
             testPnu = random.nextLong();
 
-//            aptTradeEntity.setId(testId);       // [SQL Exception ]  Field 'AT_ID' doesn't have a default value
-            // 임시로 AT_ID에 auto increment 설정 처리
-
+            aptTradeEntity.setId(testId);
             aptTradeEntity.setPnu(testPnu);
             aptTradeEntity.setName(aptTradeList.get(loop));
 
-//            aptTradeEntityList.add(aptTradeEntity);
         }
-
-
-
-
 
 
         return aptTradeEntity;
