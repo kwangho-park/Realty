@@ -1,6 +1,6 @@
 
 
--- 아파트 거래정보 테이블 (로그성 테이블)
+-- 아파트 매매 거래정보 테이블 (로그성 테이블)
 CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_TRADE` (
   `AT_ID` INT(11) NOT NULL COMMENT '매매거래를 증명하는 일련번호 (in부동산거래계약신고필증) , format : xxxxx-xxxxx',
   `AT_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
@@ -12,8 +12,23 @@ CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_TRADE` (
   UNIQUE INDEX `AT_PNU_UNIQUE` (`AT_PNU` ASC) VISIBLE,
   UNIQUE INDEX `AT_TRADE_DATETIME_UNIQUE` (`AT_TRADE_DATETIME` ASC) VISIBLE)
 ENGINE = InnoDB
-COMMENT = '아파트 거래 정보 테이블 ';
+COMMENT = '아파트 매매 거래 정보 테이블 ';
 
+-- 아파트 전월세 거래 정보 테이블 (로그성 테이블)
+CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_RENT` (
+  `AR_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
+  `AR_NAME` VARCHAR(50) NULL COMMENT '아파트 단지명',
+  `AR_CONTRACT_TYPE` VARCHAR(10) NULL COMMENT '계약구분',
+  `AR_DEAL_YEAR` VARCHAR(20) NULL COMMENT '계약연도',
+  `AR_DEAL_MONTH` VARCHAR(2) NULL COMMENT '계약월',
+  `AR_DEAL_DAY` VARCHAR(45) NULL,
+  `AR_TERM` VARCHAR(20) NULL COMMENT '계약기간',
+  `AR_DEPOSIT` VARCHAR(10) NULL COMMENT '보증금액',
+  `AR_MONTHLY_RENT` VARCHAR(10) NULL COMMENT '월세금액',
+  `AR_INSERT_DATETIME` DATETIME NULL,
+  UNIQUE INDEX `AR_PNU_UNIQUE` (`AR_PNU` ASC))
+ENGINE = InnoDB
+COMMENT = '아파트 전월세 거래 정보 테이블 (로그성 테이블)';
 
 -- 부동산 투자정보 테이블 
 CREATE TABLE IF NOT EXISTS `realty`.`TB_REALTY_INFO` (
