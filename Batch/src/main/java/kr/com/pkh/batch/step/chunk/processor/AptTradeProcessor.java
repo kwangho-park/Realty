@@ -12,13 +12,14 @@ import java.util.Map;
 import java.util.Random;
 
 @Slf4j
-public class AptTradeProcessor implements ItemProcessor<List<String>, AptTradeEntity> {
+@Component
+public class AptTradeProcessor implements ItemProcessor<List<AptTradeDTO>, List<AptTradeEntity>> {
 
     @Override
-    public AptTradeEntity  process(List<String> aptTradeList) throws Exception {
+    public List<AptTradeEntity>  process(List<AptTradeDTO> aptTradeList) throws Exception {
 
         List<AptTradeEntity> aptTradeEntityList = new ArrayList<AptTradeEntity>();
-        AptTradeEntity aptTradeEntity = new AptTradeEntity();
+
 
         // 반복문으로 아파트이름을 Entity 리스트에 저장
         Random random = new Random();
@@ -28,16 +29,20 @@ public class AptTradeProcessor implements ItemProcessor<List<String>, AptTradeEn
 
         for(int loop=0;loop<aptTradeList.size();loop++){
 
+            AptTradeEntity aptTradeEntity = new AptTradeEntity();
             testId = random.nextInt(100);
             testPnu = random.nextLong();
 
-            aptTradeEntity.setId(testId);
-            aptTradeEntity.setPnu(testPnu);
-            aptTradeEntity.setName(aptTradeList.get(loop));
+            aptTradeEntity.setId(aptTradeList.get(loop).getId());
+            aptTradeEntity.setPnu(aptTradeList.get(loop).getPnu());
+            aptTradeEntity.setName(aptTradeList.get(loop).getName());
+            aptTradeEntity.setTradeAmount(aptTradeList.get(loop).getTradeAmount());
+            aptTradeEntity.setTradeDateTime(aptTradeList.get(loop).getTradeDatetime());
 
+            aptTradeEntityList.add(aptTradeEntity);
         }
 
 
-        return aptTradeEntity;
+        return aptTradeEntityList;
     }
 }

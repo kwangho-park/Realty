@@ -151,10 +151,10 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public  List<String> getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
+    public  List<AptTradeDTO> getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
                                           String LAWD_CD, String DEAL_YMD) {
 
-        List<String> aptTradeList = new ArrayList<String>();
+        List<AptTradeDTO> aptTradeList = new ArrayList<AptTradeDTO>();
 
         try{
             servicePort="/";
@@ -220,94 +220,129 @@ public class RTMSOBJSvc {
     }
 
     // 아파트 매매 상세 데이터 파싱 (xml string -> java Map)
-    public List<String> xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
-
-        // test  1
-//        AptTradeDTO aptTradeDTO = new AptTradeDTO();
-//        Map<String, String> pnuMap = new HashMap<>();      // key : 단지명 , value : pnu
+    // 주소 데이터로 pnu 생성
+    public List<AptTradeDTO> xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
 
 
-        // test 2
-        List<String> aptTradeList = new ArrayList<String>();
+        List<AptTradeDTO> aptTradeList = new ArrayList<AptTradeDTO>();
 
 
-        // http response XML 로그 출력 (for RTMSOBJSvc 서비스) //
-        // document 객체로 변환
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(new InputSource(new StringReader(responseXml)));
+        try{
+
+            // http response XML 로그 출력 (for RTMSOBJSvc 서비스) //
+            // document 객체로 변환
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new InputSource(new StringReader(responseXml)));
 
 
-        log.info("[xml element] 아파트 단지별 pnu 출력 START");
+            log.info("[xml element] 아파트 단지별 pnu 출력 START");
 
-        NodeList itemNodes = document.getElementsByTagName("item");
+            NodeList itemNodes = document.getElementsByTagName("item");
 
-        log.info("total 'item' count : "+itemNodes.getLength());
+            log.info("total 'item' count : "+itemNodes.getLength());
 
-        for (int i = 0; i < itemNodes.getLength(); i++) {
+            for (int i = 0; i < itemNodes.getLength(); i++) {
 
-            // test 2
-            AptTradeDTO aptTradeDTO = new AptTradeDTO();
 
-            String childNodesLog="";
-            String pnu = "";
-            Map<String, String> pnuData = new HashMap<String, String>();
+                AptTradeDTO aptTradeDTO = new AptTradeDTO();
 
-//            log.debug("element num : "+i);
+                String childNodesLog="";
+                String id="";               // 거래 일련번호
+                String pnu = "";
+                String name = "";
+                String tradeDatetime = "";
+                int tradeAmount=0;
 
-            NodeList elementList = itemNodes.item(i).getChildNodes();
-//            log.debug("total element count : "+elementList.getLength());
+                Map<String, String> pnuMap = new HashMap<String, String>();
 
-            // 건별 거래 내역
-            for(int j=0;j<elementList.getLength();j++){
+    //            log.debug("element num : "+i);
 
-                Element element = (Element) elementList.item(j);
-                String tagName = element.getTagName().trim();
-                String tagValue = element.getTextContent().trim();
-                childNodesLog+=(tagName+":"+tagValue+"/");
+                NodeList elementList = itemNodes.item(i).getChildNodes();
+    //            log.debug("total element count : "+elementList.getLength());
 
-                // pnu 조합
-                if(tagName.equals("아파트")){
-                    pnuData.put(tagName,tagValue);
-                }else if(tagName.equals("법정동시군구코드")){     // 4-5 자리
-                    pnuData.put(tagName,tagValue);
-                }else if(tagName.equals("법정동읍면동코드")){     // 4-5 자리
-                    pnuData.put(tagName,tagValue);
-                }else if(tagName.equals("법정동지번코드")){       // 1자리
-                    pnuData.put(tagName,tagValue);
-                }else if(tagName.equals("법정동본번코드")){       // 4자리
-                    pnuData.put(tagName,tagValue);
-                }else if(tagName.equals("법정동부번코드")){       // 4자리
-                    pnuData.put(tagName,tagValue);
+                // 건별 매매 거래 내역
+                for(int j=0;j<elementList.getLength();j++){
+
+                    Element element = (Element) elementList.item(j);
+                    String tagName = element.getTagName().trim();
+                    String tagValue = element.getTextContent().trim();
+
+                    childNodesLog+=(tagName+":"+tagValue+"/");
+
+
+                    if(tagName.equals("일련번호")) {
+                        id = tagValue;
+                    }
+                    if(tagName.equals("아파트")) {
+                        name = tagValue;
+                    }
+                    if(tagName.equals("거래금액")) {
+                        tagValue = removeAllCharsFromString(tagValue, ',');
+                        tradeAmount = Integer.parseInt(tagValue);
+                    }
+                    if(tagName.equals("등기일자")) {
+                        tradeDatetime = tagValue;
+                    }
+
+
+                    // pnu 일련번호 조합
+                    if(tagName.equals("법정동시군구코드")){     // 4-5 자리
+                        pnuMap.put(tagName,tagValue);
+                    }else if(tagName.equals("법정동읍면동코드")){     // 4-5 자리
+                        pnuMap.put(tagName,tagValue);
+                    }else if(tagName.equals("법정동지번코드")){       // 1자리
+                        pnuMap.put(tagName,tagValue);
+                    }else if(tagName.equals("법정동본번코드")){       // 4자리
+                        pnuMap.put(tagName,tagValue);
+                    }else if(tagName.equals("법정동부번코드")){       // 4자리
+                        pnuMap.put(tagName,tagValue);
+                    }
                 }
+
+    //             log.debug("childNodesLog : "+childNodesLog);
+
+                pnu = pnuMap.get("법정동시군구코드") + pnuMap.get("법정동읍면동코드")
+                        + pnuMap.get("법정동지번코드")
+                        + pnuMap.get("법정동본번코드")  + pnuMap.get("법정동부번코드");
+
+
+                aptTradeDTO.setId(id);                      // 일련번호 ID
+                aptTradeDTO.setPnu(Long.parseLong(pnu));    // pnu 필지고유번호
+                aptTradeDTO.setName(name);                  // 아파트명
+                aptTradeDTO.setTradeAmount(tradeAmount);    // 매매가격
+                aptTradeDTO.setTradeDatetime(tradeDatetime);// 거래일자
+
+                aptTradeList.add(aptTradeDTO);
             }
 
-//             log.debug("childNodesLog : "+childNodesLog);
 
-            pnu = pnuData.get("법정동시군구코드") + pnuData.get("법정동읍면동코드")
-                    + pnuData.get("법정동지번코드")
-                    + pnuData.get("법정동본번코드")  + pnuData.get("법정동부번코드");
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
 
-            // test  1
-//            pnuMap.put(pnuData.get("아파트"),pnu);           //key : 아파트명, value : pnu
+        }finally {
+            log.info("[xml element] 아파트 단지별 pnu 출력 END");
+            return aptTradeList;
 
-            // test 2
-            aptTradeList.add(pnuData.get("아파트"));       // 아파트명
         }
 
-        // test 1
-//        for (Map.Entry<String, String> entry : pnuMap.entrySet()) {
-//            log.info(entry.getKey() + " : " + entry.getValue());
-//        }
 
-        // test 1
-//        aptTradeDTO.setPnuMap(pnuMap);
+    }
 
 
-        log.info("[xml element] 아파트 단지별 pnu 출력 END");
+    public static String removeAllCharsFromString(String str, char charToRemove) {
+        StringBuilder sb = new StringBuilder();
 
-        return aptTradeList;
+        // 문자열을 순회하면서 특정 문자를 제거하고, 나머지 문자를 추가
+        for (char c : str.toCharArray()) {
+            if (c != charToRemove) {
+                sb.append(c);
+            }
+        }
 
+        return sb.toString();
     }
 
 

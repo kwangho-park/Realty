@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RestItemReader implements ItemReader<List<String>> {
+
+@Component
+public class RestItemReader implements ItemReader<List<AptTradeDTO>> {
 
     @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
@@ -25,15 +27,15 @@ public class RestItemReader implements ItemReader<List<String>> {
     }
 
     @Override
-    public List<String> read() throws Exception {
+    public List<AptTradeDTO> read() throws Exception {
 
         // reader 가 무한으로 실행되는것을 방지하기 위해 return null 반환 조건 추가
+        // [추후] RTMSOBJSvc 에서 조회되는 값이 없는 경우에 null 을 반환하도록 수정 예정
         if(dataRead){
             return null;
         }
 
-        List<String> aptTradeList = new ArrayList<String>();
-
+        List<AptTradeDTO> aptTradeList = new ArrayList<AptTradeDTO>();
 
          aptTradeList = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,"","","41192","202312");
 

@@ -6,6 +6,7 @@ import kr.com.pkh.batch.dto.AptTradeEntity;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptTradeProcessor;
 import kr.com.pkh.batch.step.chunk.reader.RestItemReader;
+import kr.com.pkh.batch.step.chunk.writer.AptTradeWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -43,8 +44,6 @@ public class BatchJob {
     @Autowired
     private RTMSOBJSvc RTMSOBJSvc;
 
-    @Autowired
-    private AptTradeRepository aptTradeRepository;
 
     @Bean
     public Job collectRealtyJob(Step aptTradeStep){
@@ -55,6 +54,7 @@ public class BatchJob {
     }
 
 
+    // spring bean 으로 등록해놓은 reader, processor, writer 객체를 호출하여 사용
     @JobScope
     @Bean
     public Step aptTradeStep(ItemReader restItemReader,
@@ -62,34 +62,11 @@ public class BatchJob {
                              ItemWriter aptTradeWriter
         ){
         return stepBuilderFactory.get("aptTradeStep")
-                .<List<String>, AptTradeEntity>chunk(1)   // List<String> 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  parsing step 을 트랜잭션
+                .<List<String>, AptTradeEntity>chunk(10)   // List<String> 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  parsing step 을 트랜잭션
                 .reader(restItemReader)                       // reader 지정
                 .processor(aptTradeProcessor)                 // processor 지정
                 .writer(aptTradeWriter)                       // writer 지정
                 .build();
     }
-
-    @StepScope
-    @Bean
-    public ItemReader<List<String>> restItemReader() {
-        return new RestItemReader(RTMSOBJSvc);
-    }
-
-    @StepScope
-    @Bean
-    public ItemProcessor<List<String>, AptTradeEntity> aptTradeProcessor() {
-        return new AptTradeProcessor();
-    }
-
-    @StepScope
-    @Bean
-    public RepositoryItemWriter<AptTradeEntity> aptTradeWriter() {
-        return new RepositoryItemWriterBuilder<AptTradeEntity>()
-                .repository(aptTradeRepository)
-                .methodName("save")
-                .build();
-    }
-
-
 
 }
