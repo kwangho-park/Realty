@@ -391,25 +391,5 @@ public class Util
 		return new String(decodedBytes);
 	}
 
-
-
-	// VPN subnet -> route value  타입변경
-	// ex 10.10.10.177/24 -> 10.10.10.177 255.255.255.0
-//	public static String convertToRouteType(String IPsubnet) {
-//	
-//		
-//		SubnetUtils subnetUtils = new SubnetUtils(IPsubnet);    
-//		subnetUtils.setInclusiveHostCount(true);				// subnet mask 포함 설정  (ex 10.10.10.177/24)
-//
-//		String ip = subnetUtils.getInfo().getAddress();
-//		String netMask = subnetUtils.getInfo().getNetmask();
-//
-//
-//		String RouteTypeValue = ip + " " + netMask;
-//
-//		return RouteTypeValue;
-//		
-//	}
-	
 	
 }

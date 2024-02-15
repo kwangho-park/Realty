@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class AptTradeDTO {
 
-    String id="";
-    long pnu = 0;
-    String name="";
-    int tradeAmount=0;
-    String tradeDatetime="";
+    String id="";           // 일련번호
+    long pnu = 0;           // pnu 아파트단지 고유값
+    String name="";         // 아파트명
+    int tradeAmount=0;      // 매매가격
+    String tradeDate="";    // 거래일자
 
 
 }

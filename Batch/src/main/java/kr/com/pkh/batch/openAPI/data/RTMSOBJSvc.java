@@ -1,7 +1,10 @@
 package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.dto.AptTradeDTO;
+import kr.com.pkh.batch.dto.PageDTO;
+import kr.com.pkh.batch.dto.TradeDTO;
 import kr.com.pkh.batch.util.HTTPrequest;
+import kr.com.pkh.batch.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
@@ -28,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
 
 /**
  * 공급자 : 공공데이터 포털
@@ -100,7 +104,7 @@ public class RTMSOBJSvc {
      * @param lawdCd 지역코드
      * @param dealYmd 계약월
      * @param pageNo 페이지 번호
-     * @param numOfRows 한 페이지 row 수
+     * @param numOfRows 한 페이지의 row 수
      *
      * @return
      * @throws IOException
@@ -151,10 +155,10 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public  List<AptTradeDTO> getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
+    public TradeDTO getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
                                           String LAWD_CD, String DEAL_YMD) {
 
-        List<AptTradeDTO> aptTradeList = new ArrayList<AptTradeDTO>();
+        TradeDTO tradeDTO = new TradeDTO();
 
         try{
             servicePort="/";
@@ -163,8 +167,8 @@ public class RTMSOBJSvc {
 
             Map<String, String> parameters = Map.of(
                     "serviceKey",serviceKey,
-                    // "pageNo", pageNo,
-                    // "numOfRows", numOfRows,
+                    "pageNo", pageNo,
+                    "numOfRows", numOfRows,
                     "LAWD_CD", LAWD_CD,
                     "DEAL_YMD", DEAL_YMD
             );
@@ -172,7 +176,7 @@ public class RTMSOBJSvc {
 
             String responseXml = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
 
-            aptTradeList = xmlParsingToObject(responseXml);
+            tradeDTO = xmlParsingToObject(responseXml);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -182,7 +186,7 @@ public class RTMSOBJSvc {
             e.printStackTrace();
 
         }finally {
-            return aptTradeList;
+            return tradeDTO;
         }
     }
 
@@ -221,10 +225,12 @@ public class RTMSOBJSvc {
 
     // 아파트 매매 상세 데이터 파싱 (xml string -> java Map)
     // 주소 데이터로 pnu 생성
-    public List<AptTradeDTO> xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
+    public TradeDTO xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
 
 
+        TradeDTO tradeDTO = new TradeDTO();
         List<AptTradeDTO> aptTradeList = new ArrayList<AptTradeDTO>();
+        PageDTO pageDTO = new PageDTO();
 
 
         try{
@@ -236,6 +242,7 @@ public class RTMSOBJSvc {
             Document document = builder.parse(new InputSource(new StringReader(responseXml)));
 
 
+            // items 데이터 파싱 //
             log.info("[xml element] 아파트 단지별 pnu 출력 START");
 
             NodeList itemNodes = document.getElementsByTagName("item");
@@ -251,7 +258,10 @@ public class RTMSOBJSvc {
                 String id="";               // 거래 일련번호
                 String pnu = "";
                 String name = "";
-                String tradeDatetime = "";
+                String tradeMonth="";
+                String tradeYear="";
+                String tradeDay="";
+                String tradeDate = "";
                 int tradeAmount=0;
 
                 Map<String, String> pnuMap = new HashMap<String, String>();
@@ -278,13 +288,20 @@ public class RTMSOBJSvc {
                         name = tagValue;
                     }
                     if(tagName.equals("거래금액")) {
-                        tagValue = removeAllCharsFromString(tagValue, ',');
+                        tagValue = StringUtil.removeAllCharsFromString(tagValue, ',');
                         tradeAmount = Integer.parseInt(tagValue);
                     }
-                    if(tagName.equals("등기일자")) {
-                        tradeDatetime = tagValue;
-                    }
 
+                    // 계약년월일
+                    if(tagName.equals("년")) {
+                        tradeYear = tagValue;
+                    }
+                    if(tagName.equals("월")) {
+                        tradeMonth = StringUtil.padWithZero(tagValue);
+                    }
+                    if(tagName.equals("일")) {
+                        tradeDay = StringUtil.padWithZero(tagValue);
+                    }
 
                     // pnu 일련번호 조합
                     if(tagName.equals("법정동시군구코드")){     // 4-5 자리
@@ -306,15 +323,56 @@ public class RTMSOBJSvc {
                         + pnuMap.get("법정동지번코드")
                         + pnuMap.get("법정동본번코드")  + pnuMap.get("법정동부번코드");
 
+                tradeDate=tradeYear+tradeMonth+tradeDay;
 
                 aptTradeDTO.setId(id);                      // 일련번호 ID
                 aptTradeDTO.setPnu(Long.parseLong(pnu));    // pnu 필지고유번호
                 aptTradeDTO.setName(name);                  // 아파트명
                 aptTradeDTO.setTradeAmount(tradeAmount);    // 매매가격
-                aptTradeDTO.setTradeDatetime(tradeDatetime);// 거래일자
+                aptTradeDTO.setTradeDate(tradeDate);        // 거래일자
 
                 aptTradeList.add(aptTradeDTO);
+
+                log.info("apt info : id 일련번호 = "+id +" / pnu = "+pnu+" / name = "+name);
             }
+
+            tradeDTO.setAptTradeDTOList(aptTradeList);
+
+            // page 데이터 파싱 //
+
+            String pageNo="";
+            String numOfRows="";
+            String totalCount="";
+
+            // NodeList 반환
+            NodeList nodeList = document.getElementsByTagName("body");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+
+                NodeList elementList = nodeList.item(i).getChildNodes();
+
+                for(int j=0;j<elementList.getLength();j++){
+
+                    Element element = (Element) elementList.item(j);
+                    String tagName = element.getTagName().trim();
+                    String tagValue = element.getTextContent().trim();
+
+                    if(tagName.equals("pageNo")) {
+                        pageNo = tagValue;
+                    }
+                    if(tagName.equals("numOfRows")) {
+                        numOfRows = tagValue;
+                    }
+                    if(tagName.equals("totalCount")) {
+                        totalCount = tagValue;
+                    }
+                }
+            }
+
+            pageDTO.setPageNo(pageNo);
+            pageDTO.setNumOfRows(numOfRows);
+            pageDTO.setTotalCount(totalCount);
+
+            tradeDTO.setPageDTO(pageDTO);
 
 
         }catch(NumberFormatException e){
@@ -324,26 +382,10 @@ public class RTMSOBJSvc {
 
         }finally {
             log.info("[xml element] 아파트 단지별 pnu 출력 END");
-            return aptTradeList;
+            return tradeDTO;
 
         }
 
 
     }
-
-
-    public static String removeAllCharsFromString(String str, char charToRemove) {
-        StringBuilder sb = new StringBuilder();
-
-        // 문자열을 순회하면서 특정 문자를 제거하고, 나머지 문자를 추가
-        for (char c : str.toCharArray()) {
-            if (c != charToRemove) {
-                sb.append(c);
-            }
-        }
-
-        return sb.toString();
-    }
-
-
 }

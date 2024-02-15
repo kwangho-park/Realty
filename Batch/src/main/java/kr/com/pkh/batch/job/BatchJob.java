@@ -62,7 +62,7 @@ public class BatchJob {
                              ItemWriter aptTradeWriter
         ){
         return stepBuilderFactory.get("aptTradeStep")
-                .<List<String>, AptTradeEntity>chunk(10)   // List<String> 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  parsing step 을 트랜잭션
+                .<List<String>, AptTradeEntity>chunk(5)   // List<String> 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  parsing step 을 트랜잭션
                 .reader(restItemReader)                       // reader 지정
                 .processor(aptTradeProcessor)                 // processor 지정
                 .writer(aptTradeWriter)                       // writer 지정

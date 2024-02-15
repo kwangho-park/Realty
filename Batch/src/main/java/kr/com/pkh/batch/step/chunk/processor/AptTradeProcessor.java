@@ -2,10 +2,12 @@ package kr.com.pkh.batch.step.chunk.processor;
 
 import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.dto.AptTradeEntity;
+import kr.com.pkh.batch.dto.TradeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,36 +15,46 @@ import java.util.Random;
 
 @Slf4j
 @Component
-public class AptTradeProcessor implements ItemProcessor<List<AptTradeDTO>, List<AptTradeEntity>> {
+public class AptTradeProcessor implements ItemProcessor<TradeDTO, List<AptTradeEntity>> {
 
     @Override
-    public List<AptTradeEntity>  process(List<AptTradeDTO> aptTradeList) throws Exception {
+    public List<AptTradeEntity> process(TradeDTO tradeDTO) {
 
         List<AptTradeEntity> aptTradeEntityList = new ArrayList<AptTradeEntity>();
 
+        try{
 
-        // 반복문으로 아파트이름을 Entity 리스트에 저장
-        Random random = new Random();
-        int testId = 0;                 // id
-        Long testPnu = null;            // pnu
-        String name = "";               // apt name
+            // 주소 -> GPS 좌표 변환하여 TB_APT_TRADE 테이블에 추가 예정
+            List<AptTradeDTO> aptTradeList = new ArrayList<>();
+            aptTradeList = tradeDTO.getAptTradeDTOList();
 
-        for(int loop=0;loop<aptTradeList.size();loop++){
+            // 반복문으로 아파트이름을 Entity 리스트에 저장
+            Random random = new Random();
+            int testId = 0;                 // id
+            Long testPnu = null;            // pnu
+            String name = "";               // apt name
 
-            AptTradeEntity aptTradeEntity = new AptTradeEntity();
-            testId = random.nextInt(100);
-            testPnu = random.nextLong();
+            for(int loop=0;loop<aptTradeList.size();loop++){
 
-            aptTradeEntity.setId(aptTradeList.get(loop).getId());
-            aptTradeEntity.setPnu(aptTradeList.get(loop).getPnu());
-            aptTradeEntity.setName(aptTradeList.get(loop).getName());
-            aptTradeEntity.setTradeAmount(aptTradeList.get(loop).getTradeAmount());
-            aptTradeEntity.setTradeDateTime(aptTradeList.get(loop).getTradeDatetime());
+                AptTradeEntity aptTradeEntity = new AptTradeEntity();
+                testId = random.nextInt(100);
+                testPnu = random.nextLong();
 
-            aptTradeEntityList.add(aptTradeEntity);
+                aptTradeEntity.setId(aptTradeList.get(loop).getId());
+                aptTradeEntity.setPnu(aptTradeList.get(loop).getPnu());
+                aptTradeEntity.setName(aptTradeList.get(loop).getName());
+                aptTradeEntity.setTradeAmount(aptTradeList.get(loop).getTradeAmount());
+                aptTradeEntity.setTradeDate(aptTradeList.get(loop).getTradeDate());
+                aptTradeEntity.setInsertDateTime(LocalDateTime.now());
+                aptTradeEntityList.add(aptTradeEntity);
+            }
+
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
-
         return aptTradeEntityList;
+
     }
 }

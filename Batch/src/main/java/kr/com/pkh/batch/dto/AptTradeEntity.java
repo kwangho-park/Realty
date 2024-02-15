@@ -6,9 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
+/**
+ * 부동산 매매 정보 테이블
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,11 +35,11 @@ public class AptTradeEntity {
     @Column(name="AT_TRADE_AMOUNT", length = 11)
     private int tradeAmount;             // 매매가격
 
-    @Column(name="AT_TRADE_DATETIME", length = 50)
-    private String tradeDateTime;            // 거래일자
+    @Column(name="AT_TRADE_DATE", length = 50)
+    private String tradeDate;            // 거래일자
 
     @Column(name="AT_INSERT_DATETIME", length = 50)
-    private String insertDateTime;            // 데이터 업데이트 일자
+    private LocalDateTime insertDateTime;            // 데이터 업데이트 일자
 
 
     // custom constructor
@@ -43,7 +47,7 @@ public class AptTradeEntity {
         this.id = aptTradeEntity.getId();
         this.pnu = aptTradeEntity.getPnu();
         this.name = aptTradeEntity.getName();
-        this.tradeDateTime = aptTradeEntity.getTradeDateTime();
+        this.tradeDate = aptTradeEntity.getTradeDate();
         this.tradeAmount = aptTradeEntity.getTradeAmount();
         this.insertDateTime = aptTradeEntity.getInsertDateTime();
 

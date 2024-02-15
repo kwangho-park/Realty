@@ -20,15 +20,23 @@ public class AptTradeWriter implements ItemWriter<List<AptTradeEntity>> {
         this.repository = repository;
     }
 
+    /**
+     * tb_apt_trade 의 pk (id) 기준으로 테이블에 데이터가 존재하지 않는 경우 save, 존재하는경우 update
+     * @param items items to be written
+     */
     @Override
-    public void write(List<? extends List<AptTradeEntity>> items) throws Exception {
+    public void write(List<? extends List<AptTradeEntity>> items) {
 
-        for(List<AptTradeEntity> chunk : items){
+        try{
+            for(List<AptTradeEntity> chunk : items){
 
-            for(AptTradeEntity item: chunk){
-                repository.save((AptTradeEntity) item);
-                log.info("[batch-writer] id "+item.getId() +"/ pnu : "+item.getPnu() +" / name : "+item.getName() );
+                for(AptTradeEntity item: chunk){
+                    repository.save((AptTradeEntity) item);
+                    log.info("[batch-writer] id "+item.getId() +"/ pnu : "+item.getPnu() +" / name : "+item.getName() );
+                }
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
