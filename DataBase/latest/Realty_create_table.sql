@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_TRADE` (
   `AT_ID` VARCHAR(20) NOT NULL COMMENT '매매거래를 증명하는 일련번호 (in부동산거래계약신고필증) , format : xxxxx-xxxxx',
   `AT_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
   `AT_NAME` VARCHAR(50) NULL COMMENT '아파트 단지명',
-  `AT_TRADE_AMOUNT` INT(11) NULL COMMENT '매매가격',
+  `AT_TRADE_AMOUNT` INT(11) NULL COMMENT '매매가격 (단위 : 만원)',
   `AT_TRADE_DATE` VARCHAR(50) NULL COMMENT '거래일자',
   `AT_INSERT_DATETIME` DATETIME NULL COMMENT '데이터 생성일자',
   INDEX `AT_PNU_INDEX` (`AT_PNU`),

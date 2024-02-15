@@ -13,4 +13,5 @@
 - Spring batch 4 를 실행하기위해서는 batch META-DATA table (6ea) 를 DB에 생성해야 함
 
 # batch 개발환경 설정 
-- program argument 추가 : --spring.batch.job.names=aptSyncJob
+- application.properties 파일 추가 : [project home path]/src/resources 경로
+- 실행하려는 job 의 program argument 추가 : --spring.batch.job.names=aptSyncJob
