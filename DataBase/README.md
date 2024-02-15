@@ -11,3 +11,6 @@
 - version : 버전별 형상 (fetch script)  <br>
 -- v1.0.0 : release 버전별 형상 (fetch script, create/insert script, er diagram) <br> 
 
+**[git commt msg]** <br>
+- git commit 시 local 개발환경에 변경점이 발생하는 경우 '+' 를 표시하여 commit 함으로써 pull 받는 팀원이 side-effect 를 인지하고 변경점을 반영 할 수 있도록 유도함 <br>
+- ex) DB 테이블 칼럼변경, properties 설정 변경 등 
