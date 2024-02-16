@@ -1,20 +1,13 @@
 package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.util.HTTPrequest;
-import kr.com.pkh.batch.util.json.JSONObject;
-import kr.com.pkh.batch.util.json.parser.JSONParser;
+
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
