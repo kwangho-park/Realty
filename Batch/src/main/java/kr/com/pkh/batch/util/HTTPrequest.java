@@ -1,18 +1,10 @@
 package kr.com.pkh.batch.util;
 
-import kr.com.pkh.batch.util.json.JSONObject;
 import kr.com.pkh.batch.util.json.parser.JSONParser;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;

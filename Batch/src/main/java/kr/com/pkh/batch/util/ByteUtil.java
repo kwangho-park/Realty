@@ -1,4 +1,4 @@
-package kr.com.pkh.realty.util;
+package kr.com.pkh.batch.util;
 
 public class ByteUtil
 {
@@ -34,7 +34,6 @@ public class ByteUtil
 	public static void intToBytes(byte[] dest, int destOff, int value)
 	{
 		for (int i = 0; i < 4; i++) {
-			// 2009.06.04 주정민 수정
 			// dest[i + destOff] = (byte)(value >> ((3 - i) * 4));
 			dest[i + destOff] = (byte) (value >> ((3 - i) * 8));
 		}

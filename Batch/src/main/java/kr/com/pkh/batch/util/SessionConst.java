@@ -1,4 +1,4 @@
-package kr.com.pkh.realty.util;
+package kr.com.pkh.batch.util;
 
 public abstract class SessionConst {
 	
