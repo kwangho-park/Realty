@@ -3,6 +3,7 @@ package kr.com.pkh.batch.job;
 
 import kr.com.pkh.batch.dao.AptTradeRepository;
 import kr.com.pkh.batch.dto.AptTradeEntity;
+import kr.com.pkh.batch.dto.TradeDTO;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptTradeProcessor;
 import kr.com.pkh.batch.step.chunk.reader.RestItemReader;
@@ -62,7 +63,7 @@ public class BatchJob {
                              ItemWriter aptTradeWriter
         ){
         return stepBuilderFactory.get("aptTradeStep")
-                .<List<String>, AptTradeEntity>chunk(5)   // List<String> 조회(reader DTO) 하여, AptTradeEntity (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
+                .<TradeDTO, List<AptTradeEntity>>chunk(5)   // TradeDTO 조회(reader DTO) 하여, List<AptTradeEntity> (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
                 .reader(restItemReader)                       // reader 지정
                 .processor(aptTradeProcessor)                 // processor 지정
                 .writer(aptTradeWriter)                       // writer 지정
