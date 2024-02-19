@@ -73,8 +73,6 @@ public class RestItemReader implements ItemReader<TradeDTO> {
             // validation in properties //
             // (예정) 모드 유효성 확인
             // (예정) 기간 형식 및 유효성 확인
-            
-
             if(scope.isScopeFlag()){
                 
                 this.initScope();
@@ -102,6 +100,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("region size : "+scope.getRegionCodeList().size());
 
                 ///////////////// java.lang.IndexOutOfBoundsException: Index 80 out of bounds for length 80
+                // 순차적으로 증가하는 resionID에 따라 리스트에서 지역코드를 조회함
                 lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()) );
                 log.info("lawdCd : "+ lawdCd);
 
@@ -124,7 +123,8 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("scope page no : "+ scope.getPageNo());
                 log.info("scope total page : "+ scope.getTotalPage() );
                 log.info("---------");
-                if(!(scope.getPageNo() <= scope.getTotalPage()+1)){     // 특정 코드에 대한 당월 매매거래 정보 수집완료 시점
+
+                if(!(scope.getPageNo() <= scope.getTotalPage()+1)){
 
                     // pageNo, totalPage 초기화
                     scope.initPageNo();
@@ -192,6 +192,8 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
         // batch mode 별 scope 설정 //
         if(mode.toLowerCase().equals("op")){
+
+            scope.setScopeFlag(false);
 
         } else if(mode.toLowerCase().equals("init")){
             scope.setStartDate(DateUtil.stringToYearMonth(startDate));

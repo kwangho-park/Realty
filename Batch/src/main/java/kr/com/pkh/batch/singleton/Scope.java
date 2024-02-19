@@ -62,7 +62,13 @@ public class Scope {
 
     // total page 업데이트
     public synchronized void updateTotalPage(int totalCount, int numOfRows){
-        totalPage= totalCount / numOfRows;
+
+        if(totalCount % numOfRows==0){
+            totalPage= totalCount / numOfRows;
+        }else {
+            totalPage= totalCount / numOfRows;
+            totalPage++;
+        }
     }
 
     public synchronized void updateTotalPage(String totalCount, int numOfRows){
