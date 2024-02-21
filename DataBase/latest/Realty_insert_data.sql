@@ -19,6 +19,9 @@ insert into tb_app_info(AI_ID, AI_NAME, AI_PROXY_IP, AI_PROXY_PORT, AI_PROTOCOL,
 -- 법정동 코드 데이터  (2024.02.08 기준)
 -- 발췌 : 시구군까지만
 -- 범위 : 서울시(25), 경기도, 인천시
+delete from tb_region_code ;
+alter tableE tb_region_code AUTO_INCREMENT=1;
+
 insert into tb_region_code(RC_REGION_CODE,RC_LOCATADD_NAME) 
 values
 (1111000000,'서울특별시 종로구'),(1114000000,'서울특별시 중구'),(1117000000,'서울특별시 용산구'),(1120000000,'서울특별시 성동구'),(1121500000,'서울특별시 광진구'),

@@ -1,3 +1,4 @@
+
 package kr.com.pkh.batch.singleton;
 
 import lombok.Data;
@@ -61,26 +62,17 @@ public class Scope {
     }
 
     // total page 업데이트
-    public synchronized void updateTotalPage(int totalCount, int numOfRows){
-
-        if(totalCount % numOfRows==0){
-            totalPage= totalCount / numOfRows;
+    public synchronized void updateTotalPage(String totalCount, int numOfRows){
+        int totalCountInt=Integer.parseInt(totalCount);
+        if(totalCountInt <= numOfRows){
+            totalPage=1;
+        } else if(totalCountInt % numOfRows==0){
+            totalPage= totalCountInt / numOfRows;
         }else {
-            totalPage= totalCount / numOfRows;
+            totalPage= totalCountInt / numOfRows;
             totalPage++;
         }
     }
-
-    public synchronized void updateTotalPage(String totalCount, int numOfRows){
-        int totalCountInt=Integer.parseInt(totalCount);
-        totalPage= totalCountInt / numOfRows;
-    }
-    public synchronized void updateTotalPage(String totalCount, String numOfRows){
-        int totalCountInt=Integer.parseInt(totalCount);
-        int numOfRowsInt=Integer.parseInt(numOfRows);
-        totalPage= totalCountInt / numOfRowsInt;
-    }
-
 
     // total page 초기화 함수
     public synchronized void initTotalPage(){
@@ -94,6 +86,6 @@ public class Scope {
 
     public synchronized void incrementRegionId(){regionId++;}
     public synchronized int regionCodeSize(){
-        return regionCodeList.size();
+        return regionCodeList.size() ;
     }
 }

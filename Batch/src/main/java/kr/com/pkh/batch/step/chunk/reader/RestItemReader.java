@@ -60,9 +60,8 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
         TradeDTO tradeDTO = new TradeDTO();
 
-//        String LAWD_CD="41192";     // 부천시  (DB 조회예정)
         String lawdCd="";
-        int regionId=0;
+        String numOfRows="";        // (예정) 공공데이터 포탈 일 최대 트래픽 1,000건으로 인해 row 설정가능하도록 변경예정 (10-> row MAX)
 
         String dealYmd="";
 
@@ -83,24 +82,24 @@ public class RestItemReader implements ItemReader<TradeDTO> {
             if(mode.toLowerCase().equals("op")){
 
 
+                log.info("region id : "+scope.getRegionId());
+                log.info("region size : "+scope.regionCodeSize());
 
                 // reader 종료 시점 제어 //
-                /////// 변경 전 시점 : 전체 페이지 수집
-                /////// 변경 예정 시점 : 지역코드 전체 순환
-                if(!(scope.regionCodeSize()+1 > scope.getRegionId()) ){
+                //지역코드 전체 순환
+                if(scope.regionCodeSize() < (scope.getRegionId() + 1)){
                     log.info("[collectRealtyJob] 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
 
+                log.info("---------");
                 log.info("[collectRealtyJob] reader operation mode");
 
                 // 매매 거래정보 수집 //
-                log.info("---------");
-                log.info("region id : "+scope.getRegionId());
-                log.info("region size : "+scope.getRegionCodeList().size());
 
-                ///////////////// java.lang.IndexOutOfBoundsException: Index 80 out of bounds for length 80
-                // 순차적으로 증가하는 resionID에 따라 리스트에서 지역코드를 조회함
+                log.info("region id : "+scope.getRegionId());
+                log.info("region size : "+scope.regionCodeSize());
+
                 lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()) );
                 log.info("lawdCd : "+ lawdCd);
 
@@ -110,19 +109,33 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 log.info("DEAL_YMD (today month) : "+dealYmd);
 
+                // test
+                dealYmd = "2024.01";
+
                 tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
                         lawdCd,
                         dealYmd);
 
+                // 매매데이터가 존재하지 않는 경우 필터링 //
+                if(tradeDTO.getAptTradeDTOList().size()==0){
+                    // pageNo, totalPage 초기화
+                    scope.initPageNo();
+                    scope.initTotalPage();
+
+                    // 지역코드 업데이트
+                    scope.incrementRegionId();
+
+                    // Reader 반복의 break 역할
+                    // (예정) openAPI 에서 받은 반환값으로 예외처리 필요
+                    throw new NullPointerException("null pointer excepiont : 매매데이터가 존재하지않습니다 ( 지역코드 : "+lawdCd+")");
+                }
                 // 수집 범위 설정 //
                 scope.incrementPageNo();
                 scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
-                log.info("scope page no : "+ scope.getPageNo());
-                log.info("scope total page : "+ scope.getTotalPage() );
-                log.info("---------");
+
 
                 if(!(scope.getPageNo() <= scope.getTotalPage()+1)){
 
@@ -132,11 +145,15 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                     // 지역코드 업데이트
                     scope.incrementRegionId();
+                }else{
+                    log.info("scope page no : "+ scope.getPageNo());
+                    log.info("scope total page : "+ scope.getTotalPage() );
+                    log.info("---------");
                 }
 
 
 
-                // 초기화 모드 //
+                // 초기화 모드 (작업예정) //
             }else if(mode.toLowerCase().equals("init")){
 
                 YearMonth startDate = scope.getStartDate();
@@ -149,7 +166,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                     log.info("[collectRealtyJob] start date :"+ DateUtil.yearMonthToString(startDate));
                     log.info("[collectRealtyJob] end date :"+ DateUtil.yearMonthToString(endDate));
 
-                    return null;
+                    return null;    // reader 종료
                 }
 
                 // 매매 거래 정보 수집 //
@@ -164,7 +181,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 // 수집 범위 설정 //
                 scope.incrementPageNo();
-                scope.updateTotalPage(Integer.parseInt(tradeDTO.getPageDTO().getTotalCount()), scope.getNumOfRows() );
+                scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
                 // 전체 페이지 조회 시 date 업데이트
                 if(!(scope.getPageNo() <= scope.getTotalPage()+1)){
@@ -177,14 +194,16 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 }
             }
 
-        }catch(Exception e){
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        } catch(Exception e){
             e.printStackTrace();
         }
 
         return tradeDTO;
     }
 
-    // 부동산 매매거래 데이터 수집을 위한 초기 scope 설정
+    // 매매거래 데이터 수집을 위한 초기 scope 설정
     public void initScope(){
 
         Scope scope = Scope.getInstance();

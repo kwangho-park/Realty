@@ -24,6 +24,7 @@ public class AptTradeProcessor implements ItemProcessor<TradeDTO, List<AptTradeE
 
         try{
 
+
             // 주소 -> GPS 좌표 변환하여 TB_APT_TRADE 테이블에 추가 예정
             List<AptTradeDTO> aptTradeList = new ArrayList<>();
             aptTradeList = tradeDTO.getAptTradeDTOList();
@@ -34,6 +35,10 @@ public class AptTradeProcessor implements ItemProcessor<TradeDTO, List<AptTradeE
             Long testPnu = null;            // pnu
             String name = "";               // apt name
 
+            // 결과값이 존재하지 않는 경우
+            if(aptTradeList==null){
+                return null;
+            }
             for(int loop=0;loop<aptTradeList.size();loop++){
 
                 AptTradeEntity aptTradeEntity = new AptTradeEntity();

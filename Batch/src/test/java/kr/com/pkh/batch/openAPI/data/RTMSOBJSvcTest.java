@@ -34,7 +34,7 @@ public class RTMSOBJSvcTest {
         // when //
         // 지역코드 11590 : 서울시 동작구
         // 지역코드 41190 : 부천시
-        RTMSOBJSvc.getRTMSDataSvcAptTrade("11590", "202310");
+        RTMSOBJSvc.getRTMSDataSvcAptTrade("11140", "202402");
 
         // then //
     }
@@ -50,8 +50,8 @@ public class RTMSOBJSvcTest {
         String serviceKey=this.apiKey;
         String pageNo="1";
         String numOfRows="10";
-        String LAWD_CD ="41192";        // 11590 : 서울시 동작구, 41192 : 부천시 원미구
-        String DEAL_YMD ="202312";
+        String LAWD_CD ="11140";        // 11590 : 서울시 동작구, 41192 : 부천시 원미구
+        String DEAL_YMD ="202402";
 
 
         // when //
