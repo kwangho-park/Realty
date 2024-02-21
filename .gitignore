@@ -4,6 +4,7 @@
 target/*
 *.properties
 *.bak
+*.jar
 
 ### Batch ###
 Batch/.gradle/*
