@@ -86,14 +86,14 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("region size : "+scope.regionCodeSize());
 
                 // reader 종료 시점 제어 //
-                //지역코드 전체 순환
+                // 지역코드 전체 순환
                 if(scope.regionCodeSize() < (scope.getRegionId() + 1)){
-                    log.info("[collectRealtyJob] 부동산 매매 거래 데이터 수집완료 ");
+                    log.info("[RestItemReader] 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
 
                 log.info("---------");
-                log.info("[collectRealtyJob] reader operation mode");
+                log.info("[RestItemReader] reader operation mode");
 
                 // 매매 거래정보 수집 //
 
@@ -109,9 +109,6 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 log.info("DEAL_YMD (today month) : "+dealYmd);
 
-                // test
-                dealYmd = "2024.01";
-
                 tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
@@ -120,6 +117,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 // 매매데이터가 존재하지 않는 경우 필터링 //
                 if(tradeDTO.getAptTradeDTOList().size()==0){
+
                     // pageNo, totalPage 초기화
                     scope.initPageNo();
                     scope.initTotalPage();
@@ -129,27 +127,17 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                     // Reader 반복의 break 역할
                     // (예정) openAPI 에서 받은 반환값으로 예외처리 필요
-                    throw new NullPointerException("null pointer excepiont : 매매데이터가 존재하지않습니다 ( 지역코드 : "+lawdCd+")");
+                    throw new NullPointerException();
                 }
                 // 수집 범위 설정 //
                 scope.incrementPageNo();
                 scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
 
+                log.info("scope page no : "+ scope.getPageNo());
+                log.info("scope total page : "+ scope.getTotalPage() );
+                log.info("---------");
 
-                if(!(scope.getPageNo() <= scope.getTotalPage()+1)){
-
-                    // pageNo, totalPage 초기화
-                    scope.initPageNo();
-                    scope.initTotalPage();
-
-                    // 지역코드 업데이트
-                    scope.incrementRegionId();
-                }else{
-                    log.info("scope page no : "+ scope.getPageNo());
-                    log.info("scope total page : "+ scope.getTotalPage() );
-                    log.info("---------");
-                }
 
 
 
@@ -162,15 +150,15 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 // reader 종료 시점 제어 //
                 // 시점 : 전체 페이지 수집 + 설정된 기간 순환
                 if(startDate.compareTo(endDate) > 0){
-                    log.info("[collectRealtyJob] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
-                    log.info("[collectRealtyJob] start date :"+ DateUtil.yearMonthToString(startDate));
-                    log.info("[collectRealtyJob] end date :"+ DateUtil.yearMonthToString(endDate));
+                    log.info("[RestItemReader] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
+                    log.info("[RestItemReader] start date :"+ DateUtil.yearMonthToString(startDate));
+                    log.info("[RestItemReader] end date :"+ DateUtil.yearMonthToString(endDate));
 
                     return null;    // reader 종료
                 }
 
                 // 매매 거래 정보 수집 //
-                log.info("[collectRealtyJob] reader operation mode");
+                log.info("[RestItemReader] reader operation mode");
 
                 tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
@@ -195,7 +183,8 @@ public class RestItemReader implements ItemReader<TradeDTO> {
             }
 
         }catch(NullPointerException e){
-            e.printStackTrace();
+
+            log.info("[RestItemReader] 매매 데이터가 존재하지 않습니다. (지역코드 : "+ lawdCd+")");
         } catch(Exception e){
             e.printStackTrace();
         }
