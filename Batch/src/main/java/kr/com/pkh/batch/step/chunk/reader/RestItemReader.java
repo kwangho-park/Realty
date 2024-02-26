@@ -1,9 +1,11 @@
 package kr.com.pkh.batch.step.chunk.reader;
 
 
+import kr.com.pkh.batch.code.CustomErrorCode;
 import kr.com.pkh.batch.dao.RegionCodeRepository;
 import kr.com.pkh.batch.dto.RegionCodeEntity;
 import kr.com.pkh.batch.dto.TradeDTO;
+import kr.com.pkh.batch.exception.CustomException;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.singleton.Scope;
 import kr.com.pkh.batch.util.DateUtil;
@@ -22,6 +24,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static kr.com.pkh.batch.code.CustomErrorCode.DATE_FLAG;
+import static kr.com.pkh.batch.code.CustomErrorCode.REGION_FLAG;
 
 
 @Slf4j
@@ -85,18 +90,30 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("region id : "+scope.getRegionId());
                 log.info("region size : "+scope.regionCodeSize());
 
-                // reader 종료 시점 제어 //
-                // 지역코드 전체 순환
+                // reader 동작 제어 //
+                // reader 종료 시점 : 전체 페이지 수집 -> 전체 지역코드 순환
                 if(scope.regionCodeSize() < (scope.getRegionId() + 1)){
-                    log.info("[RestItemReader] 부동산 매매 거래 데이터 수집완료 ");
+                    log.info("[read] 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
 
-                log.info("---------");
-                log.info("[RestItemReader] reader operation mode");
+                // reader 반복 종료 시점 : 페이지 전체 순환
+                if(scope.getTotalPage() < scope.getPageNo() && !(scope.getTotalPage()==0) ){
+
+                    // pageNo, totalPage 초기화
+                    scope.initPageNo();
+                    scope.initTotalPage();
+
+                    // 지역코드 업데이트
+                    scope.incrementRegionId();
+                    throw new CustomException(REGION_FLAG);
+                }
+
+
+                log.info("[read] reader operation mode");
+
 
                 // 매매 거래정보 수집 //
-
                 log.info("region id : "+scope.getRegionId());
                 log.info("region size : "+scope.regionCodeSize());
 
@@ -115,31 +132,13 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                         lawdCd,
                         dealYmd);
 
-                // 매매데이터가 존재하지 않는 경우 필터링 //
-                if(tradeDTO.getAptTradeDTOList().size()==0){
-
-                    // pageNo, totalPage 초기화
-                    scope.initPageNo();
-                    scope.initTotalPage();
-
-                    // 지역코드 업데이트
-                    scope.incrementRegionId();
-
-                    // Reader 반복의 break 역할
-                    // (예정) openAPI 에서 받은 반환값으로 예외처리 필요
-                    throw new NullPointerException();
-                }
-                // 수집 범위 설정 //
+                // 수집 페이지 범위 업데이트 //
                 scope.incrementPageNo();
                 scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
 
                 log.info("scope page no : "+ scope.getPageNo());
                 log.info("scope total page : "+ scope.getTotalPage() );
-                log.info("---------");
-
-
-
 
                 // 초기화 모드 (작업예정) //
             }else if(mode.toLowerCase().equals("init")){
@@ -147,18 +146,56 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 YearMonth startDate = scope.getStartDate();
                 YearMonth endDate = scope.getEndDate();
 
-                // reader 종료 시점 제어 //
-                // 시점 : 전체 페이지 수집 + 설정된 기간 순환
-                if(startDate.compareTo(endDate) > 0){
-                    log.info("[RestItemReader] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
-                    log.info("[RestItemReader] start date :"+ DateUtil.yearMonthToString(startDate));
-                    log.info("[RestItemReader] end date :"+ DateUtil.yearMonthToString(endDate));
-
-                    return null;    // reader 종료
+                // reader 동작 제어 //
+                // reader 종료 시점 : 전체 페이지 수집 -> 설정된 수집기간 순환 -> 전체 지역코드 순환
+                if(scope.regionCodeSize() < (scope.getRegionId() + 1)){
+                    log.info("[read] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
+                    return null;
                 }
 
+                // reader 반복 종료 시점 : 전체 기간 순환
+                if(startDate.compareTo(endDate) > 0){
+                    log.info("[read] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
+                    log.info("[read] start date :"+ DateUtil.yearMonthToString(startDate));
+                    log.info("[read] end date :"+ DateUtil.yearMonthToString(endDate));
+
+                    // pageNo, totalPage, 수집 날짜 초기화
+                    scope.initPageNo();
+                    scope.initTotalPage();
+                    scope.setStartDate(DateUtil.stringToYearMonth(this.startDate));
+
+
+                    // 지역코드 업데이트
+                    scope.incrementRegionId();
+
+                    throw new CustomException(REGION_FLAG);
+                }
+
+
+                // reader 반복 종료 시점 : 페이지 전체 순환
+                if(scope.getTotalPage() < scope.getPageNo() && !(scope.getTotalPage()==0) ){
+
+                    // pageNo, totalPage 초기화
+                    scope.initPageNo();
+                    scope.initTotalPage();
+
+                    // 수집 날짜 업데이트
+                    scope.incrementStartDate();
+                    throw new CustomException(DATE_FLAG);
+                }
+
+
                 // 매매 거래 정보 수집 //
-                log.info("[RestItemReader] reader operation mode");
+                log.info("[read] reader operation mode");
+
+                // 매매 거래정보 수집 //
+                log.info("region id : "+scope.getRegionId());
+                log.info("region size : "+scope.regionCodeSize());
+
+                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()) );
+                log.info("lawdCd : "+ lawdCd);
+
+                log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(scope.getStartDate()));
 
                 tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
@@ -167,24 +204,19 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                         DateUtil.yearMonthToString(scope.getStartDate()) );
 
 
-                // 수집 범위 설정 //
+                // 수집 페이지 범위 설정 //
                 scope.incrementPageNo();
                 scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
-                // 전체 페이지 조회 시 date 업데이트
-                if(!(scope.getPageNo() <= scope.getTotalPage()+1)){
-                    // start date 증가
-                    scope.incrementStartDate();
-
-                    // pageNo, totalPage 초기화
-                    scope.initPageNo();
-                    scope.initTotalPage();
-                }
             }
 
-        }catch(NullPointerException e){
+        }catch(CustomException e){
+            log.info("[read] "+e.getDetailMessage() +" = custom error code : "+e.getCustomErrorCode()
+                    +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-1 )
+                    +" / batch mode : "+mode+")");
 
-            log.info("[RestItemReader] 매매 데이터가 존재하지 않습니다. (지역코드 : "+ lawdCd+")");
+        } catch(NullPointerException e){
+            e.printStackTrace();
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -200,13 +232,20 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
         // batch mode 별 scope 설정 //
         if(mode.toLowerCase().equals("op")){
-
             scope.setScopeFlag(false);
+            scope.setPageNo(1);
+            scope.setNumOfRows(10);
+            scope.setTotalPage(0);
+
 
         } else if(mode.toLowerCase().equals("init")){
+
+            scope.setScopeFlag(false);
+            scope.setPageNo(1);
+            scope.setNumOfRows(10);
+            scope.setTotalPage(0);
             scope.setStartDate(DateUtil.stringToYearMonth(startDate));
             scope.setEndDate(DateUtil.stringToYearMonth(endDate));
-            scope.setScopeFlag(false);
         }
 
         // 지역코드 설정 //

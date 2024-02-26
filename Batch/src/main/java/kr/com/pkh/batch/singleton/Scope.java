@@ -21,8 +21,8 @@ public class Scope {
     private boolean ScopeFlag=true; // reader 최초 동작 시 startDate, endDate 설정하기 위한 flag
 
     // page //
-    private int pageNo = 1;         // 페이지 번호
-    private int numOfRows=10;       // 페이지당 row 수
+    private int pageNo = 0;         // 페이지 번호
+    private int numOfRows=0;       // 페이지당 row 수
     private int totalPage = 0;      // 전체 페이지 수
 
     // date //
@@ -61,6 +61,7 @@ public class Scope {
         pageNo=1;
     }
 
+
     // total page 업데이트
     public synchronized void updateTotalPage(String totalCount, int numOfRows){
         int totalCountInt=Integer.parseInt(totalCount);
@@ -88,4 +89,5 @@ public class Scope {
     public synchronized int regionCodeSize(){
         return regionCodeList.size() ;
     }
+
 }
