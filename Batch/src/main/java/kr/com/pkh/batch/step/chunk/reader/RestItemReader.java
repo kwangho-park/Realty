@@ -92,7 +92,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 // reader 동작 제어 //
                 // reader 종료 시점 : 전체 페이지 수집 -> 전체 지역코드 순환
-                if(scope.regionCodeSize() < (scope.getRegionId() + 1)){
+                if(scope.regionCodeSize() < (scope.getRegionId() )){
                     log.info("[read] 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
@@ -117,7 +117,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("region id : "+scope.getRegionId());
                 log.info("region size : "+scope.regionCodeSize());
 
-                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()) );
+                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()-1 ) );
                 log.info("lawdCd : "+ lawdCd);
 
                 LocalDate date = LocalDate.now();
@@ -140,7 +140,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("scope page no : "+ scope.getPageNo());
                 log.info("scope total page : "+ scope.getTotalPage() );
 
-                // 초기화 모드 (작업예정) //
+                // 초기화 모드 //
             }else if(mode.toLowerCase().equals("init")){
 
                 YearMonth startDate = scope.getStartDate();
@@ -148,7 +148,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 // reader 동작 제어 //
                 // reader 종료 시점 : 전체 페이지 수집 -> 설정된 수집기간 순환 -> 전체 지역코드 순환
-                if(scope.regionCodeSize() < (scope.getRegionId() + 1)){
+                if(scope.regionCodeSize() < (scope.getRegionId() )){
                     log.info("[read] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
@@ -192,7 +192,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("region id : "+scope.getRegionId());
                 log.info("region size : "+scope.regionCodeSize());
 
-                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()) );
+                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()-1) );
                 log.info("lawdCd : "+ lawdCd);
 
                 log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(scope.getStartDate()));
@@ -211,9 +211,19 @@ public class RestItemReader implements ItemReader<TradeDTO> {
             }
 
         }catch(CustomException e){
-            log.info("[read] "+e.getDetailMessage() +" = custom error code : "+e.getCustomErrorCode()
-                    +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-1 )
-                    +" / batch mode : "+mode+")");
+
+            // CustomErrorCode 종류에 따라 Region id 의 차이가 있음으로 분기처리 //
+            if(e.getCustomErrorCode() == DATE_FLAG){
+                log.info("[read] "+e.getDetailMessage() +" = custom error code : "+e.getCustomErrorCode()
+                        +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-1 )
+                        +" / batch mode : "+mode+")");
+
+            }else if(e.getCustomErrorCode() == REGION_FLAG){
+                log.info("[read] "+e.getDetailMessage() +" = custom error code : "+e.getCustomErrorCode()
+                        +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-2 )
+                        +" / batch mode : "+mode+")");
+            }
+
 
         } catch(NullPointerException e){
             e.printStackTrace();
