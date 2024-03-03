@@ -8,12 +8,15 @@
 ![realty ui 설계](https://github.com/kwangho-park/Realty/assets/44250982/8dba90da-19e9-4f56-8c9e-255808e9fb25)
 
 
-# 구조 설계 
-- front-end 는 web app 과 mobile app 으로 서비스
-- 서버 구조  
-  = batch : 부동산 정보 수집  
-  = realtyServer : 데이터 가공 및 web view 제공  
-- 클라우드 서버 운영을 위한 멀티테넌트 기능
+# Realty app 구성  
+- front-end 는 web app 과 mobile app 으로 서비스 
+- back-end 구조    
+  = batch : 부동산 정보 수집 및 가공하는 데몬   
+  = realtyServer : 데이터 가공 및 web view 제공하는 웹 서버    
+  ![Realty 서비스 구성도](https://github.com/kwangho-park/Realty/assets/44250982/dce00314-ce67-4713-a358-d9fa1c686a99)
+
+
+
   
 # 운영환경 
 - AWS 클라우드 EC2 또는 Elastic Beanstalk 배포 및 운영
