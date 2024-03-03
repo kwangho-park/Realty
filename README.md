@@ -12,9 +12,10 @@
 - front-end 는 web app 과 mobile app 으로 서비스 
 - back-end 구조    
   = batch : 부동산 정보 수집 및 가공하는 데몬   
-  = realtyServer : 데이터 가공 및 web view 제공하는 웹 서버    
-  ![Realty 서비스 구성도](https://github.com/kwangho-park/Realty/assets/44250982/dce00314-ce67-4713-a358-d9fa1c686a99)
+  = realtyServer : 데이터 가공 및 web view 제공하는 웹 서버   
+  ![Realty 서비스 구성도](https://github.com/kwangho-park/Realty/assets/44250982/a33e138a-35fd-40e0-a54e-f885ac05d098)   
 
+  
   
 # 주요 기능 
 - 부동산 실거래 데이터 수집 및 통계연산 (전세가율, 평단가 등)
