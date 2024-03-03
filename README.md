@@ -11,8 +11,9 @@
 # Realty app 구성  
 - front-end 는 web app 과 mobile app 으로 서비스 
 - back-end 구조    
-  = batch : 부동산 정보 수집 및 가공하는 데몬   
-  = realtyServer : 데이터 가공 및 web view 제공하는 웹 서버   
+  = batch : 부동산 정보 수집 및 가공하는 데몬     
+  = realtyServer : 데이터 가공 및 web view 제공하는 웹 서버  
+  = Redis : client 의 세션정보를 공유    
   ![Realty 서비스 구성도](https://github.com/kwangho-park/Realty/assets/44250982/a33e138a-35fd-40e0-a54e-f885ac05d098)   
 
   
