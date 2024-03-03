@@ -15,11 +15,6 @@
   = realtyServer : 데이터 가공 및 web view 제공하는 웹 서버    
   ![Realty 서비스 구성도](https://github.com/kwangho-park/Realty/assets/44250982/dce00314-ce67-4713-a358-d9fa1c686a99)
 
-
-
-  
-# 운영환경 
-- AWS 클라우드 EC2 또는 Elastic Beanstalk 배포 및 운영
   
 # 주요 기능 
 - 부동산 실거래 데이터 수집 및 통계연산 (전세가율, 평단가 등)
