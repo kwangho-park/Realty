@@ -18,7 +18,7 @@
   
 # 주요 기능 
 - 부동산 실거래 데이터 수집 및 통계연산 (전세가율, 평단가 등)
-- kakao map 으로 지역별 부동산 매물정보 제공
+- Naver map 으로 지역별 부동산 매물정보 제공
 - 부동산 매물에 대한 상세정보 제공 (건축연도, 용적률, 건폐율, 대지지분 등)
 - 사용자의 사용패턴 분석통계 /로그
 - 부동산 투자관련 통계차트 제공
@@ -29,5 +29,5 @@
 - 브이월드 : https://www.vworld.kr/dtna/dtna_apiSvcFc_s001.do?apiNum=6
 - 부동산 거래현황 통계조회 서비스 (공공데이터 포털) : https://www.data.go.kr/data/15099361/openapi.do#/API%20%EB%AA%A9%EB%A1%9D/getgetRealEstateTradingAreaDealer
 - 부동산 거래현황통계 조회서비스 **'가이드'** 및 **'지역코드'** (한국 부동산원) : https://www.reb.or.kr/reb/na/ntt/selectNttInfo.do?mi=10251&bbsId=1268&nttSn=79542![image](https://github.com/kwangho-park/Realty/assets/44250982/cdff3400-eeb8-4399-a9bc-062227a62c20)
-- kakao map API : https://apis.map.kakao.com/
+- Naver map API : https://guide.ncloud-docs.com/docs/maps-overview
 
