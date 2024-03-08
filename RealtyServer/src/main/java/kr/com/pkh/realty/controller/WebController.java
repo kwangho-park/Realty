@@ -34,9 +34,9 @@ public class WebController {
 		// 세션반환
 		HttpSession session = request.getSession(false);
 		
-		// 로그인한 사용자가 아닌 경우
+		// 세션이 형성되지않은 사용자인 경우 //
 		if(session == null) {
-			return "redirect:/login/index";
+			return "redirect:/login";
 		}
 		
 		UserInfoEntity user = (UserInfoEntity)session.getAttribute(SessionConst.LOGIN_USER);
@@ -44,9 +44,11 @@ public class WebController {
 		
 		if(user == null) {
 			model.addAttribute("msg", "로그인 실패");
-			return "login/index";
+			return "login";
 		}
-		
+
+
+		// 세션이 형성된 사용자인 경우 (로그인 상태) //
 		List<String> typeSSH = new ArrayList<>();
 		List<String> typeRDP = new ArrayList<>();
 		
@@ -57,14 +59,14 @@ public class WebController {
 				typeRDP.add(app.getAppProtocol());
 			}
 		}
-			
+
 		model.addAttribute("user", user);
 		model.addAttribute("app", appList);
 		model.addAttribute("typeSSH", typeSSH);
 		model.addAttribute("typeRDP", typeRDP);
 		
 		
-		return "user/user";
+		return "user/user";		// web view path
 	}
     
     @GetMapping("/login")
