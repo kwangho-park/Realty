@@ -45,28 +45,15 @@ public class WebController {
 		if(user == null) {
 			model.addAttribute("msg", "로그인 실패");
 			return "login";
+
+		}else{	// 로그인 되어 있는 사용자인 경우
+			model.addAttribute("user", user);
+			model.addAttribute("app", appList);
+
+			return "user/user";		// web view path
 		}
 
 
-		// 세션이 형성된 사용자인 경우 (로그인 상태) //
-		List<String> typeSSH = new ArrayList<>();
-		List<String> typeRDP = new ArrayList<>();
-		
-		for(AppInfoEntity app : appList) {
-			if(app.getAppProtocol().equals("SSH")) {
-				typeSSH.add(app.getAppProtocol());
-			} else if(app.getAppProtocol().equals("RDP")){
-				typeRDP.add(app.getAppProtocol());
-			}
-		}
-
-		model.addAttribute("user", user);
-		model.addAttribute("app", appList);
-		model.addAttribute("typeSSH", typeSSH);
-		model.addAttribute("typeRDP", typeRDP);
-		
-		
-		return "user/user";		// web view path
 	}
     
     @GetMapping("/login")

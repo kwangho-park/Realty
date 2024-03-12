@@ -85,6 +85,16 @@ CREATE TABLE IF NOT EXISTS realty.TB_USER_INFO (
     PRIMARY KEY (`UI_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='사용자 정보 테이블 (Manager를 통해 인증 받은 정보)';
 
+-- 사용자 로그 테이블 
+CREATE TABLE IF NOT EXISTS realty.TB_USER_LOG (
+  `UL_ID` INT NOT NULL AUTO_INCREMENT,
+  `UL_USER_ID` VARCHAR(45) NULL,
+  `UL_USER_NAME` VARCHAR(50) NULL COMMENT '사용자명',
+  `UL_ACTION` VARCHAR(10) NULL COMMENT '로그인(LOGIN), 로그아웃(LOGOUT), 조회(S), 생성(C), 수정 (U), 삭제 (D)',
+  `UL_DATETIME` DATETIME NULL,
+  PRIMARY KEY (`UL_ID`))
+ENGINE = InnoDB
+COMMENT = '사용자 로그 테이블';
 
 
 -- batch 테스트 테이블 (제거예정)
