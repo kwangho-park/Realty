@@ -16,6 +16,9 @@ import kr.com.pkh.realty.entity.AppInfoEntity;
 import kr.com.pkh.realty.entity.UserInfoEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -65,16 +68,7 @@ public class WebController {
     public String dashboard() {
         return "dashboard/dashboard";
     }
-    
-//    @GetMapping("/app")
-//    public String application() {
-//        return "application/applicationList";
-//    }
-    
-//    @GetMapping("/user")
-//    public String user() {
-//    	return "user/user";
-//    }
+
 
     @GetMapping("/session-info")
     public String sessionInfo(HttpServletRequest request) {
@@ -91,15 +85,10 @@ public class WebController {
     	return "redirect:/";
     
     }
-    
-//    @GetMapping("/")
-//    public String index() {
-//        return "redirect:/login";
-//    }
 
-//    @GetMapping("/")
-//    public String index() {
-//        return "index";
-//    }
+    @GetMapping("/register")
+    public String index() {
+        return "register/register";
+    }
 
 }

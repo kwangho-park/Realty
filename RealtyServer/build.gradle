@@ -33,6 +33,7 @@ dependencies {
 
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
     implementation 'org.glassfish.jaxb:jaxb-runtime'
+    implementation 'org.jboss.logging:jboss-logging'
 
     //implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.1'      // Entity, DTO parsing lib
 	implementation 'org.modelmapper:modelmapper:3.1.0'

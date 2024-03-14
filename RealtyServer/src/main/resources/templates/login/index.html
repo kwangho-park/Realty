@@ -9,6 +9,8 @@
 		rel="stylesheet">
 	<link th:href="@{/bootstrap/css/sb-admin-2.min.css}" rel="stylesheet">
 
+	<title>Realty</title>
+
 </head>
 
 <body class="bg-gradient-light sidebar-toggled">
@@ -30,7 +32,7 @@
 								<div class="p-5">
 									<div class="text-center">
 										<!--<a href="#"><img
-												src="/dreamsecurity/dreamsecurity_logo(background_cut).png"></a>-->
+												src="/test.png"></a>-->
 									</div>
 									<hr><br>
 									<form class="user" role="form" action="/login" th:object="${memberForm}" method="post">
@@ -54,11 +56,11 @@
                                             </div>
                                         </div>-->
 										<button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
-										<!--<a href="javascript:login();" class="btn btn-primary btn-user btn-block"
-											id="login">
-											Login
-										</a>-->
 									</form>
+									<br>
+									<a href="/register" class="btn btn-primary btn-user btn-block" id="register">
+										회원가입
+									</a>
 									<hr>
 									<!--<div class="text-center">
                                         <a class="small" href="#">Create an Account!</a>
@@ -76,14 +78,18 @@
 	</div>
 
 <script>
-	console.log("login.html");
+
+
 	$(document).ready(function(){
 		var message = "[[${msg}]]";
 		if(message != ""){
 			alert(message);
 		}
-		
 	});
+
+	function register(){
+		alert("test");
+	}
 	
 </script>
 

@@ -33,28 +33,7 @@ public class UserController {
     	
     	return "/user/user";
     }
-    
-//    @GetMapping("/info")
-//    public String userInfo(HttpServletRequest request, HttpServletResponse reponse, Model model) {
-//    	
-////    	UserInfoEntity userInfo = (UserInfoEntity) request.getSession().getAttribute(SessionConst.LOGIN_USER);
-//    	
-//    	UserInfoDTO user = userInfoservice.getUser();
-//    	
-//    	
-//    	model.addAttribute("user", user);
-//    	
-//    	return "/user/user";
-//    }
-    
-    
-    
-    
-    
-//    @GetMapping("/list")
-//    public String userlist(Model model) {
-//        List<UserInfoEntity> userList = this.userRepository.findAll();
-//        model.addAttribute("userList", userList);
-//        return "user/user";      // template 파일명 (=html 파일)
-//    }
+
+
+
 }

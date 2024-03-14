@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import kr.com.pkh.realty.interceptor.LogInterceptor;
 import kr.com.pkh.realty.interceptor.LoginCheckInterceptor;
 
+// spring boot 의 서버 설정
+// =spring 의 web.xml 설정 대체
 @Component
 public class WebConfig implements WebMvcConfigurer{
 	
@@ -21,20 +23,21 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
+		// 미사용 interceptor
 		registry.addInterceptor(new LogInterceptor()) // LogInterceptor 등록
 //		.order(1)	// 적용할 필터 순서 설정
 //		.addPathPatterns("", "/**")
-//		 static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
-		.excludePathPatterns(EXCLUDEPATHPATTERNS)
-		.excludePathPatterns("/error", "/session/login", "/login"); // 인터셉터에서 제외할 패턴
+		.excludePathPatterns(EXCLUDEPATHPATTERNS)	// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
+		.excludePathPatterns("/error", "/session/login", "/login" ,"/register"); // 인터셉터에서 제외할 패턴
 
-		
-		registry.addInterceptor(new LoginCheckInterceptor()) // LogInterceptor 등록
+
+
+		registry.addInterceptor(new LoginCheckInterceptor()) // LoginCheckInterceptor 등록
 //		.order(1)	// 적용할 필터 순서 설정
-//		.addPathPatterns("", "/**") 
-		// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
-		.excludePathPatterns(EXCLUDEPATHPATTERNS)
-		.excludePathPatterns("/error", "/session/login", "/login"); // 인터셉터에서 제외할 패턴
-}
+		.addPathPatterns("", "/**")
+		.excludePathPatterns(EXCLUDEPATHPATTERNS)	// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
+		.excludePathPatterns("/error", "/session/login", "/login" , "/register"); // 인터셉터에서 제외할 패턴
+
+	}
 
 }
