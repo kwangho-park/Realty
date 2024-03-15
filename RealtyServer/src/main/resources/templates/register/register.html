@@ -21,6 +21,66 @@
     <link th:href="@{/bootstrap/vendor/fontawesome-free/css/all.min.css}"  rel="stylesheet" type="text/css">
     <link th:href="@{/bootstrap/css/sb-admin-2.min.css}" rel="stylesheet">
 
+    <!-- jQuery CDN 사용 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script th:inline="javascript">
+
+        $(function(){
+
+            $('#btn-register-user').button().on("click", function() {
+                console.log("test1");
+                registerUser();
+            });
+        })
+
+        function registerUser(){
+            console.log("test2");
+
+            // 현재 페이지의 URL 가져오기
+            var currentUrl = window.location.href;
+
+            // URL을 파싱하여 필요한 정보 추출
+            var parser = document.createElement('a');
+            parser.href = currentUrl;
+
+            // 서버의 IP 주소, 포트 및 Context Path 가져오기
+            var serverIp = parser.hostname;
+            var serverPort = parser.port;
+
+            var contextPath = /*[[@{/}]]*/ '';
+            console.log(contextPath);
+
+            $.ajax({
+                type : 'POST',
+                url : "http://"+serverIp+":"+serverPort+"/register",
+                data : JSON.stringify(
+                    {
+                        "userId" : $('#id').val().trim(),
+                        "userPw" : $('#password').val().trim(),
+                        "userName" : $('#name').val().trim()
+                    }
+                ),
+                contentType: 'application/json',
+                success : function (resp) {
+                    console.log("test3");
+
+                    if(resp=="SUCCESS"){
+                        alert("회원가입 성공")
+                    }else{
+                        alert("회원가입 실패")
+                    }
+                },
+                error:function(request,status,error){
+                    alert("error:"+status);
+                }
+            });
+        }
+
+    </script>
+
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -58,6 +118,12 @@
 <!--                                            id="exampleRepeatPassword" placeholder="Repeat Password">-->
 <!--                                    </div>-->
 <!--                                </div>-->
+
+                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                    회원가입
+                                </a>
+
+                                <button type="button" class="btn btn-info btn-xs" id="btn-register-user"><i class="fa fa-save fa-fw"></i>회원가입</button>
 
                                 <a href="login.html" class="btn btn-primary btn-user btn-block">
                                     Register Account

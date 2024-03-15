@@ -23,13 +23,14 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
-		// 미사용 interceptor
-		registry.addInterceptor(new LogInterceptor()) // LogInterceptor 등록
+		// 추후 사용 interceptor
+		/*
+		registry.addInterceptor(new LogInterceptor())
 //		.order(1)	// 적용할 필터 순서 설정
 //		.addPathPatterns("", "/**")
-		.excludePathPatterns(EXCLUDEPATHPATTERNS)	// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
-		.excludePathPatterns("/error", "/session/login", "/login" ,"/register"); // 인터셉터에서 제외할 패턴
-
+		.excludePathPatterns(EXCLUDEPATHPATTERNS)
+		.excludePathPatterns("/error", "/session/login", "/login" ,"/register");
+		*/
 
 
 		registry.addInterceptor(new LoginCheckInterceptor()) // LoginCheckInterceptor 등록
@@ -37,7 +38,6 @@ public class WebConfig implements WebMvcConfigurer{
 		.addPathPatterns("", "/**")
 		.excludePathPatterns(EXCLUDEPATHPATTERNS)	// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
 		.excludePathPatterns("/error", "/session/login", "/login" , "/register"); // 인터셉터에서 제외할 패턴
-
 	}
 
 }

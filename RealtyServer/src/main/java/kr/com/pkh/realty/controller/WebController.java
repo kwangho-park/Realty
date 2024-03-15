@@ -87,7 +87,7 @@ public class WebController {
     }
 
     @GetMapping("/register")
-    public String index() {
+    public String register() {
         return "register/register";
     }
 
