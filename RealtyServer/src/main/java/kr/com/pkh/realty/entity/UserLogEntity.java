@@ -1,17 +1,13 @@
 package kr.com.pkh.realty.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+import jakarta.persistence.*;
+import lombok.Data;
+@Data
 @Entity
 @Table(name = "TB_USER_LOG")       // 테이블명
 public class UserLogEntity {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="UL_ID", length = 11)      // ai
     private int id;

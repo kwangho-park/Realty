@@ -1,5 +1,6 @@
 package kr.com.pkh.realty.controller;
 
+import jakarta.validation.Valid;
 import kr.com.pkh.realty.dto.RegisterDTO;
 import kr.com.pkh.realty.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+
 
 @Slf4j
 @RequiredArgsConstructor    // 의존 객체 주입 어노테이션 (=@Autowired 대체)
@@ -21,7 +22,7 @@ public class RegisterController {
     private final UserInfoService userInfoservice;
 
     @RequestMapping(method = RequestMethod.POST, value= "")
-    public @ResponseBody String searchLogDTO(@RequestBody RegisterDTO registerDTO) throws Exception {
+    public @ResponseBody String searchLogDTO(@RequestBody @Valid RegisterDTO registerDTO) throws Exception {
 
         log.info("사용자 신규 등록 (user id) : "+registerDTO.getUserId() );
         return String.valueOf(userInfoservice.registerUser(registerDTO));

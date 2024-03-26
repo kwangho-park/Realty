@@ -1,21 +1,18 @@
 package kr.com.pkh.realty.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 // JPA repository 객체에서 사용하는 객체 (=table 구조)
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "TB_USER_INFO")       // 테이블명
 public class UserInfoEntity {
 
 
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)      = mariadb 의 auto increment 대체
+    @GeneratedValue(strategy = GenerationType.IDENTITY)      // auto increment 또는 시퀀스 정의 (db의 key값을 사용)
     @Id
     @Column(name="UI_ID", length = 11)
     private int id;
