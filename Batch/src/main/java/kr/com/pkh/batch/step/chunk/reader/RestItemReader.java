@@ -28,7 +28,19 @@ import java.util.Map;
 import static kr.com.pkh.batch.code.CustomErrorCode.DATE_FLAG;
 import static kr.com.pkh.batch.code.CustomErrorCode.REGION_FLAG;
 
-
+/**
+ * 0. 공통
+ * - 수도권의 아파트 매매정보는 공공데이터 포탈의 openAPI로 지역코드와 날짜(월) 을 기준으로 조회
+ *  (N개의 페이지가 반환 될 수 있음)
+ * - 지역코드는 realty DB의 테이블에 저장되어있음
+ *
+ * 1. 운영 모드 (op)
+ * - 배치가 실행되는 월의 수도권 (서울시, 경기도, 인천시) 데이터 조회
+ *
+ * 2. 초기화 모드 (init)
+ * - properties 에 지정한 날짜 구간의 수도권 데이터 조회
+ *
+ */
 @Slf4j
 @Component
 public class RestItemReader implements ItemReader<TradeDTO> {
@@ -62,10 +74,10 @@ public class RestItemReader implements ItemReader<TradeDTO> {
      */
     @Override
     public TradeDTO read() {
-
+        log.info("[read] START");
         TradeDTO tradeDTO = new TradeDTO();
 
-        String lawdCd="";
+        String lawdCd="";           // 지역코드
         String numOfRows="";        // (예정) 공공데이터 포탈 일 최대 트래픽 1,000건으로 인해 row 설정가능하도록 변경예정 (10-> row MAX)
 
         String dealYmd="";
@@ -91,13 +103,13 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("region size : "+scope.regionCodeSize());
 
                 // reader 동작 제어 //
-                // reader 종료 시점 : 전체 페이지 수집 -> 전체 지역코드 순환
+                // reader 종료 시점 : 전체 페이지 수집 완료 -> 전체 지역코드 순환 완료
                 if(scope.regionCodeSize() < (scope.getRegionId() )){
                     log.info("[read] 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
 
-                // reader 반복 종료 시점 : 페이지 전체 순환
+                // reader 반복 종료 시점 : 페이지 전체 순환 완료
                 if(scope.getTotalPage() < scope.getPageNo() && !(scope.getTotalPage()==0) ){
 
                     // pageNo, totalPage 초기화
@@ -230,7 +242,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
         } catch(Exception e){
             e.printStackTrace();
         }
-
+        log.info("[read] END");
         return tradeDTO;
     }
 

@@ -21,7 +21,7 @@ public class AptTradeProcessor implements ItemProcessor<TradeDTO, List<AptTradeE
     public List<AptTradeEntity> process(TradeDTO tradeDTO) {
 
         List<AptTradeEntity> aptTradeEntityList = new ArrayList<AptTradeEntity>();
-
+        log.info("[process] START");
         try{
 
 
@@ -44,6 +44,7 @@ public class AptTradeProcessor implements ItemProcessor<TradeDTO, List<AptTradeE
                 AptTradeEntity aptTradeEntity = new AptTradeEntity();
                 testId = random.nextInt(100);
                 testPnu = random.nextLong();
+                log.info("[process] name : "+aptTradeList.get(loop).getName());
 
                 aptTradeEntity.setId(aptTradeList.get(loop).getId());
                 aptTradeEntity.setPnu(aptTradeList.get(loop).getPnu());
@@ -59,6 +60,7 @@ public class AptTradeProcessor implements ItemProcessor<TradeDTO, List<AptTradeE
             e.printStackTrace();
         }
 
+        log.info("[process] END");
         return aptTradeEntityList;
 
     }

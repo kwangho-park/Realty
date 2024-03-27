@@ -26,7 +26,7 @@ public class AptTradeWriter implements ItemWriter<List<AptTradeEntity>> {
      */
     @Override
     public void write(List<? extends List<AptTradeEntity>> items) {
-
+        log.info("[write] START");
         try{
             for(List<AptTradeEntity> chunk : items){
 
@@ -38,6 +38,8 @@ public class AptTradeWriter implements ItemWriter<List<AptTradeEntity>> {
         }catch(Exception e){
             e.printStackTrace();
         }
+
+        log.info("[write] END");
     }
 
 }
