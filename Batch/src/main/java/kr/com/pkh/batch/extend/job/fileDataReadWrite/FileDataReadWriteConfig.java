@@ -71,7 +71,7 @@ public class FileDataReadWriteConfig {
     public FlatFileItemReader<Player> playerItemReader() {
         return new FlatFileItemReaderBuilder<Player>()
                 .name("playerItemReader")
-                .resource(new FileSystemResource("Players.csv"))        // [project home]/Players.csv
+                .resource(new FileSystemResource("fileTest.csv"))        // [project home]/Players.csv
                 .lineTokenizer(new DelimitedLineTokenizer())    // 콤마(,) 단위로 데이터를 나눔
                 .fieldSetMapper(new PlayerFieldSetMapper())     // CSV 파일의 데이터를 DTO로 파싱
                 .linesToSkip(1)                                 // CSV 파일의 첫 번째줄 스킵 (= column 명)
@@ -111,7 +111,7 @@ public class FileDataReadWriteConfig {
 
 
         // 파일 생성
-        FileSystemResource outputResource = new FileSystemResource("players_output.txt");
+        FileSystemResource outputResource = new FileSystemResource("fileTest_output.txt");
 
         return new FlatFileItemWriterBuilder<PlayerYears>()
                 .name("playerItemWriter")
