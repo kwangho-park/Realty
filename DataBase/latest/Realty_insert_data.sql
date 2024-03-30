@@ -20,7 +20,7 @@ insert into tb_app_info(AI_ID, AI_NAME, AI_PROXY_IP, AI_PROXY_PORT, AI_PROTOCOL,
 -- 발췌 : 시구군까지만
 -- 범위 : 서울시(25), 경기도, 인천시
 delete from tb_region_code ;
-alter tableE tb_region_code AUTO_INCREMENT=1;
+alter table tb_region_code AUTO_INCREMENT=1;
 
 insert into tb_region_code(RC_REGION_CODE,RC_LOCATADD_NAME) 
 values

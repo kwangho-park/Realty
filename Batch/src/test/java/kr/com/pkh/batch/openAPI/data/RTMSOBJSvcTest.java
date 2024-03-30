@@ -49,8 +49,8 @@ public class RTMSOBJSvcTest {
 
         String serviceKey=this.apiKey;
         String pageNo="1";
-        String numOfRows="10";
-        String LAWD_CD ="11140";        // 11590 : 서울시 동작구, 41192 : 부천시 원미구
+        String numOfRows="100";
+        String LAWD_CD ="41192";        // 11590 : 서울시 동작구, 41192 : 부천시 원미구
         String DEAL_YMD ="202402";
 
 
