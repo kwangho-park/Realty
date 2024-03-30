@@ -97,26 +97,6 @@ ENGINE = InnoDB
 COMMENT = '사용자 로그 테이블';
 
 
--- batch 테스트 테이블 (제거예정)
-CREATE TABLE orders (
-  id INT NOT NULL AUTO_INCREMENT,
-  order_item VARCHAR(45) NULL,
-  price INT NULL,
-  order_date DATE NULL,
-  PRIMARY KEY (id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '주문테이블';
-
-
--- batch 테스트 테이블 (제거예정)
-CREATE TABLE accounts (
-  id INT NOT NULL AUTO_INCREMENT,
-  order_item VARCHAR(45) NULL,
-  price INT NULL,
-  order_date DATE NULL,
-  account_date DATE NULL,
-  PRIMARY KEY (id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '정산테이블';
-
 
 -- RealtyServer 테스트 테이블 (제거예정)
 CREATE TABLE IF NOT EXISTS realty.TB_APP_INFO (

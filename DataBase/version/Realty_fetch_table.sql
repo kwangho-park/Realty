@@ -53,4 +53,6 @@ CREATE TABLE IF NOT EXISTS realty.TB_USER_LOG (
 ENGINE = InnoDB
 COMMENT = '사용자 로그 테이블';
 
-
+-- 테스트용 테이블 제거 
+drop table accounts;
+drop table orders;
