@@ -1,7 +1,6 @@
 package kr.com.pkh.batch.util;
-
-import kr.com.pkh.batch.util.json.parser.JSONParser;
 import kr.com.pkh.batch.util.json.parser.ParseException;
+import org.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +24,8 @@ public class HTTPrequest {
      * @return JSONObject web api 반환 데이터 json을 java json format 으로 반환
      *
      * @throws IOException
-     * @throws ParseException
      */
-    public static void responseJSON(String serviceDomain, String path, Map<String, String> parameters) throws IOException, ParseException {
+    public static JSONObject responseJSON(String serviceDomain, String path, Map<String, String> parameters) throws IOException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
@@ -35,7 +33,7 @@ public class HTTPrequest {
         String result = "";                   // http response code
         String message = "";                  // http response message
 
-
+        JSONObject obj = new JSONObject();
         try {
 
             // Create for HTTP get method URI //
@@ -88,8 +86,9 @@ public class HTTPrequest {
                 log.info("[success] response : " + response);
 
 
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse(response);
+                obj = new JSONObject(response);
+
+
 
 
             }else{
@@ -109,8 +108,10 @@ public class HTTPrequest {
         }catch(Exception e){
             e.printStackTrace();
         }
+        return obj;
 
     }   // responseJSON() END
+
 
 
     /**

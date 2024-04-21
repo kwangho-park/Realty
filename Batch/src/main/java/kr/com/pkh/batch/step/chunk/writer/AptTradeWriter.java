@@ -28,11 +28,13 @@ public class AptTradeWriter implements ItemWriter<List<AptTradeEntity>> {
     public void write(List<? extends List<AptTradeEntity>> items) {
         log.info("[write] START");
         try{
+            log.info("aptTrade wirter dfadfasdfsaf:: " + items.size());
             for(List<AptTradeEntity> chunk : items){
 
                 for(AptTradeEntity item: chunk){
                     repository.save((AptTradeEntity) item);
                     log.info("[batch-writer] id "+item.getId() +"/ pnu : "+item.getPnu() +" / name : "+item.getName() );
+                    log.info("[item address] {} ", item.getAddress());
                 }
             }
         }catch(Exception e){

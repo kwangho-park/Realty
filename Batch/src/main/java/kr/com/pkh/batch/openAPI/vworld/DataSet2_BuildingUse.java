@@ -2,6 +2,8 @@ package kr.com.pkh.batch.openAPI.vworld;
 
 
 import kr.com.pkh.batch.util.HTTPrequest;
+import org.json.JSONObject;
+import kr.com.pkh.batch.util.json.JsonUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +30,8 @@ public class DataSet2_BuildingUse {
 
     private String serviceDomain="https://api.vworld.kr";
 
+    @Value("${vworld.openApi.apikey}")
+    private String key;
     /**
      * 필지고유정보(pnu), 용도 정보를 통해 건물속성 조회
      *
@@ -52,10 +56,10 @@ public class DataSet2_BuildingUse {
 //                "mainPrposCode",mainPrposCode,                        // 옵션
 //                "detailPrposCode",detailPrposCode,                    // 옵션
                 "format",format,                                        // 옵션
-//                "numOfRows",numOfRows,                                // 옵션
+                 "numOfRows",numOfRows,                                // 옵션
 //                "pageNo",pageNo                                       // 옵션
-                "key", URLEncoder.encode(key,"UTF-8")               // 필수
-//                "domain",domain                                       // 옵션
+                "key", URLEncoder.encode(key,"UTF-8")       ,        // 필수
+                "domain",domain                                       // 옵션
         );
 
         HTTPrequest.responseJSON(serviceDomain, path,parameters);
@@ -104,6 +108,34 @@ public class DataSet2_BuildingUse {
 
         HTTPrequest.responseXML( serviceDomain,  servicePort,  commonPath,  path, parameters);
     }
+
+    public JSONObject getBuildingUse(String pnu) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+            String path = "/ned/data/getBuildingUse";
+
+            Map<String, String> parameters = Map.of(
+                    "pnu",URLEncoder.encode(pnu,"UTF-8"),           // 필수
+//                "mainPrposCode",mainPrposCode,                        // 옵션
+//                "detailPrposCode",detailPrposCode,                    // 옵션
+                    "format","json",                                        // 옵션
+                "numOfRows","1",                                // 옵션
+//                "pageNo",pageNo                                       // 옵션
+                    "key", URLEncoder.encode(key,"UTF-8") ,              // 필수
+                                    "domain","www.realty.co.kr"                                       // 옵션
+            );
+
+           jsonObject = HTTPrequest.responseJSON(serviceDomain, path,parameters);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+
 
 
 }

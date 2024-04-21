@@ -1,10 +1,15 @@
 package kr.com.pkh.batch.step.chunk.processor;
 
+import kr.com.pkh.batch.dao.AptTradeRepository;
 import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.dto.AptTradeEntity;
 import kr.com.pkh.batch.dto.TradeDTO;
+import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
+import kr.com.pkh.batch.openAPI.vworld.DataSet2_BuildingUse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

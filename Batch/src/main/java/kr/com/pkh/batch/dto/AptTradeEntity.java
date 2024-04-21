@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name="tb_apt_trade")
+@DynamicUpdate
 public class AptTradeEntity {
 
     //@GeneratedValue(strategy = GenerationType.IDENTITY) // pk 생성을 DB에 위임 (by mysql DB)
@@ -41,6 +43,8 @@ public class AptTradeEntity {
     @Column(name="AT_INSERT_DATETIME", length = 50)
     private LocalDateTime insertDateTime;            // 데이터 업데이트 일자
 
+    @Column(name="AT_ADDRESS" , length = 70)
+    private String address;
 
     // custom constructor
     public AptTradeEntity(AptTradeEntity aptTradeEntity){
@@ -49,6 +53,7 @@ public class AptTradeEntity {
         this.name = aptTradeEntity.getName();
         this.tradeDate = aptTradeEntity.getTradeDate();
         this.tradeAmount = aptTradeEntity.getTradeAmount();
+        this.address = aptTradeEntity.getAddress();
         this.insertDateTime = aptTradeEntity.getInsertDateTime();
 
     }

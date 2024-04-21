@@ -13,6 +13,8 @@ public class AptTradeDTO {
     String name="";         // 아파트명
     int tradeAmount=0;      // 매매가격
     String tradeDate="";    // 거래일자
+    String insertDateTime = "";
 
+    String address;         // 주소
 
 }
