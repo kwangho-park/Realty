@@ -33,7 +33,7 @@ public class RTMSOBJSvcTest {
 
         // when //
         // 지역코드 11590 : 서울시 동작구
-        // 지역코드 41190 : 부천시
+        // 지역코드 41192 : 부천시 원미구
         RTMSOBJSvc.getRTMSDataSvcAptTrade("11140", "202402");
 
         // then //

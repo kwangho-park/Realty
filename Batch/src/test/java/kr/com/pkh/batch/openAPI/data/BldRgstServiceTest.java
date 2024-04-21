@@ -37,10 +37,10 @@ public class BldRgstServiceTest {
         String pageNo ="1";
         String sigunguCd ="41192";       // 시군구코드(5자리) (필수) : 41192 (경기도 부천시 원미구)
         String bjdongCd ="10800";        // 법정동코드(5자리)  (필수) : 10800 (중동)
-        String platGbCd="0";            // 코지구분 (1자리) : 1 (대지)
+        String platGbCd="0";            // 코지구분 (1자리) : 0
         String bun="1051";              // 본번 (4자리) : 1051  (10510000 설악마을아파트 지번)
         String ji="0000";               // 지번 (4자리) : 0000
-        String dongNm="";
+        String dongNm="310";               // 301 동 = 공급면적 59, 310 동 = 공급면적 69
         String hoNm="";
         String startDate="";
         String endDate ="";

@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.16.0'     // base64 encoding
-
+    implementation 'org.json:json:20210307'
     runtimeOnly 'org.hsqldb:hsqldb'
 
     testImplementation 'org.projectlombok:lombok:1.18.28'

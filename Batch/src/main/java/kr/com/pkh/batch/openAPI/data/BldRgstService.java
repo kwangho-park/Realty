@@ -63,9 +63,9 @@ public class BldRgstService {
                     "bjdongCd",bjdongCd,
                     "platGbCd",platGbCd,
                     "bun",bun,
-                    "ji",ji
-//                    "dongNm",dongNm,
-//                    "hoNm",hoNm,
+                    "ji",ji,
+                    "dongNm",dongNm,
+                    "hoNm",hoNm
 //                    "startDate",startDate
             );
 
