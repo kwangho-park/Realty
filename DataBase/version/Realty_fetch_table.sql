@@ -56,3 +56,9 @@ COMMENT = '사용자 로그 테이블';
 -- 테스트용 테이블 제거 
 drop table accounts;
 drop table orders;
+
+
+-- 아파트 건물정보 테이블에서 관리하는것으로 변경하여 제거 (TB_APT_BUILDING)
+ALTER TABLE realty.tb_realty_info DROP COLUMN RI_GPS;
+ALTER TABLE realty.tb_realty_info DROP COLUMN RI_GIS;
+
