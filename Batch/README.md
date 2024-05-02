@@ -15,3 +15,4 @@
 # batch 개발환경 설정 
 - application.properties 파일 추가 : [project home path]/src/resources 경로
 - 실행하려는 job 의 program argument 추가 : --spring.batch.job.names=aptSyncJob
+- 
