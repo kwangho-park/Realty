@@ -1,5 +1,7 @@
 package kr.com.pkh.batch.extend.job.standard;
 
+import kr.com.pkh.batch.dao2.UserInfoService;
+import kr.com.pkh.batch.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 
 
 /**
@@ -33,6 +36,10 @@ public class StandardConfig {
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
+
+
+	@Autowired
+	private UserInfoService userInfoService;
 
 	@Bean
 	public Job standardJob(){
@@ -59,6 +66,20 @@ public class StandardConfig {
 			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 
 				System.out.println("[tasklet] standard task");
+
+				//// mybatis 설정 테스트
+				ArrayList<UserInfoDTO> list =  userInfoService.selectUserList();
+
+
+				for(int loop=0 ; loop<list.size();loop++){
+					int id = list.get(loop).getUI_ID();
+					String userId = list.get(loop).getUI_USER_ID();
+					String userName = list.get(loop).getUI_USER_NAME();
+					String userPw = list.get(loop).getUI_USER_PW();
+
+					System.out.println(id+"/"+userId+"/"+userName+"/"+userPw);
+				}
+
 				return RepeatStatus.FINISHED;
 			}
 		};
