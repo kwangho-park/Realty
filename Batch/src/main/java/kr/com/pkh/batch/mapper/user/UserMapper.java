@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.dao2;
+package kr.com.pkh.batch.mapper.user;
 
 import kr.com.pkh.batch.dto.UserInfoDTO;
 import org.apache.ibatis.annotations.Mapper;

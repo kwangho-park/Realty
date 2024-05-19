@@ -1,6 +1,6 @@
 package kr.com.pkh.batch.extend.job.standard;
 
-import kr.com.pkh.batch.dao2.UserInfoService;
+import kr.com.pkh.batch.service.user.UserService;
 import kr.com.pkh.batch.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -39,7 +39,7 @@ public class StandardConfig {
 
 
 	@Autowired
-	private UserInfoService userInfoService;
+	private UserService userInfoService;
 
 	@Bean
 	public Job standardJob(){

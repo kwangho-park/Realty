@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.crypto;
+package kr.com.pkh.batch.util;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
