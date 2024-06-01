@@ -5,6 +5,11 @@ ALTER TABLE realty.tb_apt_trade CHANGE AT_TRADE_DATETIME AT_TRADE_DATE varchar(5
 -- 검색 성능을 위한 index 속성 추가 
 alter table realty.tb_apt_trade add index idx(AT_PNU, AT_TRADE_DATE);
 
+-- 아파트 주소 칼럼 추가
+-- [고도화] 로그성 데이터에 불필요한 데이터로 판단되어 추후 TB_APT_BUILDING 테이블의 AB_ADDRESS 로 대체 예정임
+ALTER TABLE realty.tb_apt_trade ADD AT_ADDRESS varchar(70) NULL COMMENT '아파트 단지 주소';
+
+
 -- tb_region_code --
 ALTER TABLE realty.tb_region_code CHANGE RC_ADPT_DATE RC_INSERT_DATE DATETIME NULL COMMENT '생성일';
 -- region code 가 10자리 임으로 int(11) 타입으로 저장 시 Out of range 발생하여 BIGINT 타입으로 변경 
