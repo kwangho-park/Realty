@@ -1,6 +1,7 @@
 package kr.com.pkh.realty.controller;
 
 import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import kr.com.pkh.realty.entity.UserInfoEntity;
 import kr.com.pkh.realty.service.AuthenticationService;
 import lombok.extern.log4j.Log4j2;
 
@@ -27,17 +27,18 @@ public class AuthenticationController {
 	@Autowired
 	AuthenticationService authenticationService;
 
+	@Autowired
+	UserInfoService userInfoService;
+
 	@PostMapping("/login")
 	public String login(@ModelAttribute UserInfoDTO form, BindingResult bindingResult,
 						RedirectAttributes redirectAttributes, HttpServletResponse reponse, HttpServletRequest request, Model model)
 			throws Exception {
 
 		log.info("id: " + form.getUserId() + " / pw: " + form.getUserPw());
+		UserInfoDTO userInfoDTO = userInfoService.getUserInfo(form);
 
-		UserInfoEntity user = authenticationService.login(form.getUserId(), form.getUserPw());
-
-
-		if (user == null) {
+		if (userInfoDTO == null) {
 			model.addAttribute("msg", "로그인 실패");
 			return "login/index";
 		}
@@ -46,8 +47,9 @@ public class AuthenticationController {
 		HttpSession session = request.getSession();
 
 		// 세션에 로그인 회원정보 보관
-		session.setAttribute(SessionConst.LOGIN_USER, user);
-//		redirectAttributes.addFlashAttribute("msg", "로그인 성공");
+		session.setAttribute(SessionConst.LOGIN_USER, userInfoDTO);
+		log.info("login Info {} ", (UserInfoDTO) session.getAttribute(SessionConst.LOGIN_USER));
+		redirectAttributes.addFlashAttribute("msg", "로그인 성공");
 
 		return "redirect:/";
 	}

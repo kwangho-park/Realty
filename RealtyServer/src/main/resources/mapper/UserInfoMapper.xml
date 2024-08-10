@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.com.pkh.realty.dao.UserInfoMapper">
+    <resultMap type="kr.com.pkh.realty.dto.UserInfoDTO" id="userInfoResultMap">
+        <id column="USER_NAME" property="userName"/>
+        <result column="USER_ID" property="userId"/>
+    </resultMap>
+    <select id="selectUserNameById2" resultType="String" parameterType="String">
+        SELECT
+            UI_USER_NAME
+        FROM
+            REALTY.TB_USER_INFO
+        WHERE
+            UI_USER_ID = #{id}
+    </select>
+    <select id="selectUserInfo" resultMap="userInfoResultMap">
+        SELECT
+             UI_USER_NAME AS USER_NAME
+            ,UI_USER_ID AS USER_ID
+        FROM
+            REALTY.TB_USER_INFO
+        WHERE 1=1
+            AND UI_USER_ID = #{userId}
+            AND UI_USER_PW = #{userPw}
+    </select>
+</mapper>

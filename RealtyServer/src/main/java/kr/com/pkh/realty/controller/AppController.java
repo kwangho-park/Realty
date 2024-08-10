@@ -4,12 +4,7 @@ import java.util.List;
 
 import kr.com.pkh.realty.dto.AppInfoDTO;
 import kr.com.pkh.realty.dto.UserInfoDTO;
-import kr.com.pkh.realty.entity.AppInfoEntity;
-import kr.com.pkh.realty.repository.AppInfoRepository;
 import kr.com.pkh.realty.service.UserInfoService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +34,10 @@ public class AppController {
 						@RequestParam(value = "page", defaultValue = "1") int page) throws Exception {
 
 		UserInfoDTO user = userInfoservice.getUser();
-		Page<AppInfoDTO> paging = appInfoService.getAppList(page - 1);
+		//Page<AppInfoDTO> paging = appInfoService.getAppList(page - 1);
 
 		model.addAttribute("user", user);
-		model.addAttribute("paging", paging);
+		model.addAttribute("paging",0);
 
 		return "app/appList";
 	}
