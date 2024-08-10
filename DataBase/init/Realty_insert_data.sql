@@ -11,11 +11,6 @@ INSERT INTO orders(order_item, price, order_date) values ('커피', 4000, '2022-
 INSERT INTO orders(order_item, price, order_date) values ('교보문고', 13800, '2022-03-05');
 INSERT INTO orders(order_item, price, order_date) values ('카카오 선물', 5500, '2022-03-06')
 
--- RealtyServer 테스트 데이터
-insert into tb_app_info(AI_ID, AI_NAME, AI_PROXY_IP, AI_PROXY_PORT, AI_PROTOCOL, AI_URI, AI_DESCRIPTION) values ('1','realty_app','1.1.1.1','8443','http','https://127.0.0.1:8080/realty','설명');
-insert into tb_app_info(AI_ID, AI_NAME, AI_PROXY_IP, AI_PROXY_PORT, AI_PROTOCOL, AI_URI, AI_DESCRIPTION) values ('2','map','1.1.1.2','8443','http','https://127.0.0.1:8080/map','지도앱');
-insert into tb_app_info(AI_ID, AI_NAME, AI_PROXY_IP, AI_PROXY_PORT, AI_PROTOCOL, AI_URI, AI_DESCRIPTION) values ('3','batch','1.1.1.3','8443','http','https://127.0.0.1:8080/batch','배치앱');
-
 -- 법정동 코드 데이터  (2024.02.08 기준)
 -- 발췌 : 시구군까지만
 -- 범위 : 서울시(25), 경기도, 인천시
