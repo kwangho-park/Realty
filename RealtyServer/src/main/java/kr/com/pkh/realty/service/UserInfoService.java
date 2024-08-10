@@ -36,7 +36,12 @@ public class UserInfoService {
 
 
 
+
     public UserInfoDTO getUserInfo(UserInfoDTO dto) {
         return userInfoMapper.selectUserInfo(dto);
     }
+    public int registUser(UserInfoDTO dto) {
+        return userInfoMapper.insertUserInfo(dto);
+    }
+
 }

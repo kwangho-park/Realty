@@ -23,4 +23,18 @@
             AND UI_USER_ID = #{userId}
             AND UI_USER_PW = #{userPw}
     </select>
+
+    <select id="insertUserInfo" resultType="int">
+        INSERT INTO
+            REALTY.TB_USER_INFO
+            (
+                 UI_USER_ID
+                , UI_USER_PW
+                , UI_USER_NAME
+            ) VALUES (
+              #{userId}
+              ,#{userPw}
+              ,#{userName}
+             )
+    </select>
 </mapper>

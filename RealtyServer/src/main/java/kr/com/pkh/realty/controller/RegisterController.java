@@ -2,6 +2,7 @@ package kr.com.pkh.realty.controller;
 
 import jakarta.validation.Valid;
 import kr.com.pkh.realty.dto.RegisterDTO;
+import kr.com.pkh.realty.dto.UserInfoDTO;
 import kr.com.pkh.realty.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +23,10 @@ public class RegisterController {
     private final UserInfoService userInfoservice;
 
     @RequestMapping(method = RequestMethod.POST, value= "")
-    public @ResponseBody String searchLogDTO(@RequestBody @Valid RegisterDTO registerDTO) throws Exception {
+    public @ResponseBody String searchLogDTO(@RequestBody @Valid UserInfoDTO userInfoDTO) throws Exception {
 
-        log.info("사용자 신규 등록 (user id) : "+registerDTO.getUserId() );
-        return String.valueOf(userInfoservice.registerUser(registerDTO));
+        log.info("사용자 신규 등록 (user id) : "+userInfoDTO.getUserId() );
+        return String.valueOf(userInfoservice.registUser(userInfoDTO));
 
     }
 
