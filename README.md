@@ -3,7 +3,11 @@
 - language : java, HTML/CSS/JS, JSP
 - framework / lib : Spring boot, Spring batch, bootstrap, JPA 
 
-# UI 설계  
+# 론칭일정   
+- ${\textsf{\color{red} 2024.11월 중 SMALL OPEN (WEB)  }}$
+
+
+# UI 초안 설계  
 (by Figma)  
 ![realty ui 설계](https://github.com/kwangho-park/Realty/assets/44250982/8dba90da-19e9-4f56-8c9e-255808e9fb25)
 
