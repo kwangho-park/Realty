@@ -60,7 +60,21 @@ public class RestItemReader implements ItemReader<TradeDTO> {
     public RestItemReader(RTMSOBJSvc RTMSOBJSvc, RegionCodeDAO regionCodeDAO) {
         this.RTMSOBJSvc = RTMSOBJSvc;
         this.regionCodeDAO=regionCodeDAO;
-//        this.regionCodeRepository=regionCodeRepository;
+
+        String asciiArt=
+                "  _____            _ _             _           _       _       		\n"+
+                        " |  __ \\          | | |           | |         | |     | |      		\n"+
+                        " | |__) |___  __ _| | |_ _   _    | |__   __ _| |_ ___| |__    		\n"+
+                        " |  _  // _ \\/ _` | | __| | | |   | '_ \\ / _` | __/ __| '_ \\   		\n"+
+                        " | | \\ \\  __/ (_| | | |_| |_| |   | |_) | (_| | || (__| | | |  		\n"+
+                        " |_|  \\_\\___|\\__,_|_|\\__|\\__, |   |_.__/ \\__,_|\\__\\___|_| |_|  \n"+
+                        "                          __/ |                                		\n"+
+                        "                         |___/                (by Songkwang)       	\n"+
+                        "										    	                        ";
+
+        log.info("\n"+asciiArt);
+
+
     }
 
     /**
