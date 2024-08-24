@@ -1,6 +1,6 @@
 package kr.com.pkh.realty.controller;
 
-import kr.com.pkh.realty.repository.UserInfoRepository;
+import kr.com.pkh.realty.dto.UserInfoDTO;
 import kr.com.pkh.realty.util.SessionConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kr.com.pkh.realty.entity.UserInfoEntity;
 import kr.com.pkh.realty.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,13 +20,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserInfoRepository userRepository;
     private final UserInfoService userInfoservice;
 
     @GetMapping("/info")
     public String userInfo(HttpServletRequest request, HttpServletResponse reponse, Model model) {
     	
-    	UserInfoEntity userInfo = (UserInfoEntity) request.getSession().getAttribute(SessionConst.LOGIN_USER);
+    	UserInfoDTO userInfo = (UserInfoDTO) request.getSession().getAttribute(SessionConst.LOGIN_USER);
     	
     	model.addAttribute("user", userInfo);
     	

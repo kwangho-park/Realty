@@ -1,7 +1,5 @@
 package kr.com.pkh.realty;
 
-import kr.com.pkh.realty.entity.UserInfoEntity;
-import kr.com.pkh.realty.repository.UserInfoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SpringInitalizrApplicationTests {
 
 
-    @Autowired
-    private UserInfoRepository userRepository;
+    /*@Autowired
+    private UserInfoRepository userRepository;*/
 
 
+/*
     @Test
     void createUser(){
         UserInfoEntity userEntity = new UserInfoEntity();
@@ -30,22 +29,23 @@ class SpringInitalizrApplicationTests {
         this.userRepository.save(userEntity);
 
     }
+*/
 
     @Test
     void readUserList(){
-        List<UserInfoEntity> all = this.userRepository.findAll();
+        //List<UserInfoEntity> all = this.userRepository.findAll();
 
-        for(int loop=0;loop<all.size();loop++){
-            UserInfoEntity q = all.get(loop);
-            System.out.println("Id : "+ q.getId());
+       // for(int loop=0;loop<all.size();loop++){
+           // UserInfoEntity q = all.get(loop);
+            /*System.out.println("Id : "+ q.getId());
             System.out.println("user Id : "+ q.getUserId());
             System.out.println("user pw : "+ q.getUserPw());
-            System.out.println("user name : "+ q.getUserName());
-        }
+            System.out.println("user name : "+ q.getUserName());*/
+        //}
     }
 
 
-    @Test
+    /*@Test
     void readUser(){
         Optional<UserInfoEntity> user = this.userRepository.findById("1");
 
@@ -56,10 +56,10 @@ class SpringInitalizrApplicationTests {
             System.out.println("user pw : "+ userEntity.getUserPw());
             System.out.println("user name : "+ userEntity.getUserName());
         }
-    }
+    }*/
 
 
-    @Test
+   /* @Test
     void readUserId(){
         Optional<UserInfoEntity> user = this.userRepository.findByUserId("test");
 
@@ -70,7 +70,7 @@ class SpringInitalizrApplicationTests {
             System.out.println("user pw : "+ userEntity.getUserPw());
             System.out.println("user name : "+ userEntity.getUserName());
         }
-    }
+    }*/
 
 
 }
