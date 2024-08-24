@@ -9,6 +9,6 @@ import java.util.List;
 public class TradeDTO {
 
     List<AptTradeDTO> aptTradeDTOList ;
-    PageDTO pageDTO;
+    PageDTO pageDTO;        // openAPI를 사용하여 매매데이터를 수집하는 단위
 
 }

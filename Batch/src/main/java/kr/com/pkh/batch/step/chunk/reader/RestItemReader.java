@@ -1,9 +1,7 @@
 package kr.com.pkh.batch.step.chunk.reader;
 
-
-import kr.com.pkh.batch.code.CustomErrorCode;
-import kr.com.pkh.batch.dao.RegionCodeRepository;
-import kr.com.pkh.batch.dto.RegionCodeEntity;
+import kr.com.pkh.batch.dao.RegionCodeDAO;
+import kr.com.pkh.batch.dto.RegionCodeDTO;
 import kr.com.pkh.batch.dto.TradeDTO;
 import kr.com.pkh.batch.exception.CustomException;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
@@ -17,13 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static kr.com.pkh.batch.code.CustomErrorCode.DATE_FLAG;
 import static kr.com.pkh.batch.code.CustomErrorCode.REGION_FLAG;
@@ -42,7 +37,7 @@ import static kr.com.pkh.batch.code.CustomErrorCode.REGION_FLAG;
  *
  */
 @Slf4j
-@Component
+@Component // 해당 reader를 spring bean 으로 등록해 놓음
 public class RestItemReader implements ItemReader<TradeDTO> {
 
     @Value("${publicDataPotal.openApi.apiKey.encoding}")
@@ -59,12 +54,13 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
     private RTMSOBJSvc RTMSOBJSvc;
 
-    private RegionCodeRepository regionCodeRepository;
+    private RegionCodeDAO regionCodeDAO;
 
     @Autowired
-    public RestItemReader(RTMSOBJSvc RTMSOBJSvc, RegionCodeRepository regionCodeRepository) {
+    public RestItemReader(RTMSOBJSvc RTMSOBJSvc, RegionCodeDAO regionCodeDAO) {
         this.RTMSOBJSvc = RTMSOBJSvc;
-        this.regionCodeRepository=regionCodeRepository;
+        this.regionCodeDAO=regionCodeDAO;
+//        this.regionCodeRepository=regionCodeRepository;
     }
 
     /**
@@ -121,9 +117,9 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                     throw new CustomException(REGION_FLAG);
                 }
 
-
+                log.info("----------------------------");
                 log.info("[read] reader operation mode");
-
+                log.info("----------------------------");
 
                 // 매매 거래정보 수집 //
                 log.info("region id : "+scope.getRegionId());
@@ -198,7 +194,9 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
 
                 // 매매 거래 정보 수집 //
-                log.info("[read] reader operation mode");
+                log.info("----------------------------");
+                log.info("[read] reader init mode");
+                log.info("----------------------------");
 
                 // 매매 거래정보 수집 //
                 log.info("region id : "+scope.getRegionId());
@@ -226,12 +224,12 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
             // CustomErrorCode 종류에 따라 Region id 의 차이가 있음으로 분기처리 //
             if(e.getCustomErrorCode() == DATE_FLAG){
-                log.info("[read] "+e.getDetailMessage() +" = custom error code : "+e.getCustomErrorCode()
+                log.info("[read] "+e.getDetailMessage() +" = custom code : "+e.getCustomErrorCode()
                         +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-1 )
                         +" / batch mode : "+mode+")");
 
             }else if(e.getCustomErrorCode() == REGION_FLAG){
-                log.info("[read] "+e.getDetailMessage() +" = custom error code : "+e.getCustomErrorCode()
+                log.info("[read] "+e.getDetailMessage() +" = custom code : "+e.getCustomErrorCode()
                         +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-2 )
                         +" / batch mode : "+mode+")");
             }
@@ -246,7 +244,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
         return tradeDTO;
     }
 
-    // 매매거래 데이터 수집을 위한 초기 scope 설정
+
     public void initScope(){
 
         Scope scope = Scope.getInstance();
@@ -271,12 +269,12 @@ public class RestItemReader implements ItemReader<TradeDTO> {
         }
 
         // 지역코드 설정 //
-        List<RegionCodeEntity> regionList = regionCodeRepository.findAllByOrderByIdAsc();
+           List<RegionCodeDTO> regionList = regionCodeDAO.selectRegionCodeList();
 
-        for(RegionCodeEntity item: regionList){
-            Long fullCode = item.getRegionCode();       // 앞의 5자리 자르기
+        for(RegionCodeDTO regionCodeDTO: regionList){
+            Long fullCode = (long) regionCodeDTO.getRegionCode();
             String fullCodeStr = fullCode.toString();
-            String codeStr = fullCodeStr.substring(0, Math.max(0, fullCodeStr.length() - 5));
+            String codeStr = fullCodeStr.substring(0, Math.max(0, fullCodeStr.length() - 5));  // 앞의 5자리 자르기
 
             regionCodeList.add(Integer.parseInt(codeStr));
         }
@@ -284,4 +282,5 @@ public class RestItemReader implements ItemReader<TradeDTO> {
         scope.setRegionCodeList(regionCodeList);
 
     }
+
 }

@@ -1,8 +1,7 @@
 package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.BatchTestConfig;
-import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import kr.com.pkh.batch.openAPI.data.RealEstateTradingSvc;
+import kr.com.pkh.batch.extend.job.standard.StandardJobConfig;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import org.junit.jupiter.api.Test;
 //import org.junit.Test;
@@ -22,7 +21,7 @@ import java.io.IOException;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardConfig.class})        // 환경설정 config , test target config
+@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
 class RealEstateTradingSvcTest {
 
 

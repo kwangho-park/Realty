@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.com.pkh.batch.mapper.RegionCodeMapper">
+
+    <resultMap id="regionCodeMap" type="kr.com.pkh.batch.dto.RegionCodeDTO">
+        <id property="id" column="RC_ID"/>
+        <result property="locataddName" column="RC_LOCATADD_NAME"/>
+        <result property="regionCode" column="RC_REGION_CODE"/>
+        <result property="sidoCode" column="RC_SIDO_CODE"/>
+        <result property="sggCode" column="RC_SGG_CODE"/>
+
+        <result property="umdCode" column="RC_UMD_CODE"/>
+        <result property="riCode" column="RC_RI_CODE"/>
+        <result property="locatjuminCode" column="RC_LOCATJUMIN_CODE"/>
+        <result property="locatjijukCode" column="RC_LOCATJIJUK_CODE"/>
+        <result property="locatOrder" column="RC_LOCAT_ORDER"/>
+
+        <result property="locateRm" column="RC_LOCATE_RM"/>
+        <result property="locathighCode" column="RC_LOCATHIGH_CODE"/>
+        <result property="locallowName" column="RC_LOCALLOW_NAME"/>
+        <result property="insertDatetime" column="RC_INSERT_DATETIME"/>
+    </resultMap>
+
+
+    <select id="selectRegionCodeList" resultMap="regionCodeMap">
+        select RC_ID, RC_LOCATADD_NAME, RC_REGION_CODE, RC_SIDO_CODE, RC_SGG_CODE,
+               RC_UMD_CODE, RC_RI_CODE, RC_LOCATJUMIN_CODE, RC_LOCATJIJUK_CODE, RC_LOCAT_ORDER,
+               RC_LOCATE_RM, RC_LOCATHIGH_CODE, RC_LOCALLOW_NAME, RC_INSERT_DATETIME
+        from TB_REGION_CODE
+        ORDER BY RC_ID ASC
+    </select>
+
+
+</mapper>

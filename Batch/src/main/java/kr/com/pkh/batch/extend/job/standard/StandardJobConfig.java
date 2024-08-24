@@ -1,6 +1,8 @@
 package kr.com.pkh.batch.extend.job.standard;
 
-import kr.com.pkh.batch.service.user.UserService;
+import kr.com.pkh.batch.dao.AptTradeDAO;
+import kr.com.pkh.batch.dao.UserInfoDAO;
+import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -22,14 +24,17 @@ import java.util.ArrayList;
 
 
 /**
+ *
  * step 처리방식 : task let
- * batch 실행시 옵션 --spring.batch.job.names=helloWorldJob
+ * DB framework : mybatis 테스트
+ *
+ * batch 실행시 옵션 --spring.batch.job.names=standardJob
  *
  * IntelliJ 실행 시 설정 : edit config > program args 설정
  */
 @Configuration		// Batch job 실행하기위해 필요한 어노테이션
 @RequiredArgsConstructor
-public class StandardConfig {
+public class StandardJobConfig {
 
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
@@ -39,7 +44,10 @@ public class StandardConfig {
 
 
 	@Autowired
-	private UserService userInfoService;
+	private UserInfoDAO userInfoDAO;
+
+	@Autowired
+	private AptTradeDAO aptTradeDAO;
 
 	@Bean
 	public Job standardJob(){
@@ -67,19 +75,25 @@ public class StandardConfig {
 
 				System.out.println("[tasklet] standard task");
 
-				//// mybatis 설정 테스트
-				ArrayList<UserInfoDTO> list =  userInfoService.selectUserList();
+				// mybatis 설정 테스트 //
+				ArrayList<UserInfoDTO> list =  userInfoDAO.selectUserList();
 
 
-				for(int loop=0 ; loop<list.size();loop++){
-					int id = list.get(loop).getUI_ID();
-					String userId = list.get(loop).getUI_USER_ID();
-					String userName = list.get(loop).getUI_USER_NAME();
-					String userPw = list.get(loop).getUI_USER_PW();
-
+				for(UserInfoDTO userInfoDTO:list){
+					int id = userInfoDTO.getId();
+					String userId = userInfoDTO.getUserId();
+					String userName = userInfoDTO.getUserName();
+					String userPw = userInfoDTO.getUserPw();
 					System.out.println(id+"/"+userId+"/"+userName+"/"+userPw);
 				}
 
+				ArrayList<AptTradeDTO> aptTradeList = aptTradeDAO.selectTradeList();
+
+				for(AptTradeDTO aptTradeDTO :aptTradeList){
+					System.out.println("id"+aptTradeDTO.getId()
+							+"/ pnu : "+aptTradeDTO.getPnu()
+							+"/ name : "+aptTradeDTO.getName());
+				}
 				return RepeatStatus.FINISHED;
 			}
 		};

@@ -2,11 +2,9 @@ package kr.com.pkh.batch.openAPI.vworld;
 
 
 import kr.com.pkh.batch.BatchTestConfig;
-import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import kr.com.pkh.batch.openAPI.data.BuildingUseService;
+import kr.com.pkh.batch.extend.job.standard.StandardJobConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.batch.core.configuration.xml.ExceptionElementParser;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardConfig.class})        // 환경설정 config , test target config
+@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
 public class DataSet2_BuildingUseTest {
 
     @Value("${vworld.openApi.apikey}")

@@ -1,8 +1,7 @@
 package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.BatchTestConfig;
-import kr.com.pkh.batch.extend.job.standard.StandardConfig;
-import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
+import kr.com.pkh.batch.extend.job.standard.StandardJobConfig;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardConfig.class})        // 환경설정 config , test target config
+@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
 public class RTMSOBJSvcTest {
 
 

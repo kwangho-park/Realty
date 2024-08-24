@@ -1,7 +1,7 @@
 package kr.com.pkh.batch.dao;
 
 
-import kr.com.pkh.batch.dto.RegionCodeEntity;
+//import kr.com.pkh.batch.dto.RegionCodeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +10,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
-public interface RegionCodeRepository extends JpaRepository<RegionCodeEntity, Integer> {
 
-     List<RegionCodeEntity> findAllByOrderByIdAsc();
+//////// jpa->mybatis 전환으로 제거예정
+//@Repository
+//public interface RegionCodeRepository extends JpaRepository<RegionCodeEntity, Integer> {
+//
+//     List<RegionCodeEntity> findAllByOrderByIdAsc();
 
 //    @PersistenceContext
 //    private EntityManager entityManager;
@@ -23,4 +25,4 @@ public interface RegionCodeRepository extends JpaRepository<RegionCodeEntity, In
 //                "SELECT rc FROM RegionCodeEntity rc ORDER BY rc.id", RegionCodeEntity.class);
 //        return query.getResultList();
 //    }
-}
+//}

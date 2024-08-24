@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class InvestJob {
+public class InvestJobConfig {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;

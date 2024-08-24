@@ -2,10 +2,11 @@ package kr.com.pkh.batch.job;
 
 
 import kr.com.pkh.batch.dto.AptTradeDTO;
-import kr.com.pkh.batch.dto.AptTradeEntity;
+//import kr.com.pkh.batch.dto.AptTradeEntity;
 import kr.com.pkh.batch.dto.TradeDTO;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptAddressProcessor;
+import kr.com.pkh.batch.step.chunk.reader.AptAddressReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -18,15 +19,13 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaCursorItemReader;
-import org.springframework.batch.item.database.JpaPagingItemReader;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
-import java.util.Map;
+import java.util.function.Function;
 
 /**
  * run : --spring.batch.job.names=collectRealtyJob
@@ -34,7 +33,7 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class BatchJob {
+public class CollectJobConfig {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -54,24 +53,14 @@ public class BatchJob {
         return jobBuilderFactory.get("collectRealtyJob")        // job 이름 정의
                 .incrementer(new RunIdIncrementer())
                 .start(aptTradeStep)
-               // .next(aptAddressStep) //주소 가져오는 step
+               // .next(aptAddressStep)                         // 주소 가져오는 step (github issue #8)
                 .build();
     }
 
-
-
-   /* @Bean
-    public Job getAptAddressJob(Step aptTradeStep, Step aptAddressStep){
-        return jobBuilderFactory.get("collectRealtyJob")        // job 이름 정의
-                .incrementer(new RunIdIncrementer())
-                .start(aptAddressStep)
-                //.next(aptAddressStep)
-                .build();
-    }
-*/
 
 
     // spring bean 으로 등록해놓은 reader, processor, writer 객체를 호출하여 사용
+    // Trade => Trans 로 명칭변경예정 (소스내 함수명 ,db table 명 등 )
     @JobScope
     @Bean
     public Step aptTradeStep(ItemReader restItemReader,
@@ -79,43 +68,52 @@ public class BatchJob {
                              ItemWriter aptTradeWriter
         ){
         return stepBuilderFactory.get("aptTradeStep")
-                .<TradeDTO, List<AptTradeEntity>>chunk(3)   // TradeDTO 조회(reader DTO) 하여, List<AptTradeEntity> (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
+                .<TradeDTO, List<AptTradeDTO>>chunk(3)   // TradeDTO 조회(reader DTO) 하여, List<AptTradeEntity> (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
                 .reader(restItemReader)                       // reader 지정
                 .processor(aptTradeProcessor)                 // processor 지정
                 .writer(aptTradeWriter)                       // writer 지정
                 .build();
     }
 
+
+    /**
+     * gitHub realty project의 issue #8참고
+     * mybatis 변경대상 소스
+     * v-world api가 아닌 공공데이터포털의 건축물대상정보 open API로 아파트 주소 데이터를 수집하는것으로 변경 필요
+     * 건축물대장정보 API : https://www.data.go.kr/data/15044713/openapi.do
+     *
+     * @return
+     */
     @JobScope
     @Bean
-    public Step aptAddressStep(JpaCursorItemReader jpaCursorItemReader,
+    public Step aptAddressStep(AptAddressReader aptAddressReader,
                                AptAddressProcessor addressProcessor,
                                ItemWriter aptAddressWriter
     ){
         return stepBuilderFactory.get("aptAddressStep")
-                .<AptTradeEntity, AptTradeDTO>chunk(10)   // TradeDTO 조회(reader DTO) 하여, List<AptTradeEntity> (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
-                .reader(jpaCursorItemReader)// reader 지정
-                .processor(addressProcessor)              // processor 지정
-                .writer(aptAddressWriter)                       // writer 지정
+                .<List<AptTradeDTO>, AptTradeDTO>chunk(10)
+                .reader(aptAddressReader)
+                .processor((Function<? super List<AptTradeDTO>, ? extends AptTradeDTO>) addressProcessor)   // ??
+                .writer(aptAddressWriter)
                 .build();
     }
 
 
-    /*c
-    public JpaCursorItemReader<Map<String, Object>> jpaCursorItemReader() {
-        return new JpaCursorItemReaderBuilder<Map<String, Object>>()
-                .name("jpaCursorItemReader")
-                .entityManagerFactory(entityManagerFactory)
-                .queryString("SELECT id, pnu FROM AptTradeEntity WHERE  address is null")
-                .build();
-    }*/
-    @Bean
-    public JpaCursorItemReader<AptTradeEntity> jpaCursorItemReader() {
-            JpaCursorItemReader<AptTradeEntity> reader = new JpaCursorItemReader<>();
-            reader.setEntityManagerFactory(entityManagerFactory);
-            reader.setQueryString("select id, pnu, name, tradeAmount ,tradeDate, address , insertDateTime from AptTradeEntity WHERE  address is null");
-
-            return reader;
-    }
+    //// original
+    /**
+     *
+     * gitHub realty project의 issue #8참고
+     * mybatis 변경대상 소스
+     * @return
+     */
+//    @Bean
+//    public JpaCursorItemReader<AptTradeDTO> jpaCursorItemReader() {
+//
+//            JpaCursorItemReader<AptTradeDTO> reader = new JpaCursorItemReader<>();
+//            reader.setEntityManagerFactory(entityManagerFactory);
+//            reader.setQueryString("select id, pnu, name, tradeAmount ,tradeDate, address , insertDateTime from AptTradeEntity WHERE  address is null");
+//
+//            return reader;
+//    }
 
 }

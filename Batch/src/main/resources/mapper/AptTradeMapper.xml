@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.com.pkh.batch.mapper.AptTradeMapper">
+
+    <resultMap id="AptTradeMap" type="kr.com.pkh.batch.dto.AptTradeDTO">
+        <id property="id" column="AT_ID"/>
+        <result property="pnu" column="AT_PNU"/>
+        <result property="name" column="AT_NAME"/>
+        <result property="tradeAmount" column="AT_TRADE_AMOUNT"/>
+        <result property="tradeDate" column="AT_TRADE_DATE"/>
+        <result property="insertDateTime" column="AT_INSERT_DATETIME"/>
+        <result property="address" column="AT_ADDRESS"/>
+    </resultMap>
+
+
+    <select id="selectTradeList" resultMap="AptTradeMap">
+        select AT_ID,AT_PNU,AT_NAME,AT_TRADE_AMOUNT,AT_TRADE_DATE,
+               AT_INSERT_DATETIME,AT_ADDRESS
+        from TB_APT_TRADE
+    </select>
+
+
+    <insert id="insertAptTrade">
+        INSERT INTO TB_APT_TRADE (AT_ID,AT_PNU,AT_NAME,AT_TRADE_AMOUNT,AT_TRADE_DATE,
+                                  AT_INSERT_DATETIME,AT_ADDRESS)
+        SELECT #{id} , #{pnu}, #{name}, #{tradeAmount}, #{tradeDate},
+               now(), #{address}
+        WHERE NOT EXISTS(
+            SELECT 1 FROM TB_APT_TRADE WHERE AT_ID = #{id}
+        )
+    </insert>
+
+    <select id="selectAddressIsNull" resultMap="AptTradeMap">
+        select id, pnu, name, tradeAmount ,tradeDate,
+               address , insertDateTime
+        from AptTradeEntity
+        WHERE  address is null
+    </select>
+
+</mapper>
