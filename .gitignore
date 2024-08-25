@@ -12,6 +12,7 @@ Batch/build/*
 Batch/out/*
 !Batch/sampleProperties/*
 Batch/src/main/resources/application.properties
+Batch/log/*
 
 ### RealtyServer###
 RealtyServer/.gradle/*
