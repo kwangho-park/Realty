@@ -1,6 +1,7 @@
 package kr.com.pkh.batch.extend.job.standard;
 
 import kr.com.pkh.batch.BatchTestConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +20,11 @@ import org.springframework.test.context.junit4.SpringRunner;
  * 테스트 대상 job : StandardConfig.class
  * 참고 : 하나의 테스트 코드는 하나의 job 테스트 가능
  */
-// @Slf4j
+@Slf4j
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
+@SpringBootTest(classes = {BatchTestConfig.class})        // 환경설정 config , test target config
 class StandardJobConfigTest {
 
     @Autowired
@@ -44,8 +45,4 @@ class StandardJobConfigTest {
         // then
         Assertions.assertEquals(execution.getExitStatus(), ExitStatus.COMPLETED);
     }
-
-
-
-
 }

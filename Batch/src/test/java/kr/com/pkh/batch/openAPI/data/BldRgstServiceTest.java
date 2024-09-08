@@ -1,37 +1,35 @@
 package kr.com.pkh.batch.openAPI.data;
 
-import kr.com.pkh.batch.BatchTestConfig;
-import kr.com.pkh.batch.extend.job.standard.StandardJobConfig;
+
+import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.batch.test.context.SpringBatchTest;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+
+
 
 /**
  * service name : 국토교통부 건축물대장정보 서비스
  * description : 건축물대장에서 관리하고 있는 총괄표제부, 표제부, 층별개요, 부속지번, 전유공용면적,
  * 오수정화시설, 주택가격, 전유부, 지역지구구역 등 속성정보(대용량 원시DB)
  *
+ * issue :  @TestPropertySource, @ActiveProfiles 원인불명의 이유로 application.properties 를 탐색하지못하여 ClassPathResource 로 파일 탐색
  */
-@RunWith(SpringRunner.class)
-@ActiveProfiles("test")
-@SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
+//@TestPropertySource("classpath:application.properties")   // src/main/java/resource/application.properties 경로의 파일 사용을 명시적으로 지정
+//@ActiveProfiles                   // application.properties 에서 데이터를 조회 (path : src/test/resources/application.properties)
+//@SpringBatchTest                  // spring batch 작업관련 bean만 설정하기때문에 job 을 테스트 할 수 있음
+@SpringBootTest                     // spring 기반 어플리케이션의 모든 bean과 설정을 포함함
 public class BldRgstServiceTest {
 
-    @Value("${publicDataPotal.openApi.apiKey.encoding}")
-    private String apiKey;
 
     @Test
     public void getBrExposPubuseAreaInfoTest() throws Exception {
 
 
+        String apiKeyEncoding = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
+
 
         // given
-        BldRgstService bldRgstService = new BldRgstService(apiKey);
+        BldRgstService bldRgstService = new BldRgstService(apiKeyEncoding);
 
         String numOfRows="10";
         String pageNo ="1";

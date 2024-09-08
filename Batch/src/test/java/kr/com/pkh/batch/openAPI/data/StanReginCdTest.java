@@ -1,24 +1,12 @@
 package kr.com.pkh.batch.openAPI.data;
 
 
-import kr.com.pkh.batch.BatchTestConfig;
-import kr.com.pkh.batch.extend.job.standard.StandardJobConfig;
+import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.batch.test.context.SpringBatchTest;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@ActiveProfiles("test")
-@SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
+@SpringBootTest
 public class StanReginCdTest {
-
-    @Value("${publicDataPotal.openApi.apiKey.encoding}")
-    private String apiKey;
 
     @Test
     public void getStanReginCdList() throws Exception {
@@ -26,7 +14,7 @@ public class StanReginCdTest {
         // given
         StanReginCd stanReginCd = new StanReginCd();
 
-        String ServiceKey = apiKey;
+        String ServiceKey = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
         String type = "xml";
         String pageNo = "1";
         String numOfRows="1";

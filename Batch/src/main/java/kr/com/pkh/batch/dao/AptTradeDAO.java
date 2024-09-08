@@ -2,7 +2,6 @@ package kr.com.pkh.batch.dao;
 
 import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.mapper.AptTradeMapper;
-import org.springframework.batch.core.configuration.xml.ExceptionElementParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

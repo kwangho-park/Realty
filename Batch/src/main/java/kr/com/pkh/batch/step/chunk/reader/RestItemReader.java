@@ -148,6 +148,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 log.info("DEAL_YMD (today month) : "+dealYmd);
 
+                // openAPI 로 데이터 수집 및 PNU 가공
                 tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
@@ -221,6 +222,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(scope.getStartDate()));
 
+                // openAPI 로 데이터 수집 및 PNU 가공
                 tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),

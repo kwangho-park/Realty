@@ -2,7 +2,6 @@ package kr.com.pkh.batch.job;
 
 
 import kr.com.pkh.batch.dto.AptTradeDTO;
-//import kr.com.pkh.batch.dto.AptTradeEntity;
 import kr.com.pkh.batch.dto.TradeDTO;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptAddressProcessor;
@@ -18,12 +17,10 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.JpaCursorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.function.Function;
 
@@ -43,10 +40,6 @@ public class CollectJobConfig {
 
     @Autowired
     private RTMSOBJSvc RTMSOBJSvc;
-
-    @Autowired
-    EntityManagerFactory entityManagerFactory;
-
 
     @Bean
     public Job collectRealtyJob(Step aptTradeStep,Step aptAddressStep ){

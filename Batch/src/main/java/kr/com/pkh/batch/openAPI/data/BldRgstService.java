@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class BldRgstService {
 
-    @Value("${publicDataPotal.openApi.apiKey.decoding}")
+    @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
 
     public BldRgstService(){}
@@ -49,6 +49,7 @@ public class BldRgstService {
     public String getBrExposPubuseAreaInfo(String numOfRows, String pageNo, String sigunguCd, String bjdongCd, String platGbCd,
                                          String bun, String ji, String dongNm, String hoNm, String startDate, String endDate){
 
+
         String responseXML="";
 
         try{
@@ -56,7 +57,7 @@ public class BldRgstService {
             String path = "/getBrExposPubuseAreaInfo";
 
             Map<String, String> parameters = Map.of(
-                    "serviceKey", apiKey,
+                    "serviceKey", this.apiKey,
                         "numOfRows",numOfRows,
                         "pageNo",pageNo,
                     "sigunguCd",sigunguCd,

@@ -1,27 +1,17 @@
 package kr.com.pkh.batch.openAPI.data;
+import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
-import kr.com.pkh.batch.BatchTestConfig;
-import kr.com.pkh.batch.extend.job.standard.StandardJobConfig;
-import org.junit.runner.RunWith;
-import org.springframework.batch.test.context.SpringBatchTest;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 // 공공데이터 포털에서 해당 서비스가 종료되고 vworld로 이관됨
-@RunWith(SpringRunner.class)
-@ActiveProfiles("test")
-@SpringBatchTest
-@SpringBootTest(classes = {BatchTestConfig.class, StandardJobConfig.class})        // 환경설정 config , test target config
+@SpringBootTest
 public class BuildingUseServiceTest {
 
-    @Value("${publicDataPotal.openApi.apiKey.encoding}")
-    private String apiKey;
 
     @Test
     public void getBuildingUseWMS() throws Exception{
 
+        String apiKey = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
         // given
         BuildingUseService buildingUseService = new BuildingUseService(apiKey);
 
@@ -45,6 +35,8 @@ public class BuildingUseServiceTest {
     @Test
     public void getBuildingUseWFS() throws  Exception{
 
+        String apiKey = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
+
         // given
         BuildingUseService buildingUseService = new BuildingUseService(apiKey);
         String typeName = "";
@@ -66,7 +58,7 @@ public class BuildingUseServiceTest {
 
     @Test
     public void getBuildingUse() throws  Exception{
-
+        String apiKey = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
         // given
         BuildingUseService buildingUseService = new BuildingUseService(apiKey);
         String pnu="4119210800110510000";
