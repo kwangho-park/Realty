@@ -67,3 +67,7 @@ drop table orders;
 ALTER TABLE realty.tb_realty_info DROP COLUMN RI_GPS;
 ALTER TABLE realty.tb_realty_info DROP COLUMN RI_GIS;
 
+-- 아파트 실거래내역 테이블에서 주소, 아파트명 제거
+ALTER TABLE realty.tb_apt_trade DROP COLUMN AT_ADDRESS;
+ALTER TABLE realty.tb_apt_trade DROP COLUMN AT_NAME;
+
