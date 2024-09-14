@@ -1,0 +1,453 @@
+------------------------------	
+주소 : 경기도 부천시 원미구 중동 설악마을아파트
+pnu : 4119210800110510000
+면적 : 공급 60.51m2 / 전용 44.1m2
+(공용면적 : 16.41m2)
+------------------------------
+
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response>
+	<header>
+		<resultCode>00</resultCode>
+		<resultMsg>NORMAL SERVICE.</resultMsg>
+	</header>
+	<body>
+		<items>
+			<item>
+				<area>44.1</area>			// 전용면적 
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>		// 301동 
+				<etcPurps>아파트</etcPurps>
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>1</exposPubuseGbCd>		// 전유(전용) / 공용 구분코드 : 1 (전용)
+				<exposPubuseGbCdNm>전유</exposPubuseGbCdNm> // 전용면적 
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>1층</flrNoNm>
+				<hoNm>105호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02001</mainPurpsCd>
+				<mainPurpsCdNm>아파트</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75983</mgmBldrgstPk>		//관리 건축물 대장 (세대별 고유값) 
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>1</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+			<item>
+				<area>3.87</area>				// 공용면적 
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>대피소</etcPurps>		// 공용면적 종류
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>		// 공용면적 코드 : 2
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>	// 공용면적 
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>지층</flrNoNm>
+				<hoNm>105호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75983</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>2</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+			<item>
+				<area>11.88</area>					// 공용면적 
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>계단,복도,승강기</etcPurps>		
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>// 공용면적 
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>1층</flrNoNm>
+				<hoNm>105호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75983</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>3</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+			<item>
+				<area>0.66</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>관리동</etcPurps>
+				<etcStrct>철근콘크리트조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm></flrNoNm>
+				<hoNm>105호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>1</mainAtchGbCd>
+				<mainAtchGbCdNm>부속건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75983</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>4</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+
+			///////////////////////////////////////
+
+
+			<item>
+				<area>44.1</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>아파트</etcPurps>
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>1</exposPubuseGbCd>
+				<exposPubuseGbCdNm>전유</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>1층</flrNoNm>
+				<hoNm>107호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02001</mainPurpsCd>
+				<mainPurpsCdNm>아파트</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75984</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>5</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+			<item>
+				<area>3.87</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>대피소</etcPurps>
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>지층</flrNoNm>
+				<hoNm>107호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75984</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>6</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+			<item>
+				<area>11.88</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>계단,복도,승강기</etcPurps>
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>1층</flrNoNm>
+				<hoNm>107호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75984</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>7</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+			<item>
+				<area>0.66</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>관리동</etcPurps>
+				<etcStrct>철근콘크리트조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm></flrNoNm>
+				<hoNm>107호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>1</mainAtchGbCd>
+				<mainAtchGbCdNm>부속건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75984</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>8</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+
+
+
+
+
+			
+			<item>
+				<area>44.1</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>아파트</etcPurps>
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>1</exposPubuseGbCd>
+				<exposPubuseGbCdNm>전유</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>5층</flrNoNm>
+				<hoNm>503호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02001</mainPurpsCd>
+				<mainPurpsCdNm>아파트</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75988</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>9</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+
+			<item>
+				<area>3.87</area>
+				<bjdongCd>10800</bjdongCd>
+				<bldNm>설악단지</bldNm>
+				<block></block>
+				<bun>1051</bun>
+				<crtnDay>20181001</crtnDay>
+				<dongNm>301동</dongNm>
+				<etcPurps>대피소</etcPurps>
+				<etcStrct>철근콘크리트피씨조</etcStrct>
+				<exposPubuseGbCd>2</exposPubuseGbCd>
+				<exposPubuseGbCdNm>공용</exposPubuseGbCdNm>
+				<flrGbCd>20</flrGbCd>
+				<flrGbCdNm>지상</flrGbCdNm>
+				<flrNo>0.0</flrNo>
+				<flrNoNm>지층</flrNoNm>
+				<hoNm>503호</hoNm>
+				<ji>0000</ji>
+				<lot></lot>
+				<mainAtchGbCd>0</mainAtchGbCd>
+				<mainAtchGbCdNm>주건축물</mainAtchGbCdNm>
+				<mainPurpsCd>02005</mainPurpsCd>
+				<mainPurpsCdNm>부대시설</mainPurpsCdNm>
+				<mgmBldrgstPk>41192-75988</mgmBldrgstPk>
+				<naBjdongCd>10803</naBjdongCd>
+				<naMainBun>195.0</naMainBun>
+				<naRoadCd>411923184001</naRoadCd>
+				<naSubBun>0.0</naSubBun>
+				<naUgrndCd>0</naUgrndCd>
+				<newPlatPlc> 경기도 부천시 원미구 계남로 195</newPlatPlc>
+				<platGbCd>0</platGbCd>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<regstrGbCd>2</regstrGbCd>
+				<regstrGbCdNm>집합</regstrGbCdNm>
+				<regstrKindCd>4</regstrKindCd>
+				<regstrKindCdNm>전유부</regstrKindCdNm>
+				<rnum>10</rnum>
+				<sigunguCd>41192</sigunguCd>
+				<splotNm></splotNm>
+				<strctCd>21</strctCd>
+				<strctCdNm>철근콘크리트구조</strctCdNm>
+			</item>
+		</items>
+		<numOfRows>10</numOfRows>		// 10개 row 	
+		<pageNo>1</pageNo>				// 6360 페이지 중 1페이지 
+		<totalCount>6360</totalCount>
+	</body>
+</response>

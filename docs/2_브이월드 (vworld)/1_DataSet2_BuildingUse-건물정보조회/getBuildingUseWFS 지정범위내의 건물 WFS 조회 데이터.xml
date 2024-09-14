@@ -1,0 +1,674 @@
+브이월드 DataSet2_BuildingUse 샘플 데이터 
+(설악마을 주공아파트를 GPS좌표 영역으로 조회)
+
+1. request parameter 
+- bbox (GPS 좌표 범위) : 37.5074,126.7694,37.509,126.7722,EPSG:4326
+- srsName (좌표체계) : EPSG:4326
+- key (api key) : 
+
+2. 참고
+- 설악마을 주공아파트 검색 : 37.508146 (위도) , 126.770690 (경도)
+- bbox parameter 형식 : ymin,xmin,ymax,xmax (좌측 하단, 우측 상단)
+- bbox 영역에 포함되지않음 304-305 동은 조회되지않음 (전체 301 ~ 311동)
+
+
+3. response data (xml)
+
+<?xml version="1.0" encoding="UTF-8"?>
+<wfs:FeatureCollection
+	xmlns="http://www.opengis.net/wfs"
+	xmlns:wfs="http://www.opengis.net/wfs"
+	xmlns:sop="http://www.vworld.kr"
+	xmlns:gml="http://www.opengis.net/gml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vworld.kr http://api.vworld.kr/req/wfs?service=WFS&amp;version=1.0.0&amp;request=DescribeFeatureType&amp;typeName=sop%3Adt_d198 http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd">
+	<gml:boundedBy>
+		<gml:Box srsName="EPSG:4326">
+			<!--검색한 GIS 영역 (오차 있음) : 좌측하단(x,y) 우측상단(x,y)-->
+			<gml:coordinates
+				xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7692711,37.50738871 126.77214315,37.50908724
+			</gml:coordinates>
+		</gml:Box>
+	</gml:boundedBy>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ffd">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+
+					<!--해당건물의 영역 : 좌측하단(x,y) 우측상단(x,y)-->
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7692711,37.50877829 126.76946312,37.5089788
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1996179538854452095400000000</sop:gis_idntfc_no>	<!--GIS건물통합식별번호-->
+			<sop:pnu>4119010800110400006</sop:pnu> 			<!--필지 고유번호 (단지별 고유데이터) -->
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>		<!--법정동시도시군구코드-->
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>  <!--법정동읍면동리코드-->
+			<sop:regstr_se_code>1</sop:regstr_se_code>  	<--특수지 구분코드-->
+			<sop:mnnm>1040</sop:mnnm>		<!--본번-->
+			<sop:slno>0006</sop:slno>		<!--부번-->
+			<sop:buld_idntfc_no>18376</sop:buld_idntfc_no>	<!--건물식별번호-->
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>동화유치원</sop:buld_nm>	<!--건물명-->
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>510.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>283.35</sop:buld_bildng_ar>
+			<sop:buld_totar>1132.11</sop:buld_totar>
+			<sop:measrmt_rt>166</sop:measrmt_rt>	<!--용적률-->
+			<sop:btl_rt>55</sop:btl_rt>				<!--건폐율-->
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>11000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>노유자시설</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>11101</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>유치원</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>6</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>문교사회용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>0.0</sop:buld_hg>
+			<sop:ground_floor_co>3</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1996-03-14</sop:prmisn_de> <!--허가일자-->
+			<sop:use_confm_de>1996-12-30</sop:use_confm_de> <!--사용 승인 일자-->
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+
+			<sop:ag_geom>	<!--공간자료 -->
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.76946312,37.50895801 126.76943745,37.50884759 126.76945307,37.50884437 126.76943167,37.50877829 126.7692711,37.50880204 126.76930946,37.5089788 126.76946312,37.50895801
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ffc">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.76975356,37.50754735 126.77047573,37.5077612
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+
+			<sop:gis_idntfc_no>1993179604324450737400000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18397</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>301동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>721.69</sop:buld_bildng_ar>
+			<sop:buld_totar>10772.84</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+
+			<sop:ag_geom>	<!-- 공간자료 --> 
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7697802,37.5077612 126.77047573,37.50766705 126.77045087,37.50754735 126.77030695,37.50756346 126.77031692,37.50763169 126.77026069,37.5076405 126.77024631,37.50757172 126.76996367,37.50760938 126.76997331,37.50767445 126.76991559,37.50768461 126.76990144,37.50761593 126.76975356,37.50763555 126.7697802,37.5077612
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+
+		</sop:dt_d198>
+
+
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ffb">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7697933,37.50804595 126.77051501,37.50826178
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179608274451294000000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18398</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>302동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>721.69</sop:buld_bildng_ar>
+			<sop:buld_totar>10772.84</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.76981825,37.50826178 126.77051501,37.50817042 126.77049221,37.50804595 126.77034579,37.50806638 126.77035372,37.50813506 126.77030088,37.50814352 126.77028605,37.50807465 126.77000578,37.50811186 126.77001541,37.50817972 126.76995646,37.50818916 126.7699387,37.50811722 126.7697933,37.50813901 126.76981825,37.50826178
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ffa">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77082415,37.50738871 126.77164538,37.50759901
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179703724450557400000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18399</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>311동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>707.37</sop:buld_bildng_ar>
+			<sop:buld_totar>10483.84</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.1</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77162987,37.50738871 126.771421,37.50741569 126.7714273,37.50746283 126.77137208,37.5074729 126.77136115,37.5074236 126.7710905,37.50746011 126.77109646,37.50750787 126.77103909,37.50751812 126.77102951,37.50747089 126.77082415,37.50749662 126.77084318,37.50759901 126.77164538,37.50749208 126.77162987,37.50738871
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff9">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77173595,37.50748412 126.77194171,37.50787758
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179756704450765400000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18400</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>310동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>416.23</sop:buld_bildng_ar>
+			<sop:buld_totar>6183.63</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77194171,37.50786198 126.77191146,37.50769415 126.77184877,37.50770475 126.77183841,37.50765581 126.77189328,37.50764799 126.77185883,37.50748412 126.77173595,37.50750181 126.77181205,37.50787758 126.77194171,37.50786198
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff8">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7709251,37.50788527 126.77174498,37.50809838
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179712534451110100000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18401</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>309동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>1258.38</sop:buld_bildng_ar>
+			<sop:buld_totar>11604.95</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77173195,37.50788527 126.77152241,37.50791208 126.77152916,37.50796165 126.77147473,37.50797163 126.77146254,37.50792367 126.77119405,37.50795892 126.77120092,37.50800389 126.77114265,37.50801162 126.77113375,37.50796565 126.7709251,37.50799057 126.77094876,37.50809838 126.77174498,37.50798954 126.77173195,37.50788527
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff7">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7710251,37.50836443 126.77184804,37.50857239
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179721264451637300000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18402</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>308동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>707.37</sop:buld_bildng_ar>
+			<sop:buld_totar>10483.84</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77104232,37.50857239 126.77184804,37.50846619 126.77182844,37.50836443 126.77162241,37.50839043 126.7716278,37.50843738 126.77157372,37.50844422 126.77156052,37.50839563 126.77128683,37.50842987 126.77129551,37.50847422 126.77123883,37.50848178 126.77122526,37.5084403 126.7710251,37.50846649 126.77104232,37.50857239
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff6">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77194042,37.50845634 126.77214315,37.50884611
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179774954451839200000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18403</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>307동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>416.23</sop:buld_bildng_ar>
+			<sop:buld_totar>6183.63</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77214315,37.50882996 126.7721121,37.50866537 126.77204907,37.50867498 126.77203993,37.50862784 126.7720982,37.50861831 126.77206918,37.50845634 126.77194042,37.50847358 126.77201518,37.50884611 126.77214315,37.50882996
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff5">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77098428,37.50887629 126.77180575,37.50908724
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179718004452208700000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510000</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0000</sop:slno>
+			<sop:buld_idntfc_no>18404</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>306동</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>707.37</sop:buld_bildng_ar>
+			<sop:buld_totar>10483.84</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>02000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>공동주택</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>02001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>아파트</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>1</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>주거용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>41.4</sop:buld_hg>
+			<sop:ground_floor_co>15</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.7710033,37.50908724 126.77180575,37.50898148 126.77178526,37.50887629 126.77157865,37.50890481 126.77158688,37.50894952 126.77153031,37.50895762 126.77151994,37.50891012 126.77124847,37.50894977 126.77125659,37.50899592 126.77120012,37.50900635 126.77118795,37.50895398 126.77098428,37.50898034 126.7710033,37.50908724
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff4">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.76984362,37.5086458 126.77017224,37.50889061
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1996179595004451965700000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510001</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0001</sop:slno>
+			<sop:buld_idntfc_no>18408</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>960.1</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>562.48</sop:buld_bildng_ar>
+			<sop:buld_totar>2503.635</sop:buld_totar>
+			<sop:measrmt_rt>175</sop:measrmt_rt>
+			<sop:btl_rt>58</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>03000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>제1종근린생활시설</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>11102</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>영유아보육시설</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>6</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>문교사회용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>0.0</sop:buld_hg>
+			<sop:ground_floor_co>3</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:use_confm_de>1996-03-02</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77013246,37.5086458 126.77006241,37.50865639 126.77005882,37.50864629 126.76984362,37.50867462 126.76986232,37.50873511 126.7698502,37.50873914 126.76987038,37.5088364 126.76988179,37.50883786 126.76988952,37.50886203 126.76988723,37.50887355 126.76988722,37.50887509 126.76990007,37.50889061 126.77004241,37.50887224 126.77004099,37.50885484 126.77017224,37.50883617 126.77013246,37.5086458
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+	<gml:featureMember>
+		<sop:dt_d198 fid="dt_d198.fid--5b122dcb_18d1aed756e_-4ff3">
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:4326">
+					<gml:coordinates
+						xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77050112,37.50745378 126.77070174,37.50776339
+					</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<sop:gis_idntfc_no>1993179647554450685000000000</sop:gis_idntfc_no>
+			<sop:pnu>4119010800110510012</sop:pnu>
+			<sop:ld_cpsg_code>41190</sop:ld_cpsg_code>
+			<sop:ld_emd_li_code>10800</sop:ld_emd_li_code>
+			<sop:regstr_se_code>1</sop:regstr_se_code>
+			<sop:mnnm>1051</sop:mnnm>
+			<sop:slno>0012</sop:slno>
+			<sop:buld_idntfc_no>18409</sop:buld_idntfc_no>
+			<sop:agbldg_se_code>2</sop:agbldg_se_code>
+			<sop:buld_knd_code>3</sop:buld_knd_code>
+			<sop:buld_nm>설악단지</sop:buld_nm>
+			<sop:buld_dong_nm>종합상가</sop:buld_dong_nm>
+			<sop:buld_main_atach_se_code>0</sop:buld_main_atach_se_code>
+			<sop:buld_plot_ar>0.0</sop:buld_plot_ar>
+			<sop:buld_bildng_ar>350.8</sop:buld_bildng_ar>
+			<sop:buld_totar>1040.85</sop:buld_totar>
+			<sop:measrmt_rt>0</sop:measrmt_rt>
+			<sop:btl_rt>0</sop:btl_rt>
+			<sop:strct_code>21</sop:strct_code>
+			<sop:strct_code_nm>철근콘크리트구조</sop:strct_code_nm>
+			<sop:main_prpos_code>03000</sop:main_prpos_code>
+			<sop:main_prpos_code_nm>제1종근린생활시설</sop:main_prpos_code_nm>
+			<sop:detail_prpos_code>03001</sop:detail_prpos_code>
+			<sop:detail_prpos_code_nm>소매점</sop:detail_prpos_code_nm>
+			<sop:buld_prpos_cl_code>2</sop:buld_prpos_cl_code>
+			<sop:buld_prpos_cl_code_nm>상업용</sop:buld_prpos_cl_code_nm>
+			<sop:buld_hg>13.1</sop:buld_hg>
+			<sop:ground_floor_co>2</sop:ground_floor_co>
+			<sop:undgrnd_floor_co>1</sop:undgrnd_floor_co>
+			<sop:prmisn_de>1992-02-29</sop:prmisn_de>
+			<sop:use_confm_de>1993-08-09</sop:use_confm_de>
+			<sop:frst_regist_dt>2023-08-03 23:19:15.03997</sop:frst_regist_dt>
+			<sop:ag_geom>
+				<gml:MultiPolygon srsName="EPSG:4326">
+					<gml:polygonMember>
+						<gml:Polygon>
+							<gml:outerBoundaryIs>
+								<gml:LinearRing>
+									<gml:coordinates
+										xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">126.77070174,37.50774447 126.77064404,37.50745378 126.77050112,37.50747964 126.77056212,37.50776339 126.77070174,37.50774447
+									</gml:coordinates>
+								</gml:LinearRing>
+							</gml:outerBoundaryIs>
+						</gml:Polygon>
+					</gml:polygonMember>
+				</gml:MultiPolygon>
+			</sop:ag_geom>
+		</sop:dt_d198>
+	</gml:featureMember>
+</wfs:FeatureCollection>
