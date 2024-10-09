@@ -1,5 +1,6 @@
 package kr.com.pkh.batch.step.chunk.processor;
 
+import kr.com.pkh.batch.basic.Person;
 import kr.com.pkh.batch.dto.AptTradeDTO;
 import kr.com.pkh.batch.openAPI.vworld.DataSet2_BuildingUse;
 import lombok.extern.slf4j.Slf4j;
@@ -9,16 +10,18 @@ import org.springframework.stereotype.Component;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.List;
+
 
 @Slf4j
 @Component
-public class AptAddressProcessor implements ItemProcessor<Object[], AptTradeDTO> {
+public class AptAddressProcessor  implements ItemProcessor<AptTradeDTO, AptTradeDTO> {
 
 
     @Autowired
     DataSet2_BuildingUse buildingUse;
 
-    @Override
+    /*@Override
     public AptTradeDTO process(Object[] obj) {
 
         AptTradeDTO  aptTradeDTO = setParam(obj);
@@ -57,7 +60,7 @@ public class AptAddressProcessor implements ItemProcessor<Object[], AptTradeDTO>
 
 
            /// ??
-       /*     // 결과값이 존재하지 않는
+       *//*     // 결과값이 존재하지 않는
             if(aptTradeList==null){s
                 return null;
             }
@@ -71,7 +74,7 @@ public class AptAddressProcessor implements ItemProcessor<Object[], AptTradeDTO>
                 aptTradeEntity.setTradeAmount(aptTradeList.get(loop).getTradeAmount());
                 aptTradeEntity.setTradeDate(aptTradeList.get(loop).getTradeDate());
                 aptTradeEntity.setInsertDateTime(LocalDateTime.now());
-                aptTradeEntityList.add(aptTradeEntity);*/
+                aptTradeEntityList.add(aptTradeEntity);*//*
 
 
             //}
@@ -85,7 +88,7 @@ public class AptAddressProcessor implements ItemProcessor<Object[], AptTradeDTO>
         //return null;
 
     }
-
+*/
     // test
     private AptTradeDTO setParam(Object[] obj) {
         log.info("obj ###" + obj[0]);
@@ -96,12 +99,46 @@ public class AptAddressProcessor implements ItemProcessor<Object[], AptTradeDTO>
         AptTradeDTO aptTradeDTO = new AptTradeDTO();
 
         aptTradeDTO.setId((String) obj[0]);
-        aptTradeDTO.setPnu((long) obj[1]);
+        aptTradeDTO.setPnu((String) obj[1]);
         aptTradeDTO.setName((String) obj[2]);
         aptTradeDTO.setTradeAmount((int) obj[3]);
         aptTradeDTO.setTradeDate((String) obj[4]);
         aptTradeDTO.setInsertDateTime((String) obj[5]);
         return  aptTradeDTO;
+    }
+
+    @Override
+    public AptTradeDTO process(AptTradeDTO item) throws Exception {
+        log.info("#### item   {} ", item);
+        JSONObject jsonObject = (JSONObject) buildingUse.getBuildingUse(String.valueOf(item.getPnu()));
+
+        if(jsonObject == null) {
+            log.info("#### 주소 정보 없음 continue");
+        } else {
+            // "buildingUses" 키에 해당하는 JSONObject 가져오기
+            if(jsonObject.isNull("buildingUses")) {
+                log.info("## 주소정보 없음 continue 2 ");
+            } else {
+                JSONObject buildingUses = jsonObject.getJSONObject("buildingUses");
+
+                // "field" 키에 해당하는 JSONArray 가져오기
+                JSONArray fieldArray = buildingUses.getJSONArray("field");
+
+                // 첫 번째 요소인 JSONObject 가져오기
+                JSONObject firstField = fieldArray.getJSONObject(0);
+                // "mnnmSlno" 키에 해당하는 값 가져오기
+                String mnnmSlnoValue = firstField.getString("mnnmSlno");
+
+                String ldCodeNmValue = firstField.getString("ldCodeNm");
+                log.info("jsonObject {} " , jsonObject.get("buildingUses"));
+                item.setAddress( ldCodeNmValue + " " + mnnmSlnoValue);
+                log.info("getAddress :: {} ", item.getAddress());
+            }
+
+            // aptTradeDTO.setId((String) obj[0]);
+        }
+
+        return item;
     }
 
 

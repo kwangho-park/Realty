@@ -21,20 +21,60 @@
 
 
     <insert id="insertAptTrade">
-        INSERT INTO TB_APT_TRADE (AT_ID,AT_PNU,AT_NAME,AT_TRADE_AMOUNT,AT_TRADE_DATE,
-                                  AT_INSERT_DATETIME,AT_ADDRESS)
-        SELECT #{id} , #{pnu}, #{name}, #{tradeAmount}, #{tradeDate},
-               now(), #{address}
+        INSERT INTO
+            TB_APT_TRADE
+        (
+            AT_ID
+            ,AT_PNU
+            ,AT_TRADE_AMOUNT
+            ,AT_TRADE_DATE
+            ,AT_INSERT_DATETIME
+            ,AT_SIGUN_CD
+            ,AT_BJD_CD
+            ,AT_PLAT_CD
+            ,AT_BUN_CD
+            ,AT_JI_CD
+         ) SELECT
+            #{id}
+            , #{pnu}
+            , #{tradeAmount}
+            , #{tradeDate}
+            , now()
+            , #{sigunCd}
+            , #{bjdCd}
+            , #{platCd}
+            , #{bunCd}
+            , #{jiCd}
+        FROM DUAL
         WHERE NOT EXISTS(
             SELECT 1 FROM TB_APT_TRADE WHERE AT_ID = #{id}
         )
     </insert>
 
     <select id="selectAddressIsNull" resultMap="AptTradeMap">
-        select id, pnu, name, tradeAmount ,tradeDate,
-               address , insertDateTime
-        from AptTradeEntity
-        WHERE  address is null
+        SELECT
+            DISTINCT A.AT_PNU
+        FROM
+            TB_APT_TRADE A
+        LEFT JOIN
+            TB_APT_BUILDING B ON (A.AT_PNU  = B.AB_PNU)
+        WHERE
+            B.AB_PNU IS NULL
     </select>
 
+    <insert id="insertAptAddress" >
+        INSERT INTO
+            TB_APT_BUILDING
+        (
+            AB_PNU
+           , AB_NAME
+           , AB_ADDRESS
+        )
+        VALUES
+        (
+            #{pnu}
+            ,#{name}
+            ,#{address}
+        )
+    </insert>
 </mapper>

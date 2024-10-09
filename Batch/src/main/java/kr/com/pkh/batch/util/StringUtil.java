@@ -22,4 +22,8 @@ public class StringUtil {
         return str;         // 두 자리 수 이상인 경우 그대로 반환
     }
 
+    public static boolean isEmpty(String str) {
+        return (str != null || str != "") ? false : true;
+    }
+
 }

@@ -9,12 +9,19 @@ import lombok.Data;
 public class AptTradeDTO {
 
     String id="";           // 매매거래 일련번호
-    long pnu = 0;           // pnu 아파트단지 고유값
+    String pnu = "";           // pnu 아파트단지 고유값
     String name="";         // 아파트명
     int tradeAmount=0;      // 매매가격
     String tradeDate="";    //
 
     String insertDateTime = "";
     String address;         // 주소
+
+    String sigunCd; //시군구 코드
+    String bjdCd;   //번정동 코드
+    String platCd;  //대지구분코드
+    String bunCd;   //본번코드
+    String jiCd;    //지번코드
+
 
 }
