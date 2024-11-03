@@ -21,6 +21,41 @@ public class AptAddressProcessor  implements ItemProcessor<AptTradeDTO, AptTrade
     @Autowired
     DataSet2_BuildingUse buildingUse;
 
+
+    @Override
+    public AptTradeDTO process(AptTradeDTO item) throws Exception {
+        log.info("#### item   {} ", item);
+        JSONObject jsonObject = (JSONObject) buildingUse.getBuildingUse(String.valueOf(item.getPnu()));
+
+        if(jsonObject == null) {
+            log.info("#### 주소 정보 없음 continue");
+        } else {
+            // "buildingUses" 키에 해당하는 JSONObject 가져오기
+            if(jsonObject.isNull("buildingUses")) {
+                log.info("## 주소정보 없음 continue 2 ");
+            } else {
+                JSONObject buildingUses = jsonObject.getJSONObject("buildingUses");
+
+                // "field" 키에 해당하는 JSONArray 가져오기
+                JSONArray fieldArray = buildingUses.getJSONArray("field");
+
+                // 첫 번째 요소인 JSONObject 가져오기
+                JSONObject firstField = fieldArray.getJSONObject(0);
+                // "mnnmSlno" 키에 해당하는 값 가져오기
+                String mnnmSlnoValue = firstField.getString("mnnmSlno");
+
+                String ldCodeNmValue = firstField.getString("ldCodeNm");
+                log.info("jsonObject {} " , jsonObject.get("buildingUses"));
+                item.setAddress( ldCodeNmValue + " " + mnnmSlnoValue);
+                log.info("getAddress :: {} ", item.getAddress());
+            }
+
+            // aptTradeDTO.setId((String) obj[0]);
+        }
+
+        return item;
+    }
+
     /*@Override
     public AptTradeDTO process(Object[] obj) {
 
@@ -107,39 +142,6 @@ public class AptAddressProcessor  implements ItemProcessor<AptTradeDTO, AptTrade
         return  aptTradeDTO;
     }
 
-    @Override
-    public AptTradeDTO process(AptTradeDTO item) throws Exception {
-        log.info("#### item   {} ", item);
-        JSONObject jsonObject = (JSONObject) buildingUse.getBuildingUse(String.valueOf(item.getPnu()));
-
-        if(jsonObject == null) {
-            log.info("#### 주소 정보 없음 continue");
-        } else {
-            // "buildingUses" 키에 해당하는 JSONObject 가져오기
-            if(jsonObject.isNull("buildingUses")) {
-                log.info("## 주소정보 없음 continue 2 ");
-            } else {
-                JSONObject buildingUses = jsonObject.getJSONObject("buildingUses");
-
-                // "field" 키에 해당하는 JSONArray 가져오기
-                JSONArray fieldArray = buildingUses.getJSONArray("field");
-
-                // 첫 번째 요소인 JSONObject 가져오기
-                JSONObject firstField = fieldArray.getJSONObject(0);
-                // "mnnmSlno" 키에 해당하는 값 가져오기
-                String mnnmSlnoValue = firstField.getString("mnnmSlno");
-
-                String ldCodeNmValue = firstField.getString("ldCodeNm");
-                log.info("jsonObject {} " , jsonObject.get("buildingUses"));
-                item.setAddress( ldCodeNmValue + " " + mnnmSlnoValue);
-                log.info("getAddress :: {} ", item.getAddress());
-            }
-
-            // aptTradeDTO.setId((String) obj[0]);
-        }
-
-        return item;
-    }
 
 
     // original

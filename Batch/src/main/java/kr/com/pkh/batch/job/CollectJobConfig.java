@@ -77,36 +77,34 @@ public class CollectJobConfig {
      *
      * @return
      */
+    // original
+//    @JobScope
+//    @Bean
+//    public Step aptAddressStep(AptAddressReader aptAddressReader,
+//                               AptAddressProcessor addressProcessor,
+//                               ItemWriter aptAddressWriter
+//    ){
+//        return stepBuilderFactory.get("aptAddressStep")
+//                .<List<AptTradeDTO>, AptTradeDTO>chunk(10)
+//                .reader(aptAddressReader)         // ??
+//                .processor((Function<? super List<AptTradeDTO>, ? extends AptTradeDTO>) addressProcessor)   // ??
+//                .writer(aptAddressWriter)
+//                .build();
+//    }
+
+
     @JobScope
     @Bean
-    public Step aptAddressStep(AptAddressReader aptAddressReader,
+    public Step aptAddressStep(ItemReader aptAddressReader,
                                AptAddressProcessor addressProcessor,
                                ItemWriter aptAddressWriter
     ){
         return stepBuilderFactory.get("aptAddressStep")
                 .<List<AptTradeDTO>, AptTradeDTO>chunk(10)
-                .reader(aptAddressReader)
-                .processor((Function<? super List<AptTradeDTO>, ? extends AptTradeDTO>) addressProcessor)   // ??
+                .reader(aptAddressReader)         // ??
+                .processor(addressProcessor)      // ??
                 .writer(aptAddressWriter)
                 .build();
     }
-
-
-    //// original
-    /**
-     *
-     * gitHub realty project의 issue #8참고
-     * mybatis 변경대상 소스
-     * @return
-     */
-//    @Bean
-//    public JpaCursorItemReader<AptTradeDTO> jpaCursorItemReader() {
-//
-//            JpaCursorItemReader<AptTradeDTO> reader = new JpaCursorItemReader<>();
-//            reader.setEntityManagerFactory(entityManagerFactory);
-//            reader.setQueryString("select id, pnu, name, tradeAmount ,tradeDate, address , insertDateTime from AptTradeEntity WHERE  address is null");
-//
-//            return reader;
-//    }
 
 }
