@@ -1,7 +1,8 @@
 package kr.com.pkh.batch.step.chunk.writer;
 
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
-
+import kr.com.pkh.batch.dao.AptTradeDAO;
+import kr.com.pkh.batch.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
@@ -12,16 +13,13 @@ import java.util.List;
 @Component
 public class AptAddressWriter implements ItemWriter<AptTradeDTO> {
 
-
+    @Autowired
+    AptTradeDAO aptTradeDAO;
     // original
 //    private AptTradeRepository repository;
 
 
-    // original
-//    @Autowired
-//    public AptAddressWriter(AptTradeRepository repository){
-//        this.repository = repository;
-//    }
+
 
     /// original
     /**
@@ -51,8 +49,13 @@ public class AptAddressWriter implements ItemWriter<AptTradeDTO> {
         log.info("item@#@####item@#@##### {}" , items.size());
 
         for(AptTradeDTO item : items) {
-            log.info("c " + item.getId());
+            log.info("c " + item.getPnu());
+            log.info("address :: {} ", item.getAddress());
+            if(!StringUtil.isEmpty(item.getAddress())) {
+                // 건물정보 테이블 insert
+                aptTradeDAO.insertAptAddress(item); 
 
+            }
             if(item.getId() != null) {
 //                repository.save(item);
             }

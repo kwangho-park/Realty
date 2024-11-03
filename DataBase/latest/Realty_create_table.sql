@@ -1,24 +1,25 @@
 
-
 -- 아파트 매매 거래정보 테이블 (로그성 테이블)
 CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_TRADE` (
-  `AT_ID` VARCHAR(20) NOT NULL COMMENT '매매거래를 증명하는 일련번호 (in부동산거래계약신고필증) , format : xxxxx-xxxxx',
-  `AT_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
-  `AT_NAME` VARCHAR(50) NULL COMMENT '아파트 단지명',
-  `AT_TRADE_AMOUNT` INT(11) NULL COMMENT '매매가격 (단위 : 만원)',
-  `AT_TRADE_DATE` VARCHAR(50) NULL COMMENT '거래일자',
-  `AT_ADDRESS` VARCHAR(70) NULL COMMENT '아파트 단지 주소',
-  `AT_INSERT_DATETIME` DATETIME NULL COMMENT '데이터 생성일자',
-  INDEX `AT_PNU_INDEX` (`AT_PNU`),
-  INDEX `AT_TRADE_DATE_INDEX` (`AT_TRADE_DATE`),
-  PRIMARY KEY (`AT_ID`)
-)
-ENGINE = InnoDB
-COMMENT = '아파트 매매 거래 정보 테이블 ';
+    `AT_ID` VARCHAR(20) NOT NULL COMMENT '매매거래를 증명하는 일련번호 (in부동산거래계약신고필증) , format : xxxxx-xxxxx',
+    `AT_PNU` VARCHAR(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
+    `AT_TRADE_AMOUNT` INT(11) NULL COMMENT '매매가격 (단위 : 만원)',
+    `AT_TRADE_DATE` VARCHAR(50) NULL COMMENT '거래일자',
+    `AT_INSERT_DATETIME` DATETIME NULL,
+    `AT_SIGUN_CD` VARCHAR(5) NULL COMMENT '시군구코드',
+    `AT_BJD_CD` VARCHAR(5) NULL COMMENT '법정동 코드',
+    `AT_PLAT_CD` VARCHAR(1) NULL COMMENT '대지구분코드 (0: 대지 ,1: 산, 2: 블록)',
+    `AT_BUN_CD` VARCHAR(4) NULL COMMENT '본번 코드',
+    `AT_JI_CD` VARCHAR(4) NULL COMMENT '지번 코드',
+    PRIMARY KEY (`AT_ID`),
+    INDEX `AT_PNU_INDEX` (`AT_PNU` ASC) INVISIBLE,
+    INDEX `AT_TRADE_DATE_INDEX` (`AT_TRADE_DATE` ASC) INVISIBLE)
+    ENGINE = InnoDB
+    COMMENT = '아파트 매매 거래 정보 테이블 (로그성 테이블)'
 
 -- 아파트 전월세 거래 정보 테이블 (로그성 테이블)
 CREATE TABLE IF NOT EXISTS `realty`.`TB_APT_RENT` (
-  `AR_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
+  `AR_PNU` VARCHAR(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
   `AR_NAME` VARCHAR(50) NULL COMMENT '아파트 단지명',
   `AR_CONTRACT_TYPE` VARCHAR(10) NULL COMMENT '계약구분',
   `AR_DEAL_YEAR` VARCHAR(20) NULL COMMENT '계약연도',
@@ -34,7 +35,7 @@ COMMENT = '아파트 전월세 거래 정보 테이블 (로그성 테이블)';
 
 -- 부동산 투자정보 테이블 
 CREATE TABLE IF NOT EXISTS `realty`.`TB_REALTY_INFO` (
-  `RI_PNU` BIGINT(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
+  `RI_PNU` VARCHAR(20) NULL COMMENT '필지고유번호 : 17~19자리 정수, 법정동(8-10) + 토지구분(1)+ 지번(본번4/부번4)',
   `RI_NAME` VARCHAR(45) NULL COMMENT '아파트 단지명',
   `RI_UNIT_COST` INT(11) NULL COMMENT '평단가',
   `RI_RANTAL_RATE` INT(11) NULL COMMENT '전세가율',
@@ -53,7 +54,7 @@ COMMENT = '부동산 투자정보 테이블';
 CREATE TABLE IF NOT EXISTS `realty`.`TB_REGION_CODE` (
   `RC_ID` INT(11) NOT NULL AUTO_INCREMENT,
   `RC_LOCATADD_NAME` VARCHAR(45) NULL DEFAULT '' COMMENT '지역주소명',
-  `RC_REGION_CODE` BIGINT(20) NULL DEFAULT 0 COMMENT '지역코드 (10자리)',
+  `RC_REGION_CODE` VARCHAR(20) NULL DEFAULT 0 COMMENT '지역코드 (10자리)',
   `RC_SIDO_CODE` INT(2) UNSIGNED NULL DEFAULT 0 COMMENT '시도코드 (2자리)',
   `RC_SGG_CODE` INT(3) UNSIGNED NULL DEFAULT 0 COMMENT '시군구코드 (3자리) ',
   `RC_UMD_CODE` INT(3) UNSIGNED NULL DEFAULT 0 COMMENT '읍면동 코드 (3자리) ',
@@ -96,15 +97,14 @@ ENGINE = InnoDB
 COMMENT = '사용자 로그 테이블';
 
 
-
 -- 아파트 건물정보 테이블 
 CREATE TABLE IF NOT EXISTS realty.TB_APT_BUILDING (
-  `AB_PNU` BIGINT(20) NOT NULL,
+  `AB_PNU` VARCHAR(20) NOT NULL,
   `AB_NAME` VARCHAR(50) NULL COMMENT '아파트 단지명',
   `AB_ADDRESS` VARCHAR(100) NULL COMMENT '주소',
   `AB_ROAD_ADDRESS` VARCHAR(100) NULL COMMENT '도로명 주소',
   `AB_GPS` VARCHAR(50) NULL COMMENT 'GPS 좌표 (y,x; 위도경도) (format ex : 126.7692711,37.50877829) ',
-  `AB_GIS` BIGINT(20) NULL COMMENT 'GIS 건물통합식별번호 (정수 20자리)',
+  `AB_GIS` VARCHAR(20) NULL COMMENT 'GIS 건물통합식별번호 (정수 20자리)',
   PRIMARY KEY (`AB_PNU`))
 ENGINE = InnoDB
 COMMENT = '아파트 건물정보 테이블 (by 공공데이터 포털 건출물대장, v-world)  ';
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS realty.TB_AREA_TYPE (
   `AT_PUBLIC_AREA` VARCHAR(45) NULL COMMENT '주거공용면적',
   `AT_SUPPLY_AREA` VARCHAR(45) NULL COMMENT '공급면적 (전용면적 + 공용면적) ',
   `AT_TRADE_AREA` VARCHAR(45) NULL COMMENT '계약면적 (공급면적 + 기타면적) ',
-  `AT_AB_PNU` BIGINT(20) NOT NULL,
+  `AT_AB_PNU` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`AT_NUM`),
   INDEX `fk_TB_AREA_TYPE_TB_APT_BUILDING_idx` (`AT_AB_PNU` ASC) VISIBLE,
   CONSTRAINT `fk_TB_AREA_TYPE_TB_APT_BUILDING`
