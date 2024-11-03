@@ -10,5 +10,5 @@ public class AreaTypeDTO {
     String supplyArea;      // 공급면적
     String tradeArea;       // 계약면적
 
-    long abPnu;              // FK (TB_APT_BUILDING 의 FK)
+    String abPnu;              // FK (TB_APT_BUILDING 의 FK)
 }
