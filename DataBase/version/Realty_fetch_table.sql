@@ -73,16 +73,16 @@ ALTER TABLE realty.tb_apt_trade DROP COLUMN AT_NAME;
 
 
 
-
+-- tb_apt_trade 테이블 칼럼 추가
 ALTER TABLE realty.tb_apt_trade ADD AT_SIGUN_CD varchar(5) NULL COMMENT '시군구 코드 ';
 ALTER TABLE realty.tb_apt_trade ADD AT_BJD_CD varchar(5) NULL COMMENT '법정동 코드 ';
 ALTER TABLE realty.tb_apt_trade ADD AT_PLAT_CD  varchar(1) NULL COMMENT '대지구분코드 (0: 대지, 1: 산, 2: 블록)';
 ALTER TABLE realty.tb_apt_trade ADD AT_BUN_CD  varchar(4) NULL COMMENT '본번 코드';
 ALTER TABLE realty.tb_apt_trade ADD AT_JI_CD  varchar(4) NULL COMMENT '지번 코드';
 
+
+-- PNU 칼럼 속성 변경 (bigint(20)->varchar(20))
 ALTER TABLE realty.tb_apt_trade MODIFY COLUMN AT_PNU VARCHAR(20);
-
-
 ALTER TABLE realty.TB_APT_RENT MODIFY COLUMN AR_PNU VARCHAR(20);
 ALTER TABLE realty.TB_REALTY_INFO MODIFY COLUMN RI_PNU VARCHAR(20);
 
