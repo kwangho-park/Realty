@@ -1,6 +1,6 @@
 package kr.com.pkh.batch.dao;
 
-import kr.com.pkh.batch.dto.RegionCodeDTO;
+import kr.com.pkh.batch.dto.db.RegionCodeDTO;
 import kr.com.pkh.batch.mapper.RegionCodeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

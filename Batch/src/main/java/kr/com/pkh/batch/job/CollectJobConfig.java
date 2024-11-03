@@ -1,8 +1,8 @@
 package kr.com.pkh.batch.job;
 
 
-import kr.com.pkh.batch.dto.AptTradeDTO;
-import kr.com.pkh.batch.dto.TradeDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
+import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptAddressProcessor;
 import kr.com.pkh.batch.step.chunk.reader.AptAddressReader;
@@ -42,7 +42,7 @@ public class CollectJobConfig {
     private RTMSOBJSvc RTMSOBJSvc;
 
     @Bean
-    public Job collectRealtyJob(Step aptTradeStep,Step aptAddressStep ){
+    public Job collectRealtyJob(Step aptTradeStep){
         return jobBuilderFactory.get("collectRealtyJob")        // job 이름 정의
                 .incrementer(new RunIdIncrementer())
                 .start(aptTradeStep)

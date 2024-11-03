@@ -1,8 +1,8 @@
 package kr.com.pkh.batch.step.chunk.reader;
 
 import kr.com.pkh.batch.dao.RegionCodeDAO;
-import kr.com.pkh.batch.dto.RegionCodeDTO;
-import kr.com.pkh.batch.dto.TradeDTO;
+import kr.com.pkh.batch.dto.db.RegionCodeDTO;
+import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.exception.CustomException;
 import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
 import kr.com.pkh.batch.singleton.Scope;

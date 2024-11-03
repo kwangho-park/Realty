@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.com.pkh.batch.mapper.UserInfoMapper">
 
-    <resultMap id="userInfoMap" type="kr.com.pkh.batch.dto.UserInfoDTO">
+    <resultMap id="userInfoMap" type="kr.com.pkh.batch.dto.db.UserInfoDTO">
         <id property="id" column="UI_ID"/>
         <result property="userId" column="UI_USER_ID"/>
         <result property="userName" column="UI_USER_NAME"/>

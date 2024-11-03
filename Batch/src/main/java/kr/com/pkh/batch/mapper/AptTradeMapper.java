@@ -1,8 +1,7 @@
 package kr.com.pkh.batch.mapper;
 
-import kr.com.pkh.batch.dto.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.List;

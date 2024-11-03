@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.com.pkh.batch.mapper.RegionCodeMapper">
 
-    <resultMap id="regionCodeMap" type="kr.com.pkh.batch.dto.RegionCodeDTO">
+    <resultMap id="regionCodeMap" type="kr.com.pkh.batch.dto.db.RegionCodeDTO">
         <id property="id" column="RC_ID"/>
         <result property="locataddName" column="RC_LOCATADD_NAME"/>
         <result property="regionCode" column="RC_REGION_CODE"/>

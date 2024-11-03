@@ -1,8 +1,8 @@
 package kr.com.pkh.batch.step.chunk.processor;
 
-import kr.com.pkh.batch.dto.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
 
-import kr.com.pkh.batch.dto.TradeDTO;
+import kr.com.pkh.batch.dto.api.TradeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;

@@ -40,8 +40,8 @@ public class BldRgstServiceTest {
         String ji="0000";               // 지번 (4자리) : 0000
         String dongNm="310";               // 301 동 = 공급면적 59, 310 동 = 공급면적 69
         String hoNm="";
-        String startDate="";
-        String endDate ="";
+        String startDate="";            // ?
+        String endDate ="";             // ?
 
         // when
         bldRgstService.getBrExposPubuseAreaInfo(numOfRows, pageNo, sigunguCd,bjdongCd,platGbCd, bun,ji,

@@ -1,36 +1,28 @@
 package kr.com.pkh.batch.openAPI.data;
 
-import kr.com.pkh.batch.dto.AptTradeDTO;
-import kr.com.pkh.batch.dto.PageDTO;
-import kr.com.pkh.batch.dto.TradeDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.PageDTO;
+import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.util.HTTPrequest;
 import kr.com.pkh.batch.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
-import kr.com.pkh.batch.util.json.JSONObject;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
 /**

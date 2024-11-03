@@ -1,6 +1,6 @@
 package kr.com.pkh.batch.dao;
 
-import kr.com.pkh.batch.dto.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import kr.com.pkh.batch.mapper.AptTradeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

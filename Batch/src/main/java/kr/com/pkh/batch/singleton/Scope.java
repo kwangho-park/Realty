@@ -12,6 +12,8 @@ import java.util.Map;
 /**
  * 부동산 정보 수집 범위를 지정하는 싱글톤 <br>
  * 범위 : (페이지) , 수집기간 , 지역코드
+ *
+ * /////// [고도화] job, step 의 실행상태를 유지하고 데이터를 저장하는 'ExecutionContext' 을 사용하는 것으로 변경예정임
  */
 @Data
 public class Scope {

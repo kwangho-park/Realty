@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.com.pkh.batch.mapper.AptTradeMapper">
 
-    <resultMap id="AptTradeMap" type="kr.com.pkh.batch.dto.AptTradeDTO">
+    <resultMap id="AptTradeMap" type="kr.com.pkh.batch.dto.db.AptTradeDTO">
         <id property="id" column="AT_ID"/>
         <result property="pnu" column="AT_PNU"/>
         <result property="name" column="AT_NAME"/>

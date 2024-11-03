@@ -1,5 +1,7 @@
-package kr.com.pkh.batch.dto;
+package kr.com.pkh.batch.dto.api;
 
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.PageDTO;
 import lombok.Data;
 import java.util.List;
 

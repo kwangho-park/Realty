@@ -1,7 +1,7 @@
 package kr.com.pkh.batch.step.chunk.writer;
 
 import kr.com.pkh.batch.dao.AptTradeDAO;
-import kr.com.pkh.batch.dto.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;

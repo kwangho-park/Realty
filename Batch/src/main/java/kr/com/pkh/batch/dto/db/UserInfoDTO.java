@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.dto;
+package kr.com.pkh.batch.dto.db;
 
 import lombok.Data;
 

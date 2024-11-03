@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.com.pkh.batch.mapper.AreaTypeMapper">
+
+    <resultMap id="areaTypeMap" type="kr.com.pkh.batch.dto.db.AreaTypeDTO">
+        <id property="num" column="AT_NUM"/>
+        <result property="privateArea" column="AT_PRIVATE_AREA"/>
+        <result property="publicArea" column="AT_PUBLIC_AREA"/>
+        <result property="supplyArea" column="AT_SUPPLY_AREA"/>
+        <result property="tradeArea" column="AT_TRADE_AREA"/>
+        <result property="abPnu" column="AT_AB_PNU"/>
+    </resultMap>
+
+    <!--전용/공용면적 수집대상 대상 pnu 리스트 조회-->
+    <select id="selectTargetList" resultType="string">
+        select distinct tat.AT_PNU AS AT_PNU
+        from tb_apt_trade tat
+        inner join tb_apt_building tab
+        on tat.at_pnu = tab.ab_pnu
+    </select>
+
+
+</mapper>

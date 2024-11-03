@@ -2,8 +2,8 @@ package kr.com.pkh.batch.extend.job.standard;
 
 import kr.com.pkh.batch.dao.AptTradeDAO;
 import kr.com.pkh.batch.dao.UserInfoDAO;
-import kr.com.pkh.batch.dto.AptTradeDTO;
-import kr.com.pkh.batch.dto.UserInfoDTO;
+import kr.com.pkh.batch.dto.db.AptTradeDTO;
+import kr.com.pkh.batch.dto.db.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
