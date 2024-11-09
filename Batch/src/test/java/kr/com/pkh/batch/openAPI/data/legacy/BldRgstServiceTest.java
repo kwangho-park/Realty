@@ -1,6 +1,7 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.legacy;
 
 
+import kr.com.pkh.batch.openAPI.data.legacy.BldRgstService;
 import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest                     // spring 기반 어플리케이션의 모든 bean과 설정을 포함함
 public class BldRgstServiceTest {
 
-
     @Test
     public void getBrExposPubuseAreaInfoTest() throws Exception {
 
@@ -35,7 +35,7 @@ public class BldRgstServiceTest {
         String pageNo ="1";
         String sigunguCd ="41192";       // 시군구코드(5자리) (필수) : 41192 (경기도 부천시 원미구)
         String bjdongCd ="10800";        // 법정동코드(5자리)  (필수) : 10800 (중동)
-        String platGbCd="0";            // 코지구분 (1자리) : 0
+        String platGbCd="0";            // 토지구분 (1자리) : 0
         String bun="1051";              // 본번 (4자리) : 1051  (10510000 설악마을아파트 지번)
         String ji="0000";               // 지번 (4자리) : 0000
         String dongNm="310";               // 301 동 = 공급면적 59, 310 동 = 공급면적 69

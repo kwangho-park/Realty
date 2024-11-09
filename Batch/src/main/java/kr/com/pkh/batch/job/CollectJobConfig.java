@@ -3,9 +3,8 @@ package kr.com.pkh.batch.job;
 
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import kr.com.pkh.batch.dto.api.TradeDTO;
-import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
+import kr.com.pkh.batch.openAPI.data.legacy.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptAddressProcessor;
-import kr.com.pkh.batch.step.chunk.reader.AptAddressReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -22,7 +21,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * run : --spring.batch.job.names=collectRealtyJob
@@ -68,7 +66,7 @@ public class CollectJobConfig {
                 .build();
     }
 
-
+    
     /**
      * gitHub realty project의 issue #8참고
      * mybatis 변경대상 소스
@@ -77,22 +75,6 @@ public class CollectJobConfig {
      *
      * @return
      */
-    // original
-//    @JobScope
-//    @Bean
-//    public Step aptAddressStep(AptAddressReader aptAddressReader,
-//                               AptAddressProcessor addressProcessor,
-//                               ItemWriter aptAddressWriter
-//    ){
-//        return stepBuilderFactory.get("aptAddressStep")
-//                .<List<AptTradeDTO>, AptTradeDTO>chunk(10)
-//                .reader(aptAddressReader)         // ??
-//                .processor((Function<? super List<AptTradeDTO>, ? extends AptTradeDTO>) addressProcessor)   // ??
-//                .writer(aptAddressWriter)
-//                .build();
-//    }
-
-
     @JobScope
     @Bean
     public Step aptAddressStep(ItemReader aptAddressReader,

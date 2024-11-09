@@ -4,7 +4,7 @@ import kr.com.pkh.batch.dao.RegionCodeDAO;
 import kr.com.pkh.batch.dto.db.RegionCodeDTO;
 import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.exception.CustomException;
-import kr.com.pkh.batch.openAPI.data.RTMSOBJSvc;
+import kr.com.pkh.batch.openAPI.data.RTMSDataSvc;
 import kr.com.pkh.batch.singleton.Scope;
 import kr.com.pkh.batch.util.DateUtil;
 import kr.com.pkh.batch.util.StringUtil;
@@ -52,17 +52,17 @@ public class RestItemReader implements ItemReader<TradeDTO> {
     @Value("${collectRealtyJob.mode.init.endDate}")
     private String endDate;         // format : YYYYMM
 
-    private RTMSOBJSvc RTMSOBJSvc;
+    private RTMSDataSvc RTMSDataSvc;
 
     private RegionCodeDAO regionCodeDAO;
 
     @Autowired
-    public RestItemReader(RTMSOBJSvc RTMSOBJSvc, RegionCodeDAO regionCodeDAO) {
-        this.RTMSOBJSvc = RTMSOBJSvc;
+    public RestItemReader(RTMSDataSvc RTMSDataSvc, RegionCodeDAO regionCodeDAO) {
+        this.RTMSDataSvc = RTMSDataSvc;
         this.regionCodeDAO=regionCodeDAO;
 
         String asciiArt=
-                "  _____            _ _             _           _       _       		\n"+
+                        "  _____            _ _             _           _       _       		\n"+
                         " |  __ \\          | | |           | |         | |     | |      		\n"+
                         " | |__) |___  __ _| | |_ _   _    | |__   __ _| |_ ___| |__    		\n"+
                         " |  _  // _ \\/ _` | | __| | | |   | '_ \\ / _` | __/ __| '_ \\   		\n"+
@@ -149,7 +149,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("DEAL_YMD (today month) : "+dealYmd);
 
                 // openAPI 로 데이터 수집 및 PNU 가공
-                tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
+                tradeDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
                         lawdCd,
@@ -223,7 +223,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(scope.getStartDate()));
 
                 // openAPI 로 데이터 수집 및 PNU 가공
-                tradeDTO = RTMSOBJSvc.getRTMSDataSvcAptTradeDev(apiKey,
+                tradeDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
                         lawdCd,

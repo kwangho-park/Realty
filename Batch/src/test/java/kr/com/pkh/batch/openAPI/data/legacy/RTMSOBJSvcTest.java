@@ -1,5 +1,6 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.legacy;
 
+import kr.com.pkh.batch.openAPI.data.legacy.RTMSOBJSvc;
 import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +43,7 @@ public class RTMSOBJSvcTest {
         String pageNo="1";
         String numOfRows="100";
         String LAWD_CD ="41192";        // 11590 : 서울시 동작구, 41192 : 부천시 원미구
-        String DEAL_YMD ="202402";
+        String DEAL_YMD ="202402";      // 거래일자
 
 
         // when //

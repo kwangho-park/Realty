@@ -1,8 +1,7 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.legacy;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.configuration.xml.ExceptionElementParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +9,8 @@ import java.util.Map;
 
 /**
  * 공급자 : 공공데이터 포털
- * 서비스명 : 용도별 건물 정보 서비스  (BuildingUseService) - 서비스 종료 및 vworld 이관
- *
+ * 서비스명 : [서비스 종료 2024.10] 용도별 건물 정보 서비스  (BuildingUseService)
+ *  => 대체서비스 : v-world
  * 인증인가 방식 : API key
  * http method : GET 방식만 지원
  *

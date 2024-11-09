@@ -1,15 +1,15 @@
 package kr.com.pkh.batch.openAPI.data;
 
+import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import kr.com.pkh.batch.dto.db.PageDTO;
-import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.util.HTTPrequest;
 import kr.com.pkh.batch.util.StringUtil;
-import org.springframework.beans.factory.annotation.Value;
-import org.w3c.dom.Document;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -18,118 +18,33 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * 공급자 : 공공데이터 포털
- * 서비스 명 : 지역과 기간을 설정하여 아파트 매매,전/월세 신고 데이터 조회 서비스(개략/상세) (RTMSOBJSvc)
- *
- * - 조회 데이터가 없는 경우 반환 데이터 : http 200 code 반환, http body (xml) 의  <resultCode>00</<resultCode> , <resultMsg> NORMAL SERVICE.</resultMsg>
- *
- * -인증인가 방식 : API key <br>
- * - http method : GET 방식만 지원 <br>
- *
- * domain : http://openapi.molit.go.kr <br>
+ * provider : 공공데이터 포털
+ * 서비스명 : 아파트 매매 실거래가 상세 자료
+ * 서비스 설명 : 지역코드와 기간을 설정하여 해당지역, 해당기간의 아파트 매매 상세 자료를 제공하는 아파트 매매 실거래가 상세 자료 조회
+ * 서비스 인증 방식 : API key
+ * 서비스  url  : http://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev
  *
  *
  */
 @Slf4j
 @Component
-public class RTMSOBJSvc {
+public class RTMSDataSvc {
 
     @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
 
+    public RTMSDataSvc(){}
 
-    public RTMSOBJSvc(){}
-
-    public RTMSOBJSvc(String apiKey){
-        this.apiKey = apiKey;
-    }
-
-    private String serviceDomain="http://openapi.molit.go.kr";
-    private String servicePort=null;
-    /**
-     * 아파트 매매 신고데이터 개략 조회 (by 지역/기간) <br>
-     *
-     * @param lawdCd 지역 코드 (법정동코드 10자리 중 앞 5자리)
-     * @param dealYmd 계약월 (실거래 자료의 계약년월 6자리)
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    public void getRTMSDataSvcAptTrade(String lawdCd, String dealYmd) {
-
-        try{
-            servicePort=":8081";
-            String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
-            String path = "/getRTMSDataSvcAptTrade";
-
-
-            Map<String, String> parameters = Map.of(
-                    "serviceKey",apiKey,
-                    "LAWD_CD",lawdCd,
-                    "DEAL_YMD",dealYmd
-            );
-
-            String responseXml = HTTPrequest.responseXML(serviceDomain, servicePort, commonPath, path, parameters);
-
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }catch(ParseException e){
-            e.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * 아파트 매매 신고 데이터 상세 조회  (by 지역/기간)  <br>
-     *
-     * @param lawdCd 지역코드
-     * @param dealYmd 계약월
-     * @param pageNo 페이지 번호
-     * @param numOfRows 한 페이지의 row 수
-     *
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    public void getRTMSDataSvcAptTradeDev(String lawdCd, String dealYmd, int pageNo, int numOfRows)  {
-
-        try{
-            servicePort="";
-            String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
-            String path = "/getRTMSDataSvcAptTradeDev";
-
-            Map<String, String> parameters = Map.of(
-                    "serviceKey",apiKey,        // 필수
-                    "LAWD_CD", lawdCd,              // 필수
-                    "DEAL_YMD", dealYmd,            // 필수
-                    "pageNo",String.valueOf(pageNo),        // 옵션
-                    "numOfRows",String.valueOf(numOfRows)   // 옵션
-            );
-
-
-            String responseXml = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }catch(ParseException e){
-            e.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
+    private String serviceDomain="http://apis.data.go.kr";
+    private String servicePort="";  //  없음
 
     /**
      * 아파트 매매 신고 데이터 상세 조회 (by 지역/기간) <br>
@@ -148,14 +63,15 @@ public class RTMSOBJSvc {
      * @throws ParseException
      */
     public TradeDTO getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
-                                          String LAWD_CD, String DEAL_YMD) {
-
+                                          String LAWD_CD, String DEAL_YMD){
         TradeDTO tradeDTO = new TradeDTO();
+        String responseXml = null;
 
         try{
-            servicePort="/";
-            String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
+            servicePort="";
+            String commonPath = "/1613000/RTMSDataSvcAptTradeDev";
             String path = "/getRTMSDataSvcAptTradeDev";
+
 
             Map<String, String> parameters = Map.of(
                     "serviceKey",serviceKey,
@@ -165,8 +81,7 @@ public class RTMSOBJSvc {
                     "DEAL_YMD", DEAL_YMD
             );
 
-
-            String responseXml = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
+            responseXml = HTTPrequest.responseXML(serviceDomain, servicePort, commonPath, path, parameters);
 
             tradeDTO = xmlParsingToObject(responseXml);
 
@@ -176,44 +91,13 @@ public class RTMSOBJSvc {
             e.printStackTrace();
         }catch(Exception e){
             e.printStackTrace();
-
-        }finally {
-            return tradeDTO;
         }
+
+        return tradeDTO;
+
     }
 
 
-    /**
-     * 전월세 신고 데이터 조회 (by 지역/기간)
-     * @param lawdCd 지역코드 5자리 (필수)
-     * @param dealYmd 계약월 6자리 (필수)
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    public void getRTMSDataSvcAptRent(String lawdCd, String dealYmd) {
-
-        try{
-            servicePort=":8081";
-            String commonPath = "/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc";
-            String path = "/getRTMSDataSvcAptRent";
-
-            Map<String, String> parameters = Map.of(
-                    "serviceKey",apiKey,
-                    "LAWD_CD", lawdCd,
-                    "DEAL_YMD", dealYmd
-            );
-
-            String responseXml = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
-
-        }catch(ParseException e){
-            e.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
 
     // 아파트 매매 상세 데이터 파싱 (xml string -> java Map)
     // 주소 데이터로 pnu 생성
@@ -227,7 +111,7 @@ public class RTMSOBJSvc {
 
         try{
 
-            // http response XML 로그 출력 (for RTMSOBJSvc 서비스) //
+            // http response XML 로그 출력 (for RTMSDataSvc 서비스) //
             // document 객체로 변환
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -247,7 +131,7 @@ public class RTMSOBJSvc {
                 AptTradeDTO aptTradeDTO = new AptTradeDTO();
 
                 String childNodesLog="";
-                String id="";               // 거래 일련번호
+                String id="";               // 거래 일련번호 ([중요] 서비스가 변경되면서 단지 일련번호로 변경된건지 검증이 필요)
                 String pnu = "";
                 String name = "";
                 String tradeMonth="";
@@ -258,10 +142,10 @@ public class RTMSOBJSvc {
 
                 Map<String, String> pnuMap = new HashMap<String, String>();
 
-    //            log.debug("element num : "+i);
+                //            log.debug("element num : "+i);
 
                 NodeList elementList = itemNodes.item(i).getChildNodes();
-    //            log.debug("total element count : "+elementList.getLength());
+                //            log.debug("total element count : "+elementList.getLength());
 
                 // 건별 매매 거래 내역
                 for(int j=0;j<elementList.getLength();j++){
@@ -273,47 +157,47 @@ public class RTMSOBJSvc {
                     childNodesLog+=(tagName+":"+tagValue+"/");
 
 
-                    if(tagName.equals("일련번호")) {
+                    if(tagName.equals("aptSeq")) {
                         id = tagValue;
                     }
-                    if(tagName.equals("아파트")) {
+                    if(tagName.equals("aptNm")) {
                         name = tagValue;
                     }
-                    if(tagName.equals("거래금액")) {
+                    if(tagName.equals("dealAmount")) {
                         tagValue = StringUtil.removeAllCharsFromString(tagValue, ',');
                         tradeAmount = Integer.parseInt(tagValue);
                     }
 
                     // 계약년월일
-                    if(tagName.equals("년")) {
+                    if(tagName.equals("dealYear")) {
                         tradeYear = tagValue;
                     }
-                    if(tagName.equals("월")) {
+                    if(tagName.equals("dealMonth")) {
                         tradeMonth = StringUtil.padWithZero(tagValue);
                     }
-                    if(tagName.equals("일")) {
+                    if(tagName.equals("dealDay")) {
                         tradeDay = StringUtil.padWithZero(tagValue);
                     }
 
                     // pnu 일련번호 조합
-                    if(tagName.equals("법정동시군구코드")){     // 4-5 자리
+                    if(tagName.equals("sggCd")){     // 4-5 자리
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("법정동읍면동코드")){     // 4-5 자리
+                    }else if(tagName.equals("umdCd")){     // 4-5 자리
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("법정동지번코드")){       // 1자리
+                    }else if(tagName.equals("landCd")){       // 1자리
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("법정동본번코드")){       // 4자리
+                    }else if(tagName.equals("bonbun")){       // 4자리
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("법정동부번코드")){       // 4자리
+                    }else if(tagName.equals("bubun")){       // 4자리
                         pnuMap.put(tagName,tagValue);
                     }
                 }
 
-    //             log.debug("childNodesLog : "+childNodesLog);
+                //             log.debug("childNodesLog : "+childNodesLog);
 
-                pnu = pnuMap.get("법정동시군구코드") + pnuMap.get("법정동읍면동코드")
-                        + pnuMap.get("법정동지번코드")
-                        + pnuMap.get("법정동본번코드")  + pnuMap.get("법정동부번코드");
+                pnu = pnuMap.get("sggCd") + pnuMap.get("umdCd")
+                        + pnuMap.get("landCd")
+                        + pnuMap.get("bonbun")  + pnuMap.get("bubun");
 
                 tradeDate=tradeYear+tradeMonth+tradeDay;
 
@@ -380,4 +264,7 @@ public class RTMSOBJSvc {
 
 
     }
+
+
+
 }

@@ -1,17 +1,17 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.legacy;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.net.URLEncoder;
-import java.text.Bidi;
 import java.util.Map;
 
 /**
  *  provider : 공공데이터 포털
- *  service name : 국토교통부 건축물대장정보 서비스
+ *  service name : [서비스 종료 2024.10] 국토교통부 건축물대장정보 서비스
+ *  =>  대체서비스 : 공공데이터포털- 국토교통부_건축HUB_건축물대장정보 서비스
+ *
  *  description : 건축물대장에서 관리하고 있는 총괄표제부, 표제부, 층별개요, 부속지번, 전유공용면적,
  *  오수정화시설, 주택가격, 전유부, 지역지구구역 등 속성정보(대용량 원시DB)
  */

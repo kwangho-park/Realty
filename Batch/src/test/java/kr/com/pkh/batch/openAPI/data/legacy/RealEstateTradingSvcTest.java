@@ -1,5 +1,6 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.legacy;
 
+import kr.com.pkh.batch.openAPI.data.legacy.RealEstateTradingSvc;
 import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

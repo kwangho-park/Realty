@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.legacy;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 
@@ -13,7 +13,9 @@ import java.util.Map;
 
 /**
  * 공급자 : 공공데이터 포털
- * 서비스 명 : 부동산 거래현황 통계 조회 서비스 (RealEstateTradingSvc)
+ * 서비스 명 : [서비스 종료 2024.10] 부동산 거래현황 통계 조회 서비스 (RealEstateTradingSvc)
+ * => 한국부동산원 - 부동산통계 openAPI 서비스
+ *
  * 인증인가 방식 : API key
  * http method : GET 방식만 지원
  *
