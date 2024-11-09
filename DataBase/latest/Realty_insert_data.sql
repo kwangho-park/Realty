@@ -33,7 +33,6 @@ values
 (4183000000,'경기도 양평군');
 
 
-
 -- 아파트 단지별 평단가 구현용 더미데이터 
 insert into tb_apt_building(AB_PNU, AB_NAME, AB_ADDRESS, AB_ROAD_ADDRESS) values('4119210800110510000','설악마을아파트(설악단지)','경기도 부천시 원미구 중동 1051번지','경기도 부천시 원미구 계남로 195');
 insert into tb_apt_building(AB_PNU, AB_NAME, AB_ADDRESS, AB_ROAD_ADDRESS) values('4119210800113000000','센트럴파크푸르지오','','부천시 원미구 소향로 181');
