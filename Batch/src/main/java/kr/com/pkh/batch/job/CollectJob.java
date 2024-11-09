@@ -28,7 +28,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class CollectJobConfig {
+public class CollectJob {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;

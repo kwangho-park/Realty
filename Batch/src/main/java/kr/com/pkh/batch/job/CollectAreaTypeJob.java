@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Configuration
 @RequiredArgsConstructor
-public class CollectAreaTypeJobConfig {
+public class CollectAreaTypeJob {
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
 
