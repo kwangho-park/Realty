@@ -38,7 +38,7 @@ public class BldRgstServiceTest {
         String platGbCd="0";            // 토지구분 (1자리) : 0
         String bun="1051";              // 본번 (4자리) : 1051  (10510000 설악마을아파트 지번)
         String ji="0000";               // 지번 (4자리) : 0000
-        String dongNm="310";               // 301 동 = 공급면적 59, 310 동 = 공급면적 69
+        String dongNm="310";            // 301 동 = 공급면적 59, 310 동 = 공급면적 69
         String hoNm="";
         String startDate="";            // ?
         String endDate ="";             // ?

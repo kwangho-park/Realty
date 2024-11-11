@@ -52,14 +52,14 @@ public class DataSet2_BuildingUse {
         String path = "/ned/data/getBuildingUse";
 
         Map<String, String> parameters = Map.of(
-                "pnu",URLEncoder.encode(pnu,"UTF-8"),           // 필수
+                "pnu",URLEncoder.encode(pnu,"UTF-8"),           // '필수'
 //                "mainPrposCode",mainPrposCode,                        // 옵션
 //                "detailPrposCode",detailPrposCode,                    // 옵션
                 "format",format,                                        // 옵션
                  "numOfRows",numOfRows,                                // 옵션
 //                "pageNo",pageNo                                       // 옵션
-                "key", URLEncoder.encode(key,"UTF-8")       ,        // 필수
-                "domain",domain                                       // 옵션
+                "key", URLEncoder.encode(key,"UTF-8")               // '필수'
+//                "domain",domain                                       // 옵션
         );
 
         HTTPrequest.responseJSON(serviceDomain, path,parameters);
@@ -79,7 +79,7 @@ public class DataSet2_BuildingUse {
      * @param resultType 응답형태 (?)
      * @param srsName GPS 좌표체계 (EPSG:4326 등)
      * @param key api key
-     * @param domain API KEY를 발급받을때 입력했던 URL
+     * @param domain API KEY를 발급받을때 입력했던 URL  (중요: 인증키 발급 시 설정한 도메인과 동일하지않는경우 API key error 발생)
      *
      * @return (예정)
      * @throws Exception
@@ -109,22 +109,24 @@ public class DataSet2_BuildingUse {
         HTTPrequest.responseXML( serviceDomain,  servicePort,  commonPath,  path, parameters);
     }
 
+    // [review] 테스트 코드에서 테스트 할 수 있도록 함수구조를 작성해야할것으로 판단됨 (ex) key 를 parameter로 전달, 오버로드된 메소드로 대체 고려 등)
     public JSONObject getBuildingUse(String pnu) {
 
         JSONObject jsonObject = new JSONObject();
+
         try {
 
             String path = "/ned/data/getBuildingUse";
 
             Map<String, String> parameters = Map.of(
-                    "pnu",URLEncoder.encode(pnu,"UTF-8"),           // 필수
-//                "mainPrposCode",mainPrposCode,                        // 옵션
-//                "detailPrposCode",detailPrposCode,                    // 옵션
-                    "format","json",                                        // 옵션
-                "numOfRows","1",                                // 옵션
-//                "pageNo",pageNo                                       // 옵션
-                    "key", URLEncoder.encode(key,"UTF-8") ,              // 필수
-                                    "domain","www.realty.co.kr"                                       // 옵션
+                    "pnu",URLEncoder.encode(pnu,"UTF-8"),           // '필수'
+//                "mainPrposCode",mainPrposCode,                            // 옵션
+//                "detailPrposCode",detailPrposCode,                        // 옵션
+                "format","json",                                        // 옵션
+                "numOfRows","1",                                        // 옵션
+//                "pageNo",pageNo                                           // 옵션
+                    "key", URLEncoder.encode("ADFE2B57-DC15-3072-9932-02BD45403FCA","UTF-8"),              // '필수'  [review] 임시로 하드코딩
+                    "domain","www.realty.co.kr"                             // 옵션 (중요: 인증키 발급 시 설정한 도메인과 동일해야함)
             );
 
            jsonObject = HTTPrequest.responseJSON(serviceDomain, path,parameters);

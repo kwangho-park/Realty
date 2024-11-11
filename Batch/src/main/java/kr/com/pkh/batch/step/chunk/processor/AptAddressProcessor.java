@@ -34,6 +34,8 @@ public class AptAddressProcessor  implements ItemProcessor<AptTradeDTO, AptTrade
             if(jsonObject.isNull("buildingUses")) {
                 log.info("## 주소정보 없음 continue 2 ");
             } else {
+
+                // [review] processor 가 아닌 DataSet2_BuildingUse.java 에서 구현하거나 별도로 파싱하는 클래스에 작성해야 코드 관리가 용이할것으로 판단됨
                 JSONObject buildingUses = jsonObject.getJSONObject("buildingUses");
 
                 // "field" 키에 해당하는 JSONArray 가져오기

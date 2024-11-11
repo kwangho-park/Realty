@@ -21,14 +21,17 @@ public class DataSet2_BuildingUseTest {
         String mainPrposCode="";
         String detailPrposCode="";
         String format="json";
-        String numOfRows="";
-        String pageNo="";
-        String domain="";
+        String numOfRows="1";
+        String pageNo="1";
+        String domain="www.realty.co.kr";
         String key = PropertiesUtil.getProperty("vworld.openApi.apikey");
 
 
         // when
-        buildingUse.getBuildingUse(pnu, mainPrposCode,detailPrposCode , format, numOfRows, pageNo,key,domain);
+//        buildingUse.getBuildingUse(pnu, mainPrposCode,detailPrposCode , format, numOfRows, pageNo,key,domain);
+
+        buildingUse.getBuildingUse(pnu);
+
 
         // then
     }
