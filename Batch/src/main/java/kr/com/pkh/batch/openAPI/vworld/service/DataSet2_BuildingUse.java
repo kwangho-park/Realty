@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.openAPI.vworld;
+package kr.com.pkh.batch.openAPI.vworld.service;
 
 
 import kr.com.pkh.batch.util.HTTPrequest;
@@ -136,8 +136,5 @@ public class DataSet2_BuildingUse {
         }
         return jsonObject;
     }
-
-
-
 
 }

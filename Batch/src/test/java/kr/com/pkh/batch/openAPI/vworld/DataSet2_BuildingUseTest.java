@@ -1,6 +1,7 @@
 package kr.com.pkh.batch.openAPI.vworld;
 
 
+import kr.com.pkh.batch.openAPI.vworld.service.DataSet2_BuildingUse;
 import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

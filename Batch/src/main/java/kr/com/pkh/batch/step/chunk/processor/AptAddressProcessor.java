@@ -1,16 +1,13 @@
 package kr.com.pkh.batch.step.chunk.processor;
 
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
-import kr.com.pkh.batch.basic.Person;
-import kr.com.pkh.batch.openAPI.vworld.DataSet2_BuildingUse;
+import kr.com.pkh.batch.openAPI.vworld.service.DataSet2_BuildingUse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.List;
 
 
 @Slf4j
@@ -35,7 +32,8 @@ public class AptAddressProcessor  implements ItemProcessor<AptTradeDTO, AptTrade
                 log.info("## 주소정보 없음 continue 2 ");
             } else {
 
-                // [review] processor 가 아닌 DataSet2_BuildingUse.java 에서 구현하거나 별도로 파싱하는 클래스에 작성해야 코드 관리가 용이할것으로 판단됨
+                // [review] processor 가 아닌 openAPI server 별 parser패키지에 구현해야 할것으로 판단됨
+                // [home path]/src/main/java/kr/com/pkh/batch/openAPI/vworld/parser/DataSet2_BuildingUseParser.java
                 JSONObject buildingUses = jsonObject.getJSONObject("buildingUses");
 
                 // "field" 키에 해당하는 JSONArray 가져오기

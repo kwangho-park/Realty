@@ -1,6 +1,7 @@
 package kr.com.pkh.batch.openAPI.data;
 
 
+import kr.com.pkh.batch.openAPI.data.service.StanReginCd;
 import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

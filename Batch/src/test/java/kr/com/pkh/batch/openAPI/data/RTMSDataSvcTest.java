@@ -1,6 +1,8 @@
 package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.dto.api.TradeDTO;
+import kr.com.pkh.batch.openAPI.data.parser.RTMSDataSvcParser;
+import kr.com.pkh.batch.openAPI.data.service.RTMSDataSvc;
 import kr.com.pkh.batch.util.PropertiesUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +15,10 @@ public class RTMSDataSvcTest {
     public void getRTMSDataSvcAptTradeDevTest() throws  Exception{
         String apiKey = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
 
+
         // given //
-        RTMSDataSvc RTMSDataSvc = new RTMSDataSvc();
+        RTMSDataSvcParser rtmsDataSvcParser = new RTMSDataSvcParser();
+        RTMSDataSvc RTMSDataSvc = new RTMSDataSvc(rtmsDataSvcParser);
         TradeDTO tradeDTO = new TradeDTO();
 
         String serviceKey=apiKey;

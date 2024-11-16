@@ -4,7 +4,7 @@ import kr.com.pkh.batch.dao.RegionCodeDAO;
 import kr.com.pkh.batch.dto.db.RegionCodeDTO;
 import kr.com.pkh.batch.dto.api.TradeDTO;
 import kr.com.pkh.batch.exception.CustomException;
-import kr.com.pkh.batch.openAPI.data.RTMSDataSvc;
+import kr.com.pkh.batch.openAPI.data.service.RTMSDataSvc;
 import kr.com.pkh.batch.singleton.Scope;
 import kr.com.pkh.batch.util.DateUtil;
 import kr.com.pkh.batch.util.StringUtil;

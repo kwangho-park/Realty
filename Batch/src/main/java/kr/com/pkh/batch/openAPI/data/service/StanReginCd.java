@@ -1,4 +1,4 @@
-package kr.com.pkh.batch.openAPI.data;
+package kr.com.pkh.batch.openAPI.data.service;
 
 import kr.com.pkh.batch.util.HTTPrequest;
 import kr.com.pkh.batch.util.json.parser.ParseException;
