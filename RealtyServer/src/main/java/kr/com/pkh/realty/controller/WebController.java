@@ -1,23 +1,23 @@
 package kr.com.pkh.realty.controller;
 
-import java.util.Date;
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import kr.com.pkh.realty.dto.UserInfoDTO;
 import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.Date;
 
 
 /**
  * index 페이지 및 메뉴분기 처리를 위한 컨트롤러
+ * domain home : [ip]:[port]/login
  */
 @RequiredArgsConstructor
 @Controller

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--original -->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="kr.com.pkh.realty.dao.UserInfoMapper">
     <resultMap type="kr.com.pkh.realty.dto.UserInfoDTO" id="userInfoResultMap">
         <id column="USER_NAME" property="userName"/>
@@ -24,7 +29,7 @@
             AND UI_USER_PW = #{userPw}
     </select>
 
-    <select id="insertUserInfo" resultType="int">
+    <insert id="insertUserInfo" parameterType="kr.com.pkh.realty.dto.UserInfoDTO">
         INSERT INTO
             REALTY.TB_USER_INFO
             (
@@ -36,5 +41,5 @@
               ,#{userPw}
               ,#{userName}
              )
-    </select>
+    </insert>
 </mapper>

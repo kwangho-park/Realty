@@ -28,9 +28,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'          // new db connection lib (used)
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.16.0'     // base64 encoding
     implementation 'org.mariadb.jdbc:mariadb-java-client'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
@@ -38,18 +40,15 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime'
     implementation 'org.jboss.logging:jboss-logging'
 
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-    //implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.1'      // Entity, DTO parsing lib
-	implementation 'org.modelmapper:modelmapper:3.1.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'      // JUnit 포함됨
 	
-	implementation files("libs/jcaos-1.5.2.2.jar")
+	implementation files("libs/test.jar")
 	
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 
 }

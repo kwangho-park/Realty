@@ -1,17 +1,12 @@
 package kr.com.pkh.realty.service;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-	private final ModelMapper modelMapper;
-	//private final UserInfoRepository userInfoRepository;
-	
 	/*public UserInfoEntity login(String userId, String userPw) throws Exception {
 
 		// [고도화 예정] user pw 단방향 암호화 + base64 인코딩 예정
