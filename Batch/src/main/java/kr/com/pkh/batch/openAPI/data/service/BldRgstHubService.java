@@ -39,8 +39,8 @@ import java.util.Map;
 @Component
 public class BldRgstHubService {
 
-    @Value("${publicDataPotal.openApi.apiKey.encoding}")
-    private String apiKey;
+//    @Value("${publicDataPotal.openApi.apiKey.encoding}")
+//    private String apiKey;
 
     private String serviceDomain="http://apis.data.go.kr/1613000/BldRgstHubService";
     private String servicePort="";  //  없음

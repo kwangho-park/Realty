@@ -18,7 +18,7 @@ public class BldRgstHubServiceTest {
         String apiKey = PropertiesUtil.getProperty("publicDataPotal.openApi.apiKey.encoding");
         BldRgstHubServiceParser bldRgstHubServiceParser = new BldRgstHubServiceParser();
 
-        BldRgstHubService BldRgstHubService = new BldRgstHubService(bldRgstHubServiceParser);
+        BldRgstHubService bldRgstHubService = new BldRgstHubService(bldRgstHubServiceParser);
         TradeDTO tradeDTO = new TradeDTO();
 
         String serviceKey=apiKey;
@@ -31,7 +31,7 @@ public class BldRgstHubServiceTest {
         String ji="0000";               // 지번 (4자리) : 0000
 
         // when //
-        tradeDTO = BldRgstHubService.getBrExposPubuseAreaInfo(
+        tradeDTO = bldRgstHubService.getBrExposPubuseAreaInfo(
                 serviceKey,  pageNo,
                 numOfRows,  sigunguCd,
                 bjdongCd, platGbCd,
