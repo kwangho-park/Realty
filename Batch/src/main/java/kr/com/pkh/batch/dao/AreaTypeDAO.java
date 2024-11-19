@@ -13,7 +13,7 @@ public class AreaTypeDAO {
     @Autowired
     AreaTypeMapper areaTypeMapper;
 
-    public ArrayList<Long> selectAreaTypeList() throws Exception{
+    public ArrayList<String> selectAreaTypeList() throws Exception{
         return areaTypeMapper.selectTargetList();
     }
 

@@ -43,7 +43,6 @@ public class CollectAreaTypeJob {
                 .build();
     }
 
-
     @JobScope
     @Bean
     public Step areaTypeStep(ItemReader areaTypeReader,
@@ -51,7 +50,7 @@ public class CollectAreaTypeJob {
                              ItemWriter areaTypeWriter){
 
         return stepBuilderFactory.get("areaTypeStep")
-                .<Long, List<AreaTypeDTO>>chunk(1)
+                .<List<String>, List<AreaTypeDTO>>chunk(1)
                 .reader(areaTypeReader)
                 .processor(areaTypeProcessor)
                 .writer(areaTypeWriter)

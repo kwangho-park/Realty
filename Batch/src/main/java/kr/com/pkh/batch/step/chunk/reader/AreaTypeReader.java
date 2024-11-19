@@ -12,8 +12,9 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class AreaTypeReader implements ItemReader<List<Long>> {
+public class AreaTypeReader implements ItemReader<List<String>> {
 
+    private int count =0;
     private AreaTypeDAO areaTypeStepDAO;
 
     @Autowired
@@ -21,14 +22,31 @@ public class AreaTypeReader implements ItemReader<List<Long>> {
         this.areaTypeStepDAO=areaTypeStepDAO;
     }
 
-
+    public int getCount() {
+        return this.count;
+    }
     @Override
-    public List<Long> read(){
+    public List<String> read() {
 
-        List<Long>  areaTypeList = new ArrayList<Long>();
+
+        List<String>  areaTypeList = new ArrayList<String>();
 
         try{
+
+            log.info("read START");
             areaTypeList = areaTypeStepDAO.selectAreaTypeList();
+
+            // job 종료 지점설정 (1회 reader 실행 후 collectAreaTypeJob 을 종료)
+            if(count==1){
+                return null;
+            }
+
+            count++;
+            for(String test:areaTypeList){
+                log.info("pnu:"+test);
+            }
+
+
 
         }catch(Exception e){
             e.printStackTrace();

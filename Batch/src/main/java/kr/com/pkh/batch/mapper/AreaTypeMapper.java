@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 @Mapper
 public interface AreaTypeMapper {
-    ArrayList<Long> selectTargetList();
+    ArrayList<String> selectTargetList();
 }
