@@ -9,6 +9,8 @@
 		rel="stylesheet">
 	<link th:href="@{/bootstrap/css/sb-admin-2.min.css}" rel="stylesheet">
 
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vutw29vp6n"></script>
+
 	<title>Realty</title>
 
 </head>
@@ -75,6 +77,9 @@
 
 		</div>
 
+		<!--kakao map test -->
+		<div id="map" style="width:500px;height:400px;">kakao map</div>
+
 	</div>
 
 <script th:inline="javascript">
@@ -82,15 +87,73 @@
 
 	$(document).ready(function(){
 		var message = "[[${msg}]]";
-		if(message != ""){
-			// alert(message);
-		}
+
+	/*	// 지도 초기화
+		const mapOptions = {
+			center: new naver.maps.LatLng(37.5665, 126.9780), // 서울 중심 좌표
+			zoom: 10
+		};
+		const map = new naver.maps.Map('map', mapOptions);
+*/
+
+
 	});
 
+
+	// 서버에서 주소 리스트 받아오기 (예시용 JSON 데이터)
+	const addressList = ["서울특별시 강남구 삼성동", "서울특별시 중구 명동", "부산광역시 해운대구"];
+
+	// 네이버 지도 API 로드가 완료되면 실행
+	naver.maps.onJSContentLoaded = function () {
+		// 지도 초기화
+		const mapOptions = {
+			center: new naver.maps.LatLng(37.5665, 126.9780), // 서울 중심 좌표
+			zoom: 10
+		};
+		const map = new naver.maps.Map('map', mapOptions);
+
+		// 주소를 좌표로 변환하고, 마커를 추가하는 함수
+		function placeMarkers(addressList) {
+			addressList.forEach((address) => {
+				naver.maps.Service.geocode({query: address}, (status, response) => {
+					if (status === naver.maps.Service.Status.ERROR) {
+						return alert('Geocode Error, Please check address');
+					}
+
+					const item = response.v2.addresses[0];
+					const point = new naver.maps.Point(item.x, item.y);
+					const marker = new naver.maps.Marker({
+						position: new naver.maps.LatLng(point.y, point.x),
+						map: map
+					});
+				});
+			});
+		}
+
+		// 주소 리스트에 따라 마커 배치
+		placeMarkers(addressList);
+	};
 	function register(){
 		alert("test");
 	}
-	
+		/*  var map = new naver.maps.Map('map', {
+              center: new naver.maps.LatLng(37.5666805, 126.9784147),
+              zoom: 10,
+              mapTypeId: naver.maps.MapTypeId.NORMAL
+          });
+
+          var rect = new naver.maps.Rectangle({
+              strokeOpacity: 0,
+              strokeWeight: 0,
+              fillOpacity: 0.2,
+              fillColor: "#f00",
+              bounds: map.getBounds(), // 지도의 bounds와 동일한 크기의 사각형을 그립니다.
+              map: map
+          });
+          console.log(map.getBounds());
+          */
+
+
 </script>
 
 </body>
