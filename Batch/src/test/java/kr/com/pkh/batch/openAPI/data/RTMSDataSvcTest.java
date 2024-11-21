@@ -1,6 +1,6 @@
 package kr.com.pkh.batch.openAPI.data;
 
-import kr.com.pkh.batch.dto.api.TradeDTO;
+import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.parser.RTMSDataSvcParser;
 import kr.com.pkh.batch.openAPI.data.service.RTMSDataSvc;
 import kr.com.pkh.batch.util.PropertiesUtil;
@@ -19,7 +19,7 @@ public class RTMSDataSvcTest {
         // given //
         RTMSDataSvcParser rtmsDataSvcParser = new RTMSDataSvcParser();
         RTMSDataSvc RTMSDataSvc = new RTMSDataSvc(rtmsDataSvcParser);
-        TradeDTO tradeDTO = new TradeDTO();
+        TradePageDTO tradePageDTO = new TradePageDTO();
 
         String serviceKey=apiKey;
         String pageNo="1";
@@ -29,7 +29,7 @@ public class RTMSDataSvcTest {
 
 
         // when //
-        tradeDTO = RTMSDataSvc.getRTMSDataSvcAptTradeDev(serviceKey, pageNo, numOfRows, LAWD_CD, DEAL_YMD);
+        tradePageDTO = RTMSDataSvc.getRTMSDataSvcAptTradeDev(serviceKey, pageNo, numOfRows, LAWD_CD, DEAL_YMD);
 
         // then //
 

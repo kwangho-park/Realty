@@ -2,7 +2,7 @@ package kr.com.pkh.batch.step.chunk.reader;
 
 import kr.com.pkh.batch.dao.RegionCodeDAO;
 import kr.com.pkh.batch.dto.db.RegionCodeDTO;
-import kr.com.pkh.batch.dto.api.TradeDTO;
+import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.exception.CustomException;
 import kr.com.pkh.batch.openAPI.data.service.RTMSDataSvc;
 import kr.com.pkh.batch.singleton.Scope;
@@ -38,7 +38,7 @@ import static kr.com.pkh.batch.code.CustomErrorCode.REGION_FLAG;
  */
 @Slf4j
 @Component // 해당 reader를 spring bean 으로 등록해 놓음
-public class RestItemReader implements ItemReader<TradeDTO> {
+public class RestItemReader implements ItemReader<TradePageDTO> {
 
     @Value("${publicDataPotal.openApi.apiKey.encoding}")
     private String apiKey;
@@ -83,9 +83,9 @@ public class RestItemReader implements ItemReader<TradeDTO> {
      * @return
      */
     @Override
-    public TradeDTO read() {
+    public TradePageDTO read() {
         log.info("[read] START");
-        TradeDTO tradeDTO = new TradeDTO();
+        TradePageDTO tradePageDTO = new TradePageDTO();
 
         String lawdCd="";           // 지역코드
         String numOfRows="";        // (예정) 공공데이터 포탈 일 최대 트래픽 1,000건으로 인해 row 설정가능하도록 변경예정 (10-> row MAX)
@@ -149,7 +149,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("DEAL_YMD (today month) : "+dealYmd);
 
                 // openAPI 로 데이터 수집 및 PNU 가공
-                tradeDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
+                tradePageDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
                         lawdCd,
@@ -157,7 +157,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 // 수집 페이지 범위 업데이트 //
                 scope.incrementPageNo();
-                scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
+                scope.updateTotalPage(tradePageDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
 
                 log.info("scope page no : "+ scope.getPageNo());
@@ -223,7 +223,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
                 log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(scope.getStartDate()));
 
                 // openAPI 로 데이터 수집 및 PNU 가공
-                tradeDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
+                tradePageDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
                         String.valueOf(scope.getPageNo()),
                         String.valueOf(scope.getNumOfRows()),
                         lawdCd,
@@ -232,7 +232,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
 
                 // 수집 페이지 범위 설정 //
                 scope.incrementPageNo();
-                scope.updateTotalPage(tradeDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
+                scope.updateTotalPage(tradePageDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
 
             }
 
@@ -257,7 +257,7 @@ public class RestItemReader implements ItemReader<TradeDTO> {
             e.printStackTrace();
         }
         log.info("[read] END");
-        return tradeDTO;
+        return tradePageDTO;
     }
 
 

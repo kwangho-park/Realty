@@ -1,6 +1,6 @@
 package kr.com.pkh.batch.openAPI.data;
 
-import kr.com.pkh.batch.dto.api.TradeDTO;
+import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.parser.BldRgstHubServiceParser;
 import kr.com.pkh.batch.openAPI.data.service.BldRgstHubService;
 import kr.com.pkh.batch.util.PropertiesUtil;
@@ -19,7 +19,7 @@ public class BldRgstHubServiceTest {
         BldRgstHubServiceParser bldRgstHubServiceParser = new BldRgstHubServiceParser();
 
         BldRgstHubService bldRgstHubService = new BldRgstHubService(bldRgstHubServiceParser);
-        TradeDTO tradeDTO = new TradeDTO();
+        TradePageDTO tradePageDTO = new TradePageDTO();
 
         String serviceKey=apiKey;
         String pageNo="1";
@@ -31,7 +31,7 @@ public class BldRgstHubServiceTest {
         String ji="0000";               // 지번 (4자리) : 0000
 
         // when //
-        tradeDTO = bldRgstHubService.getBrExposPubuseAreaInfo(
+        tradePageDTO = bldRgstHubService.getBrExposPubuseAreaInfo(
                 serviceKey,  pageNo,
                 numOfRows,  sigunguCd,
                 bjdongCd, platGbCd,

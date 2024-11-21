@@ -10,11 +10,9 @@ import lombok.Data;
 @Data
 public class PubuseAreaDTO {
 
-
     String publicArea;  // 공용면적
     String privateArea; // 전용면적
     String mgmBldrgstPk;    // 관리 건축물 대장 (세대별 고유값)
-
     String supplyArea;
 
     String pnu;

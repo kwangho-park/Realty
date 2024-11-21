@@ -1,30 +1,14 @@
 package kr.com.pkh.batch.openAPI.data.service;
 
-import kr.com.pkh.batch.dto.api.TradeDTO;
-import kr.com.pkh.batch.dto.db.AptTradeDTO;
-import kr.com.pkh.batch.dto.db.PageDTO;
+import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.parser.BldRgstHubServiceParser;
 import kr.com.pkh.batch.util.HTTPrequest;
-import kr.com.pkh.batch.util.StringUtil;
 import kr.com.pkh.batch.util.json.parser.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,11 +56,11 @@ public class BldRgstHubService {
      * @throws IOException
      * @throws ParseException
      */
-    public TradeDTO getBrExposPubuseAreaInfo(String serviceKey, String pageNo,
-                                             String numOfRows, String sigunguCd,
-                                             String bjdongCd, String platGbCd,
-                                             String bun, String ji){
-        TradeDTO tradeDTO = new TradeDTO();
+    public TradePageDTO getBrExposPubuseAreaInfo(String serviceKey, String pageNo,
+                                                 String numOfRows, String sigunguCd,
+                                                 String bjdongCd, String platGbCd,
+                                                 String bun, String ji){
+        TradePageDTO tradePageDTO = new TradePageDTO();
         String responseXml = null;
 
         try{
@@ -112,7 +96,7 @@ public class BldRgstHubService {
             e.printStackTrace();
         }
 
-        return tradeDTO;
+        return tradePageDTO;
 
     }
 

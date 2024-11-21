@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class AreaTypeDTO {
-    int num;                // index
+
+    int num;                // sequence
     String privateArea;     // 전용면적
     String publicArea;      // 공용면적
     String supplyArea;      // 공급면적

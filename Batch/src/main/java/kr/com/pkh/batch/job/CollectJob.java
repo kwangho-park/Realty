@@ -2,7 +2,7 @@ package kr.com.pkh.batch.job;
 
 
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
-import kr.com.pkh.batch.dto.api.TradeDTO;
+import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.legacy.RTMSOBJSvc;
 import kr.com.pkh.batch.step.chunk.processor.AptAddressProcessor;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +59,7 @@ public class CollectJob {
                              ItemWriter aptTradeWriter
         ){
         return stepBuilderFactory.get("aptTradeStep")
-                .<TradeDTO, List<AptTradeDTO>>chunk(3)   // TradeDTO 조회(reader DTO) 하여, List<AptTradeEntity> (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
+                .<TradePageDTO, List<AptTradeDTO>>chunk(3)   // TradeDTO 조회(reader DTO) 하여, List<AptTradeEntity> (writer DTO) 로 데이터를 추가하며, 5개 row 단위로  step 을 트랜잭션
                 .reader(restItemReader)                       // reader 지정
                 .processor(aptTradeProcessor)                 // processor 지정
                 .writer(aptTradeWriter)                       // writer 지정

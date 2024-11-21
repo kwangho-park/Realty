@@ -2,7 +2,7 @@ package kr.com.pkh.batch.openAPI.data.legacy;
 
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import kr.com.pkh.batch.dto.db.PageDTO;
-import kr.com.pkh.batch.dto.api.TradeDTO;
+import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.util.HTTPrequest;
 import kr.com.pkh.batch.util.StringUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -148,10 +148,10 @@ public class RTMSOBJSvc {
      * @throws IOException
      * @throws ParseException
      */
-    public TradeDTO getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
-                                          String LAWD_CD, String DEAL_YMD) {
+    public TradePageDTO getRTMSDataSvcAptTradeDev(String serviceKey, String pageNo, String numOfRows,
+                                                  String LAWD_CD, String DEAL_YMD) {
 
-        TradeDTO tradeDTO = new TradeDTO();
+        TradePageDTO tradePageDTO = new TradePageDTO();
 
         try{
             servicePort="/";
@@ -169,7 +169,7 @@ public class RTMSOBJSvc {
 
             String responseXml = HTTPrequest.responseXML(serviceDomain,servicePort, commonPath ,path, parameters);
 
-            tradeDTO = xmlParsingToObject(responseXml);
+            tradePageDTO = xmlParsingToObject(responseXml);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -179,7 +179,7 @@ public class RTMSOBJSvc {
             e.printStackTrace();
 
         }finally {
-            return tradeDTO;
+            return tradePageDTO;
         }
     }
 
@@ -218,10 +218,10 @@ public class RTMSOBJSvc {
 
     // 아파트 매매 상세 데이터 파싱 (xml string -> java Map)
     // 주소 데이터로 pnu 생성
-    public TradeDTO xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
+    public TradePageDTO xmlParsingToObject(String responseXml) throws ParserConfigurationException, IOException, SAXException {
 
 
-        TradeDTO tradeDTO = new TradeDTO();
+        TradePageDTO tradePageDTO = new TradePageDTO();
         List<AptTradeDTO> aptTradeList = new ArrayList<AptTradeDTO>();
         PageDTO pageDTO = new PageDTO();
 
@@ -329,7 +329,7 @@ public class RTMSOBJSvc {
                 log.info("apt info : id 일련번호 = "+id +" / pnu = "+pnu+" / name = "+name);
             }
 
-            tradeDTO.setAptTradeDTOList(aptTradeList);
+            tradePageDTO.setAptTradeDTOList(aptTradeList);
 
             // page 데이터 파싱 //
 
@@ -365,7 +365,7 @@ public class RTMSOBJSvc {
             pageDTO.setNumOfRows(numOfRows);
             pageDTO.setTotalCount(totalCount);
 
-            tradeDTO.setPageDTO(pageDTO);
+            tradePageDTO.setPageDTO(pageDTO);
 
 
         }catch(NumberFormatException e){
@@ -375,7 +375,7 @@ public class RTMSOBJSvc {
 
         }finally {
             log.info("[xml element] 아파트 단지별 pnu 출력 END");
-            return tradeDTO;
+            return tradePageDTO;
 
         }
 
