@@ -1,5 +1,6 @@
 package kr.com.pkh.batch.mapper;
 
+import kr.com.pkh.batch.dto.db.AptBuildingDTO;
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -7,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
-public interface AptTradeMapper {
-    ArrayList<AptTradeDTO> selectTradeList();
+public interface AptBuildingMapper {
 
-    void insertAptTrade(AptTradeDTO aptTradeDTO);
-
-    List<AptTradeDTO> selectAddressIsNull();
+    int insertAptAddress(AptBuildingDTO aptBuildingDTO);
 }

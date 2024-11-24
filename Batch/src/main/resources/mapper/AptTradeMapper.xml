@@ -61,20 +61,4 @@
         WHERE
             B.AB_PNU IS NULL
     </select>
-
-    <insert id="insertAptAddress" >
-        INSERT INTO
-            TB_APT_BUILDING
-        (
-            AB_PNU
-           , AB_NAME
-           , AB_ADDRESS
-        )
-        VALUES
-        (
-            #{pnu}
-            ,#{name}
-            ,#{address}
-        )
-    </insert>
 </mapper>

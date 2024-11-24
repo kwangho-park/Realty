@@ -29,7 +29,4 @@ public class AptTradeDAO {
         return aptTradeMapper.selectAddressIsNull();
     }
 
-    public int insertAptAddress(AptTradeDTO aptTradeDTO) throws Exception {
-        return aptTradeMapper.insertAptAddress(aptTradeDTO);
-    }
 }

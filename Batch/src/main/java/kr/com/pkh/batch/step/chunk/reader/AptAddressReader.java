@@ -33,12 +33,12 @@ public class AptAddressReader implements ItemReader<AptTradeDTO> {
     }
 
     @Override
-    public AptTradeDTO read() {
+    public AptTradeDTO read() throws Exception {
 
         log.info("주소정보 저장 로직 시작");
 
         // [review]
-        // aptTradeDTOList = aptTradeDAO.selectAddressIsNull();
+         aptTradeDTOList = aptTradeDAO.selectAddressIsNull();
 
         if (nextIndex < aptTradeDTOList.size()) {
             return aptTradeDTOList.get(nextIndex++);
