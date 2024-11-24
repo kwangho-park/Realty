@@ -62,7 +62,7 @@ public class RTMSDataSvcParser{
                 String childNodesLog="";
                 String id="";               // 거래 일련번호 ([중요] 서비스가 변경되면서 단지 일련번호로 변경된건지 검증이 필요)
                 String pnu = "";
-                String name = "";
+//                String name = "";
                 String tradeMonth="";
                 String tradeYear="";
                 String tradeDay="";
@@ -89,9 +89,7 @@ public class RTMSDataSvcParser{
                     if(tagName.equals("aptSeq")) {
                         id = tagValue;
                     }
-                    if(tagName.equals("aptNm")) {
-                        name = tagValue;
-                    }
+
                     if(tagName.equals("dealAmount")) {
                         tagValue = StringUtil.removeAllCharsFromString(tagValue, ',');
                         tradeAmount = Integer.parseInt(tagValue);
@@ -132,13 +130,12 @@ public class RTMSDataSvcParser{
 
                 aptTradeDTO.setId(id);                      // 일련번호 ID
                 aptTradeDTO.setPnu(pnu);                    // pnu 필지고유번호
-                aptTradeDTO.setName(name);                  // 아파트명
                 aptTradeDTO.setTradeAmount(tradeAmount);    // 매매가격
                 aptTradeDTO.setTradeDate(tradeDate);        // 거래일자
 
                 aptTradeList.add(aptTradeDTO);
 
-                log.info("apt info : id 일련번호 = "+id +" / pnu = "+pnu+" / name = "+name);
+                log.info("apt info : id 일련번호 = "+id +" / pnu = ");
             }
 
             tradePageDTO.setAptTradeDTOList(aptTradeList);

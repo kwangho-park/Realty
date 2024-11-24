@@ -91,8 +91,7 @@ public class StandardJobConfig {
 
 				for(AptTradeDTO aptTradeDTO :aptTradeList){
 					System.out.println("id"+aptTradeDTO.getId()
-							+"/ pnu : "+aptTradeDTO.getPnu()
-							+"/ name : "+aptTradeDTO.getName());
+							+"/ pnu : "+aptTradeDTO.getPnu() );
 				}
 				return RepeatStatus.FINISHED;
 			}

@@ -320,7 +320,6 @@ public class RTMSOBJSvc {
 
                 aptTradeDTO.setId(id);                      // 일련번호 ID
                 aptTradeDTO.setPnu(pnu);                    // pnu 필지고유번호
-                aptTradeDTO.setName(name);                  // 아파트명
                 aptTradeDTO.setTradeAmount(tradeAmount);    // 매매가격
                 aptTradeDTO.setTradeDate(tradeDate);        // 거래일자
 

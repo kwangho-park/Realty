@@ -26,7 +26,6 @@
         (
             AT_ID
             ,AT_PNU
-            ,AT_NAME
             ,AT_TRADE_AMOUNT
             ,AT_TRADE_DATE
             ,AT_INSERT_DATETIME
@@ -38,7 +37,6 @@
          ) SELECT
             #{id}
             , #{pnu}
-            , #{name}
             , #{tradeAmount}
             , #{tradeDate}
             , now()

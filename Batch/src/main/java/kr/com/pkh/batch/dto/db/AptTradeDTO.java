@@ -10,7 +10,6 @@ public class AptTradeDTO {
 
     String id="";           // 매매거래 일련번호
     String pnu = "";           // pnu 아파트단지 고유값
-    String name="";         // 아파트명
     int tradeAmount=0;      // 매매가격
     String tradeDate="";    //
 
