@@ -3,7 +3,7 @@
 
 
 2. 요청 url 
-https://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo=1&numOfRows=100&sigunguCd=11680&bjdongCd=10300&bun=0012&ji=0000&serviceKey=F8P3P63kAIgLt62qlcSKDPRIh%2FbfDJ5KzMyUw9%2FcHSZUJMk3T13KQH3HcQFPvvLODzABAe2%2BU91rYsCRrxBi4Q%3D%3D
+htt	s://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo=1&numOfRows=100&sigunguCd=11680&bjdongCd=10300&bun=0012&ji=0000&serviceKey=F8P3P63kAIgLt62qlcSKDPRIh%2FbfDJ5KzMyUw9%2FcHSZUJMk3T13KQH3HcQFPvvLODzABAe2%2BU91rYsCRrxBi4Q%3D%3D
 
 
 

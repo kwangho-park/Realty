@@ -1,5 +1,6 @@
 package kr.com.pkh.batch.openAPI.data.service;
 
+import kr.com.pkh.batch.dto.api.PubuseAreaPageDTO;
 import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.parser.BldRgstHubServiceParser;
 import kr.com.pkh.batch.util.HTTPrequest;
@@ -56,11 +57,11 @@ public class BldRgstHubService {
      * @throws IOException
      * @throws ParseException
      */
-    public TradePageDTO getBrExposPubuseAreaInfo(String serviceKey, String pageNo,
+    public PubuseAreaPageDTO getBrExposPubuseAreaInfo(String serviceKey, String pageNo,
                                                  String numOfRows, String sigunguCd,
                                                  String bjdongCd, String platGbCd,
                                                  String bun, String ji){
-        TradePageDTO tradePageDTO = new TradePageDTO();
+        PubuseAreaPageDTO pubuseAreaPageDTO = new PubuseAreaPageDTO();
         String responseXml = null;
 
         try{
@@ -86,7 +87,7 @@ public class BldRgstHubService {
 
             log.info("responseXml{}", responseXml);
 
-//            tradeDTO = xmlParsingToObject(responseXml);
+            pubuseAreaPageDTO = bldRgstHubServiceParser.xmlParsingToObject(responseXml);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -96,7 +97,7 @@ public class BldRgstHubService {
             e.printStackTrace();
         }
 
-        return tradePageDTO;
+        return pubuseAreaPageDTO;
 
     }
 

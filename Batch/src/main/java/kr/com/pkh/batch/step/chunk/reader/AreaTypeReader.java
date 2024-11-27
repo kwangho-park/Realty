@@ -29,12 +29,12 @@ public class AreaTypeReader implements ItemReader<List<String>> {
     public List<String> read() {
 
 
-        List<String>  areaTypeList = new ArrayList<String>();
+        List<String>  pnuList = new ArrayList<String>();
 
         try{
 
             log.info("read START");
-            areaTypeList = areaTypeStepDAO.selectAreaTypeList();
+            pnuList = areaTypeStepDAO.selectAreaTypeList();
 
             // job 종료 지점설정 (1회 reader 실행 후 collectAreaTypeJob 을 종료)
             if(count==1){
@@ -42,7 +42,7 @@ public class AreaTypeReader implements ItemReader<List<String>> {
             }
 
             count++;
-            for(String test:areaTypeList){
+            for(String test:pnuList){
                 log.info("pnu:"+test);
             }
 
@@ -53,7 +53,7 @@ public class AreaTypeReader implements ItemReader<List<String>> {
         }
 
 
-        return areaTypeList;
+        return pnuList;
     }
 
 }

@@ -1,4 +1,7 @@
 1. 조회 기준 
+-- 대신에 운영비용이 나가는 상황에서는 저 비율로 충당할 예정임 (하이리스크, 하이리턴)
+100지분율 / 60:40 어때?? 지금까지 인센티브제로해서 잘하면 내몫에서 띄어줄생각임 그래서 최소의 수익률을 보장해주는것이고, 50:50으로하면 상관없지만 인센티브를 줄때 서로의 몫에서 띄어줘야함 
+				
 
 - 아파트명 : 부천시 중동 설악마을아파트 (1590세대) 
 - pnu : 4119210800010510000
@@ -20,7 +23,7 @@ http://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo
 		<items>
 			<item>
 				<rnum>1</rnum>
-				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>		// 주소 
 				<sigunguCd>41192</sigunguCd>		// 시군구 코드
 				<bjdongCd>10800</bjdongCd>			// 법정동
 				<platGbCd>0</platGbCd>				// 대지구분 
@@ -31,7 +34,7 @@ http://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo
 				<regstrGbCdNm>집합</regstrGbCdNm>
 				<regstrKindCd>4</regstrKindCd>
 				<regstrKindCdNm>전유부</regstrKindCdNm>
-				<newPlatPlc>경기도 부천시 원미구 계남로 195 (중동)</newPlatPlc>
+				<newPlatPlc>경기도 부천시 원미구 계남로 195 (중동)</newPlatPlc>		// 도로명주소
 				<bldNm>설악단지</bldNm>					// 아파트명
 				<splotNm></splotNm>
 				<block></block>

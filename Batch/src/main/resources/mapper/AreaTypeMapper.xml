@@ -13,11 +13,10 @@
 
     <!--전용/공용면적 수집대상 대상 pnu 리스트 조회-->
     <select id="selectTargetList" resultType="string">
-        select distinct tat.AT_PNU AS AT_PNU
+        select distinct tat.AT_PNU
         from tb_apt_trade tat
-        inner join tb_apt_building tab
-        on tat.at_pnu = tab.ab_pnu
+                 left join tb_apt_building tab
+                           on tat.at_pnu = tab.ab_pnu
+        where tab.AB_PNU is null
     </select>
-
-
 </mapper>

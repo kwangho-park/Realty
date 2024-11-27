@@ -40,11 +40,11 @@ public class CollectJob {
     private RTMSOBJSvc RTMSOBJSvc;
 
     @Bean
-    public Job collectRealtyJob(Step aptTradeStep, Step aptAddressStep){
+    public Job collectRealtyJob(Step aptTradeStep){
         return jobBuilderFactory.get("collectRealtyJob")        // job 이름 정의
                 .incrementer(new RunIdIncrementer())
                 .start(aptTradeStep)
-                .next(aptAddressStep)                         // 주소 가져오는 step (github issue #8)
+//                .next(aptAddressStep)                           // 주소 가져오는 step (github issue #8)
                 .build();
     }
 
@@ -75,18 +75,18 @@ public class CollectJob {
      *
      * @return
      */
-    @JobScope
-    @Bean
-    public Step aptAddressStep(ItemReader aptAddressReader,
-                               AptAddressProcessor addressProcessor,
-                               ItemWriter aptAddressWriter
-    ){
-        return stepBuilderFactory.get("aptAddressStep")
-                .<AptTradeDTO, AptTradeDTO>chunk(10)
-                .reader(aptAddressReader)         // ??
-                .processor(addressProcessor)      // ??
-                .writer(aptAddressWriter)
-                .build();
-    }
+//    @JobScope
+//    @Bean
+//    public Step aptAddressStep(ItemReader aptAddressReader,
+//                               AptAddressProcessor addressProcessor,
+//                               ItemWriter aptAddressWriter
+//    ){
+//        return stepBuilderFactory.get("aptAddressStep")
+//                .<AptTradeDTO, AptTradeDTO>chunk(10)
+//                .reader(aptAddressReader)         // ??
+//                .processor(addressProcessor)      // ??
+//                .writer(aptAddressWriter)
+//                .build();
+//    }
 
 }

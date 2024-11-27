@@ -40,7 +40,7 @@ public class RTMSDataSvcParser{
 
         try{
 
-            // http response XML 로그 출력 (for RTMSDataSvc 서비스) //
+            // http response XML 로그 출력 //
             // document 객체로 변환
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -48,12 +48,14 @@ public class RTMSDataSvcParser{
 
 
             // items 데이터 파싱 //
-            log.info("[xml element] 아파트 단지별 pnu 출력 START");
+            log.info("[xml parsing] 아파트 매매 상세 데이터 파싱 START");
 
             NodeList itemNodes = document.getElementsByTagName("item");
 
             log.info("total 'item' count : "+itemNodes.getLength());
 
+
+            // <items>
             for (int i = 0; i < itemNodes.getLength(); i++) {
 
 
@@ -76,6 +78,7 @@ public class RTMSDataSvcParser{
                 NodeList elementList = itemNodes.item(i).getChildNodes();
                 //            log.debug("total element count : "+elementList.getLength());
 
+                // <item>
                 // 건별 매매 거래 내역
                 for(int j=0;j<elementList.getLength();j++){
 
@@ -183,7 +186,7 @@ public class RTMSDataSvcParser{
             e.printStackTrace();
 
         }finally {
-            log.info("[xml element] 아파트 단지별 pnu 출력 END");
+            log.info("[xml parsing] 아파트 매매 상세 데이터 파싱 END");
             return tradePageDTO;
 
         }

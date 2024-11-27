@@ -43,13 +43,20 @@ public class AreaTypeProcessor implements ItemProcessor<List<String>, List<AreaT
                 log.info("pnu:"+test);
             }
 
-            // [예정] BldRgstHubService openAPI 를 사용하여 전용면적, 공용면적을 수집하고 공급면적을 가공하여 areaTypeList에 저장
+            // pnu 기준으로 아파트 주소 및 아파트 면적타입 조회
+            // [예정] BldRgstHubService openAPI 를 사용하여 전용면적, 공용면적을 수집
             // [예정] bldRgstHubService  서비스의 parser 구현 예정
             bldRgstHubService.getBrExposPubuseAreaInfo(
                     serviceKey,  pageNo,
                     numOfRows,  sigunguCd,
                     bjdongCd, platGbCd,
                     bun, ji);
+
+            /////// 데이터 파싱
+
+            //////  writer 에서 데이터인서트
+
+            ////// 아파트 주소 정보도 writer 에서 인서트하는것으로 변경됨 (v-world 에서 pnu 로 수집되지않는 데이터가 있음을 확인함 = 경기도 부천시의 pnu로 주소데이터 조회되지않음)
 
         }catch(Exception e){
             e.printStackTrace();
