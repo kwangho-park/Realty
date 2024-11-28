@@ -4,7 +4,7 @@
 - framework / lib : Spring boot, Spring batch, bootstrap, JPA 
 
 # 론칭일정   
-- ${\textsf{\color{red} 2024.11월 중 SMALL OPEN (WEB)  }}$
+- ${\textsf{\color{red} 2024.11월 중 SOFT OPEN (WEB)  }}$
 
 
 # UI 초안 설계  
