@@ -1,7 +1,6 @@
 package kr.com.pkh.batch.openAPI.data;
 
 import kr.com.pkh.batch.dto.api.PubuseAreaPageDTO;
-import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.parser.BldRgstHubServiceParser;
 import kr.com.pkh.batch.openAPI.data.service.BldRgstHubService;
 import kr.com.pkh.batch.util.PropertiesUtil;
@@ -39,6 +38,8 @@ public class BldRgstHubServiceTest {
                 bun, ji);
 
         // then //
+
+
 
     }
 }

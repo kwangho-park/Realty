@@ -67,7 +67,7 @@ public class BldRgstHubServiceParser {
                 // 로그용 데이터
                 String dongNm=null;                 // 동
                 String hoNm=null;                    // 호수
-                String exposPubuseGbCd=null;      // 면적코드
+                String exposPubuseGbCd=null;        // 면적코드
                 String exposPubuseGbCdNm=null;           // 면적명
                 String mainPurpsCdNm=null;               // 주용도 코드명
 
@@ -118,42 +118,42 @@ public class BldRgstHubServiceParser {
                         area=tagValue;
                     }
 
-                    if(exposPubuseGbCd.equals("1")) {        // 전유면적 (전용면적)
-                        privateArea=tagValue;
-                    }else{                                  // 공용면적
-                        publicArea=tagValue;
-                    }
+                }       // for() END  '<item>'
 
-                }
-
+//
+//                if(exposPubuseGbCd.equals("1")) {        // 전유면적 (전용면적)
+//                    privateArea=area;
+//                }else{                                  // 공용면적
+//                    publicArea=area;
+//                }
                 pubuseAreaDTO.setMgmBldrgstPk(mgmBldrgstPk);
                 pubuseAreaDTO.setBldNm(bldNm);
                 pubuseAreaDTO.setPlatPlc(platPlc);
                 pubuseAreaDTO.setNewPlatPlc(newPlatPlc);
 
 
-                // 면적타입 설정 //
+                // 면적타입 설정 및 pubuseAreaPageDTO 객체에 item 추가/업데이트 //
                 // 건축물대장정보가 존재하는 경우 <item> 추가를 스킵하고, 기존 PubuseAreaPageDTO 의 면적정보만 업데이트함
                 if(pubuseAreaPageDTO.isMgmBidrgstPk(mgmBldrgstPk)){
-                    if(pubuseAreaPageDTO.getAreaType(mgmBldrgstPk).equals("privateArea")) {        // 전유면적 (전용면적)
-                        pubuseAreaPageDTO.updatePrivateArea(mgmBldrgstPk,area);
+                    if(pubuseAreaPageDTO.getSettingAreaType(mgmBldrgstPk).equals("privateArea")) {        // 전유면적 (전용면적)
+                        pubuseAreaPageDTO.updatePrivateArea(mgmBldrgstPk,Float.parseFloat(area) );
                         continue;
                     }else{                                  // 공용면적
-                        pubuseAreaPageDTO.updatePublicArea(mgmBldrgstPk,area);
+                        pubuseAreaPageDTO.updatePublicArea(mgmBldrgstPk, Float.parseFloat(area) );
                         continue;
                     }
 
                 // <item> 을 PubuseAreaPageDTO 에 추가함
                 }else{
                     if(exposPubuseGbCd.equals("1")) {        // 전유면적 (전용면적)
-                        pubuseAreaDTO.setPrivateArea(area);
+                        pubuseAreaDTO.setPrivateArea(Float.parseFloat(area));
                         pubuseAreaPageDTO.getPubuseAreaDTOList().add(pubuseAreaDTO);
                     }else{                                  // 공용면적
-                        pubuseAreaDTO.setPublicArea(area);
+                        pubuseAreaDTO.setPublicArea(Float.parseFloat(area));
                         pubuseAreaPageDTO.getPubuseAreaDTOList().add(pubuseAreaDTO);
                     }
                 };
-            }   // for() END
+            }   // for() END   '<items>'
 
 
             // page 데이터 파싱 //
@@ -191,6 +191,14 @@ public class BldRgstHubServiceParser {
             pageDTO.setTotalCount(totalCount);
 
             pubuseAreaPageDTO.setPageDTO(pageDTO);
+
+            for(PubuseAreaDTO dto:pubuseAreaPageDTO.getPubuseAreaDTOList()){
+                log.info("건축물대장정보 : {} , 아파트명 : {}, 구주소 : {} , 도로명주소 : {} , 전용면적 : {}, 공용면적 : {} ",
+                        dto.getMgmBldrgstPk(), dto.getBldNm(),
+                        dto.getPlatPlc(), dto.getNewPlatPlc(),
+                        dto.getPrivateArea(), dto.getPublicArea()
+                );
+            }
 
         }catch(NumberFormatException e){
             e.printStackTrace();

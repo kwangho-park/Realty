@@ -5,7 +5,7 @@ import kr.com.pkh.batch.dto.db.RegionCodeDTO;
 import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.exception.CustomException;
 import kr.com.pkh.batch.openAPI.data.service.RTMSDataSvc;
-import kr.com.pkh.batch.singleton.Scope;
+import kr.com.pkh.batch.singleton.AptTradeScope;
 import kr.com.pkh.batch.util.DateUtil;
 import kr.com.pkh.batch.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -92,14 +92,14 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
 
         String dealYmd="";
 
-        Scope scope = Scope.getInstance();
+        AptTradeScope aptTradeScope = AptTradeScope.getInstance();
 
         try{
 
             // validation in properties //
             // (예정) 모드 유효성 확인
             // (예정) 기간 형식 및 유효성 확인
-            if(scope.isScopeFlag()){
+            if(aptTradeScope.isScopeFlag()){
                 
                 this.initScope();
             }
@@ -109,25 +109,25 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
             if(mode.toLowerCase().equals("op")){
 
 
-                log.info("region id : "+scope.getRegionId());
-                log.info("region size : "+scope.regionCodeSize());
+                log.info("region id : "+ aptTradeScope.getRegionId());
+                log.info("region size : "+ aptTradeScope.regionCodeSize());
 
                 // reader 동작 제어 //
                 // reader 종료 시점 : 전체 페이지 수집 완료 -> 전체 지역코드 순환 완료
-                if(scope.regionCodeSize() < (scope.getRegionId() )){
+                if(aptTradeScope.regionCodeSize() < (aptTradeScope.getRegionId() )){
                     log.info("[read] 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
 
                 // reader 반복 종료 시점 : 페이지 전체 순환 완료
-                if(scope.getTotalPage() < scope.getPageNo() && !(scope.getTotalPage()==0) ){
+                if(aptTradeScope.getTotalPage() < aptTradeScope.getPageNo() && !(aptTradeScope.getTotalPage()==0) ){
 
                     // pageNo, totalPage 초기화
-                    scope.initPageNo();
-                    scope.initTotalPage();
+                    aptTradeScope.initPageNo();
+                    aptTradeScope.initTotalPage();
 
                     // 지역코드 업데이트
-                    scope.incrementRegionId();
+                    aptTradeScope.incrementRegionId();
                     throw new CustomException(REGION_FLAG);
                 }
 
@@ -136,10 +136,10 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
                 log.info("----------------------------");
 
                 // 매매 거래정보 수집 //
-                log.info("region id : "+scope.getRegionId());
-                log.info("region size : "+scope.regionCodeSize());
+                log.info("region id : "+ aptTradeScope.getRegionId());
+                log.info("region size : "+ aptTradeScope.regionCodeSize());
 
-                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()-1 ) );
+                lawdCd = String.valueOf( aptTradeScope.getRegionCodeList().get(aptTradeScope.getRegionId()-1 ) );
                 log.info("lawdCd : "+ lawdCd);
 
                 LocalDate date = LocalDate.now();
@@ -150,28 +150,28 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
 
                 // openAPI 로 데이터 수집 및 PNU 가공
                 tradePageDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
-                        String.valueOf(scope.getPageNo()),
-                        String.valueOf(scope.getNumOfRows()),
+                        String.valueOf(aptTradeScope.getPageNo()),
+                        String.valueOf(aptTradeScope.getNumOfRows()),
                         lawdCd,
                         dealYmd);
 
                 // 수집 페이지 범위 업데이트 //
-                scope.incrementPageNo();
-                scope.updateTotalPage(tradePageDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
+                aptTradeScope.incrementPageNo();
+                aptTradeScope.updateTotalPage(tradePageDTO.getPageDTO().getTotalCount(), aptTradeScope.getNumOfRows() );
 
 
-                log.info("scope page no : "+ scope.getPageNo());
-                log.info("scope total page : "+ scope.getTotalPage() );
+                log.info("scope page no : "+ aptTradeScope.getPageNo());
+                log.info("scope total page : "+ aptTradeScope.getTotalPage() );
 
                 // 초기화 모드 //
             }else if(mode.toLowerCase().equals("init")){
 
-                YearMonth startDate = scope.getStartDate();
-                YearMonth endDate = scope.getEndDate();
+                YearMonth startDate = aptTradeScope.getStartDate();
+                YearMonth endDate = aptTradeScope.getEndDate();
 
                 // reader 동작 제어 //
                 // reader 종료 시점 : 전체 페이지 수집 -> 설정된 수집기간 순환 -> 전체 지역코드 순환
-                if(scope.regionCodeSize() < (scope.getRegionId() )){
+                if(aptTradeScope.regionCodeSize() < (aptTradeScope.getRegionId() )){
                     log.info("[read] 초기화를 위한 부동산 매매 거래 데이터 수집완료 ");
                     return null;
                 }
@@ -183,27 +183,27 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
                     log.info("[read] end date :"+ DateUtil.yearMonthToString(endDate));
 
                     // pageNo, totalPage, 수집 날짜 초기화
-                    scope.initPageNo();
-                    scope.initTotalPage();
-                    scope.setStartDate(DateUtil.stringToYearMonth(this.startDate));
+                    aptTradeScope.initPageNo();
+                    aptTradeScope.initTotalPage();
+                    aptTradeScope.setStartDate(DateUtil.stringToYearMonth(this.startDate));
 
 
                     // 지역코드 업데이트
-                    scope.incrementRegionId();
+                    aptTradeScope.incrementRegionId();
 
                     throw new CustomException(REGION_FLAG);
                 }
 
 
                 // reader 반복 종료 시점 : 페이지 전체 순환
-                if(scope.getTotalPage() < scope.getPageNo() && !(scope.getTotalPage()==0) ){
+                if(aptTradeScope.getTotalPage() < aptTradeScope.getPageNo() && !(aptTradeScope.getTotalPage()==0) ){
 
                     // pageNo, totalPage 초기화
-                    scope.initPageNo();
-                    scope.initTotalPage();
+                    aptTradeScope.initPageNo();
+                    aptTradeScope.initTotalPage();
 
                     // 수집 날짜 업데이트
-                    scope.incrementStartDate();
+                    aptTradeScope.incrementStartDate();
                     throw new CustomException(DATE_FLAG);
                 }
 
@@ -214,25 +214,25 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
                 log.info("----------------------------");
 
                 // 매매 거래정보 수집 //
-                log.info("region id : "+scope.getRegionId());
-                log.info("region size : "+scope.regionCodeSize());
+                log.info("region id : "+ aptTradeScope.getRegionId());
+                log.info("region size : "+ aptTradeScope.regionCodeSize());
 
-                lawdCd = String.valueOf( scope.getRegionCodeList().get(scope.getRegionId()-1) );
+                lawdCd = String.valueOf( aptTradeScope.getRegionCodeList().get(aptTradeScope.getRegionId()-1) );
                 log.info("lawdCd : "+ lawdCd);
 
-                log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(scope.getStartDate()));
+                log.info("DEAL_YMD (start date) : "+DateUtil.yearMonthToString(aptTradeScope.getStartDate()));
 
                 // openAPI 로 데이터 수집 및 PNU 가공
                 tradePageDTO = this.RTMSDataSvc.getRTMSDataSvcAptTradeDev(apiKey,
-                        String.valueOf(scope.getPageNo()),
-                        String.valueOf(scope.getNumOfRows()),
+                        String.valueOf(aptTradeScope.getPageNo()),
+                        String.valueOf(aptTradeScope.getNumOfRows()),
                         lawdCd,
-                        DateUtil.yearMonthToString(scope.getStartDate()) );
+                        DateUtil.yearMonthToString(aptTradeScope.getStartDate()) );
 
 
                 // 수집 페이지 범위 설정 //
-                scope.incrementPageNo();
-                scope.updateTotalPage(tradePageDTO.getPageDTO().getTotalCount(), scope.getNumOfRows() );
+                aptTradeScope.incrementPageNo();
+                aptTradeScope.updateTotalPage(tradePageDTO.getPageDTO().getTotalCount(), aptTradeScope.getNumOfRows() );
 
             }
 
@@ -241,12 +241,12 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
             // CustomErrorCode 종류에 따라 Region id 의 차이가 있음으로 분기처리 //
             if(e.getCustomErrorCode() == DATE_FLAG){
                 log.info("[read] "+e.getDetailMessage() +" = custom code : "+e.getCustomErrorCode()
-                        +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-1 )
+                        +" / 지역코드 : "+ aptTradeScope.getRegionCodeList().get(aptTradeScope.getRegionId()-1 )
                         +" / batch mode : "+mode+")");
 
             }else if(e.getCustomErrorCode() == REGION_FLAG){
                 log.info("[read] "+e.getDetailMessage() +" = custom code : "+e.getCustomErrorCode()
-                        +" / 지역코드 : "+scope.getRegionCodeList().get(scope.getRegionId()-2 )
+                        +" / 지역코드 : "+ aptTradeScope.getRegionCodeList().get(aptTradeScope.getRegionId()-2 )
                         +" / batch mode : "+mode+")");
             }
 
@@ -263,25 +263,25 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
 
     public void initScope(){
 
-        Scope scope = Scope.getInstance();
+        AptTradeScope aptTradeScope = AptTradeScope.getInstance();
         List<Integer> regionCodeList = new ArrayList<Integer>();
 
         // batch mode 별 scope 설정 //
         if(mode.toLowerCase().equals("op")){
-            scope.setScopeFlag(false);
-            scope.setPageNo(1);
-            scope.setNumOfRows(10);
-            scope.setTotalPage(0);
+            aptTradeScope.setScopeFlag(false);
+            aptTradeScope.setPageNo(1);
+            aptTradeScope.setNumOfRows(10);
+            aptTradeScope.setTotalPage(0);
 
 
         } else if(mode.toLowerCase().equals("init")){
 
-            scope.setScopeFlag(false);
-            scope.setPageNo(1);
-            scope.setNumOfRows(10);
-            scope.setTotalPage(0);
-            scope.setStartDate(DateUtil.stringToYearMonth(startDate));
-            scope.setEndDate(DateUtil.stringToYearMonth(endDate));
+            aptTradeScope.setScopeFlag(false);
+            aptTradeScope.setPageNo(1);
+            aptTradeScope.setNumOfRows(10);
+            aptTradeScope.setTotalPage(0);
+            aptTradeScope.setStartDate(DateUtil.stringToYearMonth(startDate));
+            aptTradeScope.setEndDate(DateUtil.stringToYearMonth(endDate));
         }
 
         // 지역코드 설정 //
@@ -295,7 +295,7 @@ public class RestItemReader implements ItemReader<TradePageDTO> {
             regionCodeList.add(Integer.parseInt(codeStr));
         }
 
-        scope.setRegionCodeList(regionCodeList);
+        aptTradeScope.setRegionCodeList(regionCodeList);
 
     }
 

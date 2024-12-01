@@ -5,9 +5,7 @@ import lombok.Data;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 부동산 정보 수집 범위를 지정하는 싱글톤 <br>
@@ -16,9 +14,9 @@ import java.util.Map;
  * /////// [고도화] job, step 의 실행상태를 유지하고 데이터를 저장하는 'ExecutionContext' 을 사용하는 것으로 변경예정임
  */
 @Data
-public class Scope {
+public class AptTradeScope {
 
-    private static Scope instance;
+    private static AptTradeScope instance;
 
     private boolean ScopeFlag=true; // reader 최초 동작 시 startDate, endDate 설정하기 위한 flag
 
@@ -36,8 +34,8 @@ public class Scope {
     private List<Integer> regionCodeList = new ArrayList<>();
     private int regionId = 1;
 
-    private Scope(){}
-    private Scope(int pageNo, int numOfRows, int totalPage, YearMonth startDate, YearMonth endDate){
+    private AptTradeScope(){}
+    private AptTradeScope(int pageNo, int numOfRows, int totalPage, YearMonth startDate, YearMonth endDate){
         this.pageNo=pageNo;
         this.numOfRows = numOfRows;
         this.totalPage = totalPage;
@@ -45,10 +43,10 @@ public class Scope {
         this.endDate=endDate;
     }
 
-    public static synchronized Scope getInstance() {
+    public static synchronized AptTradeScope getInstance() {
 
         if (instance == null) {
-            instance = new Scope();
+            instance = new AptTradeScope();
         }
         return instance;
     }

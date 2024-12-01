@@ -12,8 +12,8 @@ import lombok.Data;
 public class PubuseAreaDTO {
 
     String mgmBldrgstPk;    // 관리 건축물 대장 ([중요] 세대별 고유값)
-    String privateArea;     // 전용면적
-    String publicArea;      // 공용면적 (면적 타입별 n개의 공용면적이 존재할 수 있음)
+    float privateArea;     // 전용면적
+    float publicArea;      // 공용면적 (면적 타입별 n개의 공용면적이 존재할 수 있음)
 
     String bldNm;           // 아파트명
     String platPlc;         // 구주소

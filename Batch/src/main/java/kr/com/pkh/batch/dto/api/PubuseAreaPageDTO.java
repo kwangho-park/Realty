@@ -4,6 +4,7 @@ import kr.com.pkh.batch.dto.db.PageDTO;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,12 +15,7 @@ import java.util.List;
 @Data
 public class PubuseAreaPageDTO {
 
-    List<PubuseAreaDTO> pubuseAreaDTOList;  // [참고] bldNm, platPlc, newPlatPlc, pnu 는 list 내 요소에서는 모두 동일함
-
-//    String bldNm;           // 아파트명
-//    String platPlc;         // 구주소
-//    String newPlatPlc;      // 도로명 주소
-//    String pnu;
+    List<PubuseAreaDTO> pubuseAreaDTOList= new ArrayList<PubuseAreaDTO>();  // [참고] bldNm, platPlc, newPlatPlc, pnu 는 list 내 요소에서는 모두 동일함
 
     PageDTO pageDTO;
 
@@ -27,21 +23,27 @@ public class PubuseAreaPageDTO {
 // pubuseAreaDTOList 내에 건축물대장정보 (mgmBldrgstPk) 존재여부 반환
     public boolean isMgmBidrgstPk(String mgmBldrgstPk){
         boolean result=false;
-        for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
-            if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
-                result=true;
+
+        try{
+
+            for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
+                if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
+                    result=true;
+                }
             }
+        }catch(NullPointerException e){
+            return result;
         }
+
         return result;
     }
 
 
     // pubuseAreaDTOList 에 면적 데이터 업데이트 (기준데이터 : mgmBldrgstPk)
-    public void updatePublicArea(String mgmBldrgstPk, String publicArea){
+    public void updatePublicArea(String mgmBldrgstPk, float publicArea){
         for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
             if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
-
-                String updatePublicArea = pubuseAreaDTO.getPublicArea()+publicArea;
+                float updatePublicArea = pubuseAreaDTO.getPublicArea()+publicArea;
                 log.info("[아파트 공용면적 업데이트] mgmBldrgstPk : {} , as-is : {}, to-be : {}", mgmBldrgstPk, pubuseAreaDTO.getPublicArea(), updatePublicArea);
                 pubuseAreaDTO.setPublicArea(updatePublicArea);
 
@@ -49,11 +51,11 @@ public class PubuseAreaPageDTO {
         }
     }
 
-    public void updatePrivateArea(String mgmBldrgstPk, String privateArea){
+    public void updatePrivateArea(String mgmBldrgstPk, float privateArea){
+
         for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
             if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
-
-                String updatePrivateArea = pubuseAreaDTO.getPrivateArea()+privateArea;
+                float updatePrivateArea = pubuseAreaDTO.getPrivateArea()+privateArea;
                 log.info("[아파트 전용면적 업데이트] mgmBldrgstPk : {} , as-is : {}, to-be : {}", mgmBldrgstPk, pubuseAreaDTO.getPublicArea(), updatePrivateArea);
                 pubuseAreaDTO.setPrivateArea(updatePrivateArea);
 
@@ -61,15 +63,19 @@ public class PubuseAreaPageDTO {
         }
     }
 
-
-    public String getAreaType(String mgmBldrgstPk){
+    /**
+     * API : http://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo
+     * API 로 조회되는 아파트별 타입에서 '전용면적' 의 item 은 1개만 존재한다는 판단하에 구현한 함수 (검증필요)
+     * @param mgmBldrgstPk
+     * @return
+     */
+    public String getSettingAreaType(String mgmBldrgstPk){
         String result=null;
         for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
             if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
-
-
-                if(pubuseAreaDTO.getPrivateArea().isEmpty()||pubuseAreaDTO.getPrivateArea().equals("")){
-                    result = "privateArea";
+                
+                if(pubuseAreaDTO.getPrivateArea() == 0){
+                    result = "privateArea";     // privateArea 가 존재하지않는 경우 item 에서 조회된 area 를 privateArea 에 설정해야함 
                 }else{
                     result = "publicArea";
                 }
