@@ -13,4 +13,7 @@ public interface AptTradeMapper {
     void insertAptTrade(AptTradeDTO aptTradeDTO);
 
     List<AptTradeDTO> selectAddressIsNull();
+
+    List<AptTradeDTO> selectPnuList();
+
 }

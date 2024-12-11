@@ -18,7 +18,7 @@ public class AptTradeScope {
 
     private static AptTradeScope instance;
 
-    private boolean ScopeFlag=true; // reader 최초 동작 시 startDate, endDate 설정하기 위한 flag
+    private boolean ScopeFlag=true; // reader 최초 동작 시 초기값을 설정하기 위한 flag
 
     // page //
     private int pageNo = 0;         // 페이지 번호
@@ -32,7 +32,7 @@ public class AptTradeScope {
     // region //
     // 지역코드정보 저장
     private List<Integer> regionCodeList = new ArrayList<>();
-    private int regionId = 1;
+    private int regionSeq = 1;
 
     private AptTradeScope(){}
     private AptTradeScope(int pageNo, int numOfRows, int totalPage, YearMonth startDate, YearMonth endDate){
@@ -85,8 +85,9 @@ public class AptTradeScope {
         startDate = startDate.plusMonths(1);
     }
 
-    public synchronized void incrementRegionId(){regionId++;}
-    public synchronized int regionCodeSize(){
+    public synchronized void incrementRegionSeq(){
+        regionSeq++;}
+    public synchronized int getRegionCodeSize(){
         return regionCodeList.size() ;
     }
 

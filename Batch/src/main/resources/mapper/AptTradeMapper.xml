@@ -64,4 +64,16 @@
         WHERE
             B.AB_PNU IS NULL
     </select>
+
+    <select id="selectPnuList" resultMap="AptTradeMap">
+        select tat.AT_PNU, tat.AT_SIGUN_CD , tat.AT_BJD_CD , tat.AT_PLAT_CD , tat.AT_BUN_CD,
+               tat.AT_JI_CD
+        from tb_apt_trade tat
+                 left outer join tb_apt_building tab
+                 on tat.AT_PNU = tab.AB_PNU
+        where tab.AB_PNU is NULL;
+
+    </select>
+
+
 </mapper>

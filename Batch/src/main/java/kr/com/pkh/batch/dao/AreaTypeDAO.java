@@ -14,13 +14,14 @@ public class AreaTypeDAO {
     AreaTypeMapper areaTypeMapper;
 
     /**
+     * [미사용] 제거예정 
      *  아파트 정보 테이블에 pnu가 존재하지않는 매매테이블의 (tb_apt_trade)의 pnu 리스트 조회
      *
      * @return
      * @throws Exception
      */
-    public ArrayList<String> selectAreaTypeList() throws Exception{
-        return areaTypeMapper.selectTargetList();
-    }
+//    public ArrayList<String> selectAreaTypeList() throws Exception{
+//        return areaTypeMapper.selectTargetList();
+//    }
 
 }

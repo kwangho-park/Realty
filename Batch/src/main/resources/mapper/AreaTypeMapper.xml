@@ -11,6 +11,7 @@
         <result property="abPnu" column="AT_AB_PNU"/>
     </resultMap>
 
+    <!--미사용 -->
     <!--전용/공용면적 수집대상 대상 pnu 리스트 조회-->
     <select id="selectTargetList" resultType="string">
         select distinct tat.AT_PNU

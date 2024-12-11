@@ -10,11 +10,10 @@ public class AptTradeDTO {
 
     String id="";           // 매매거래 일련번호
     String pnu = "";        // pnu 아파트단지 고유값
-    int tradeAmount=0;      // 매매가격
-    String tradeDate="";    //
+    int tradeAmount=0;      // 매매가격 (거래가격)
+    String tradeDate="";    // 매매일자 (거래일자)
 
     String insertDateTime = "";
-    String address;         // 주소
 
     String sigunCd; //시군구 코드
     String bjdCd;   //번정동 코드

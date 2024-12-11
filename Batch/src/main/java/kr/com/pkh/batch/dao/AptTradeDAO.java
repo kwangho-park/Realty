@@ -29,4 +29,9 @@ public class AptTradeDAO {
         return aptTradeMapper.selectAddressIsNull();
     }
 
+    public List<AptTradeDTO> selectPnuList () throws Exception{
+        return aptTradeMapper.selectPnuList();
+    }
+
+
 }
