@@ -110,15 +110,15 @@ public class RTMSDataSvcParser{
                     }
 
                     // pnu 일련번호 조합
-                    if(tagName.equals("sggCd")){     // 4-5 자리
+                    if(tagName.equals("sggCd")){              // 시군구코드 (4-5 자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("umdCd")){     // 4-5 자리
+                    }else if(tagName.equals("umdCd")){        // 읍면동코드 (4-5 자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("landCd")){       // 1자리
+                    }else if(tagName.equals("landCd")){       // 대지구분 코드 (1자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("bonbun")){       // 4자리
+                    }else if(tagName.equals("bonbun")){       // 본번 코드 (4자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("bubun")){       // 4자리
+                    }else if(tagName.equals("bubun")){        // 지번 코드 (4자리)
                         pnuMap.put(tagName,tagValue);
                     }
                 }
@@ -136,9 +136,15 @@ public class RTMSDataSvcParser{
                 aptTradeDTO.setTradeAmount(tradeAmount);    // 매매가격
                 aptTradeDTO.setTradeDate(tradeDate);        // 거래일자
 
+                aptTradeDTO.setSigunCd(pnuMap.get("sggCd"));
+                aptTradeDTO.setBjdCd(pnuMap.get("umdCd"));
+                aptTradeDTO.setPlatCd(pnuMap.get("landCd"));
+                aptTradeDTO.setBunCd(pnuMap.get("bonbun"));
+                aptTradeDTO.setJiCd(pnuMap.get("bubun"));
+
                 aptTradeList.add(aptTradeDTO);
 
-                log.info("apt info : id 일련번호 = "+id +" / pnu = ");
+                log.info("apt info : id 일련번호 = {} / pnu = {} ",id ,pnu);
             }
 
             tradePageDTO.setAptTradeDTOList(aptTradeList);

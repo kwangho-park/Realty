@@ -29,11 +29,14 @@
             ,AT_TRADE_AMOUNT
             ,AT_TRADE_DATE
             ,AT_INSERT_DATETIME
+
             ,AT_SIGUN_CD
             ,AT_BJD_CD
             ,AT_PLAT_CD
             ,AT_BUN_CD
             ,AT_JI_CD
+
+
          ) SELECT
             #{id}
             , #{pnu}
