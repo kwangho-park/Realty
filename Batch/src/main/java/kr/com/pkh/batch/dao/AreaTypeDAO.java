@@ -1,5 +1,6 @@
 package kr.com.pkh.batch.dao;
 
+import kr.com.pkh.batch.dto.db.AptBuildingDTO;
 import kr.com.pkh.batch.dto.db.AreaTypeDTO;
 import kr.com.pkh.batch.mapper.AreaTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,9 @@ public class AreaTypeDAO {
 //    public ArrayList<String> selectAreaTypeList() throws Exception{
 //        return areaTypeMapper.selectTargetList();
 //    }
+
+    public int insertAreaType(AptBuildingDTO aptBuildingDTO) throws Exception{
+        return areaTypeMapper.insertAreaType(aptBuildingDTO);
+    }
 
 }

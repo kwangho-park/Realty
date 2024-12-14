@@ -9,12 +9,14 @@
             AB_PNU
         , AB_NAME
         , AB_ADDRESS
+        , AB_ROAD_ADDRESS
         )
         VALUES
             (
-                #{pnu}
+             #{pnu}
             ,#{name}
             ,#{address}
+            ,#{roadAddress}
             )
     </insert>
 </mapper>

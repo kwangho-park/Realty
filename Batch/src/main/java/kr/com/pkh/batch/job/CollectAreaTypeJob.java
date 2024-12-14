@@ -1,5 +1,7 @@
 package kr.com.pkh.batch.job;
 
+import kr.com.pkh.batch.dto.api.PubuseAreaPageDTO;
+import kr.com.pkh.batch.dto.db.AptBuildingDTO;
 import kr.com.pkh.batch.dto.db.AreaTypeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -50,7 +52,7 @@ public class CollectAreaTypeJob {
                              ItemWriter areaTypeWriter){
 
         return stepBuilderFactory.get("areaTypeStep")
-                .<List<String>, List<AreaTypeDTO>>chunk(1)
+                .<PubuseAreaPageDTO, List<AptBuildingDTO>>chunk(1)
                 .reader(areaTypeReader)
                 .processor(areaTypeProcessor)
                 .writer(areaTypeWriter)

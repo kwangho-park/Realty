@@ -40,9 +40,10 @@ public class AptAddressWriter implements ItemWriter<AptBuildingDTO> {
                 aptBuildingDAO.insertAptAddress(item);
 
             }
-            if(item.getId() != null) {
+
+//            if(item.getId() != null) {
 //                repository.save(item);        // legacy
-            }
+//            }
             //repository.save(item);            // legacy
         }
 

@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class AreaTypeDTO {
 
-    int num;                // sequence
-    String privateArea;     // 전용면적
-    String publicArea;      // 공용면적
-    String supplyArea;      // 공급면적
-    String tradeArea;       // 계약면적
+    private int num;                // sequence
+    private float privateArea;     // 전용면적
+    private float publicArea;      // 공용면적
+    private float supplyArea;      // 공급면적
+    private float tradeArea;       // 계약면적
 
-    String abPnu;              // FK (TB_APT_BUILDING 의 FK)
+    private String abPnu;              // FK (TB_APT_BUILDING 의 FK)
 }

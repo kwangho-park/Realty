@@ -15,14 +15,15 @@ import java.util.List;
 public class AreaTypeScope {
     private static AreaTypeScope instance;
 
-    private boolean ScopeFlag=true; // reader 최초 동작 시 초기값을 설정하기 위한 flag
+    private boolean scopeFlag =true;     // reader 최초 동작 시 초기값을 설정하기 위한 flag
+    private boolean addressFlag =true;  // writer 의 tb_apt_builing 의 데이터를 PNU 기준으로 조회된 모든 xml 페이지에서 1회만 인서트하기위한 flag
 
     // page //
     private int pageNo = 0;         // 페이지 번호
     private int numOfRows=0;       // 페이지당 row 수
     private int totalPage = 0;      // 전체 페이지 수
 
-    // pnu 리스트 저장
+    // pnu 리스트 저장 (아파트 주소/타입 조회 기준정보)
     private List<AptTradeDTO> pnuList = new ArrayList<AptTradeDTO>();
     private int punSeq=1;
 

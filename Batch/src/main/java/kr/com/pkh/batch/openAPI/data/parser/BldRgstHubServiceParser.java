@@ -27,7 +27,7 @@ public class BldRgstHubServiceParser {
      * @return
      * @throws Exception
      */
-    public PubuseAreaPageDTO xmlParsingToObject(String responseXml) throws Exception{
+    public PubuseAreaPageDTO xmlParsingToObject(String responseXml, String pnu) throws Exception{
 
         PubuseAreaPageDTO pubuseAreaPageDTO = new PubuseAreaPageDTO();      // xml string 의 page 전체 데이터를 저장
 
@@ -59,7 +59,7 @@ public class BldRgstHubServiceParser {
                 String publicArea=null;      // 공용면적
                 String privateArea=null;     // 전용면적
                 String mgmBldrgstPk=null;    // 관리 건축물 대장 (세대별 고유값)
-                String pnu=null;
+
                 String bldNm=null;           // 아파트명
                 String platPlc=null;         // 구주소
                 String newPlatPlc=null;      // 도로명 주소
@@ -131,15 +131,17 @@ public class BldRgstHubServiceParser {
                 pubuseAreaDTO.setPlatPlc(platPlc);
                 pubuseAreaDTO.setNewPlatPlc(newPlatPlc);
 
+                pubuseAreaDTO.setPnu(pnu);                  // tb_apt_building, tb_area_type 에 업데이트하기위해 pnu 설정
+
 
                 // 면적타입 설정 및 pubuseAreaPageDTO 객체에 item 추가/업데이트 //
                 // 건축물대장정보가 존재하는 경우 <item> 추가를 스킵하고, 기존 PubuseAreaPageDTO 의 면적정보만 업데이트함
                 if(pubuseAreaPageDTO.isMgmBidrgstPk(mgmBldrgstPk)){
                     if(pubuseAreaPageDTO.getSettingAreaType(mgmBldrgstPk).equals("privateArea")) {        // 전유면적 (전용면적)
-                        pubuseAreaPageDTO.updatePrivateArea(mgmBldrgstPk,Float.parseFloat(area) );
+                        pubuseAreaPageDTO.updatePrivateArea(bldNm, mgmBldrgstPk,Float.parseFloat(area) );
                         continue;
                     }else{                                  // 공용면적
-                        pubuseAreaPageDTO.updatePublicArea(mgmBldrgstPk, Float.parseFloat(area) );
+                        pubuseAreaPageDTO.updatePublicArea(bldNm, mgmBldrgstPk, Float.parseFloat(area) );
                         continue;
                     }
 

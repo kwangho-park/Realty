@@ -4,6 +4,8 @@ import lombok.Data;
 
 /**
  * 공공 데이터 포털에서 조회한 아파트 매매 거래정보를 저장하는 DTO
+ * table : tb_apt_trade
+ *
  */
 @Data
 public class AptTradeDTO {
@@ -12,7 +14,6 @@ public class AptTradeDTO {
     String pnu = "";        // pnu 아파트단지 고유값
     int tradeAmount=0;      // 매매가격 (거래가격)
     String tradeDate="";    // 매매일자 (거래일자)
-
     String insertDateTime = "";
 
     String sigunCd; //시군구 코드

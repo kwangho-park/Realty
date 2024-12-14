@@ -14,8 +14,12 @@ import java.util.List;
 @Slf4j
 @Data
 public class PubuseAreaPageDTO {
+    
+    // 아파트별 주소/면적 타입을 저장하는 멤버변수 
+    // [참고] 수집되는 데이터는 중복된 데이터가 있으며, processor 에서 데이터 가공함
+    // [참고] bldNm, platPlc, newPlatPlc, pnu 는 list 내 요소에서는 모두 동일함
+    List<PubuseAreaDTO> pubuseAreaDTOList= new ArrayList<PubuseAreaDTO>();
 
-    List<PubuseAreaDTO> pubuseAreaDTOList= new ArrayList<PubuseAreaDTO>();  // [참고] bldNm, platPlc, newPlatPlc, pnu 는 list 내 요소에서는 모두 동일함
 
     PageDTO pageDTO;
 
@@ -40,23 +44,23 @@ public class PubuseAreaPageDTO {
 
 
     // pubuseAreaDTOList 에 면적 데이터 업데이트 (기준데이터 : mgmBldrgstPk)
-    public void updatePublicArea(String mgmBldrgstPk, float publicArea){
+    public void updatePublicArea(String bldNm, String mgmBldrgstPk, float publicArea){
         for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
             if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
                 float updatePublicArea = pubuseAreaDTO.getPublicArea()+publicArea;
-                log.info("[아파트 공용면적 업데이트] mgmBldrgstPk : {} , as-is : {}, to-be : {}", mgmBldrgstPk, pubuseAreaDTO.getPublicArea(), updatePublicArea);
+                log.info("[아파트 공용면적 업데이트] 아파트명 : {} ,mgmBldrgstPk : {} , as-is : {}, to-be : {}", bldNm, mgmBldrgstPk, pubuseAreaDTO.getPublicArea(), updatePublicArea);
                 pubuseAreaDTO.setPublicArea(updatePublicArea);
 
             }
         }
     }
 
-    public void updatePrivateArea(String mgmBldrgstPk, float privateArea){
+    public void updatePrivateArea(String bldNm, String mgmBldrgstPk, float privateArea){
 
         for(PubuseAreaDTO pubuseAreaDTO:this.pubuseAreaDTOList){
             if(mgmBldrgstPk.equals(pubuseAreaDTO.getMgmBldrgstPk()) ){
                 float updatePrivateArea = pubuseAreaDTO.getPrivateArea()+privateArea;
-                log.info("[아파트 전용면적 업데이트] mgmBldrgstPk : {} , as-is : {}, to-be : {}", mgmBldrgstPk, pubuseAreaDTO.getPublicArea(), updatePrivateArea);
+                log.info("[아파트 전용면적 업데이트] 아파트명 : {} , mgmBldrgstPk : {} , as-is : {}, to-be : {}", bldNm, mgmBldrgstPk, pubuseAreaDTO.getPublicArea(), updatePrivateArea);
                 pubuseAreaDTO.setPrivateArea(updatePrivateArea);
 
             }

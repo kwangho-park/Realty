@@ -18,7 +18,7 @@ public class AptTradeScope {
 
     private static AptTradeScope instance;
 
-    private boolean ScopeFlag=true; // reader 최초 동작 시 초기값을 설정하기 위한 flag
+    private boolean scopeFlag =true; // reader 최초 동작 시 초기값을 설정하기 위한 flag
 
     // page //
     private int pageNo = 0;         // 페이지 번호

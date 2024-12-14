@@ -2,10 +2,9 @@ package kr.com.pkh.batch.step.chunk.reader;
 
 import kr.com.pkh.batch.dao.AptTradeDAO;
 import kr.com.pkh.batch.dao.AreaTypeDAO;
+import kr.com.pkh.batch.dto.api.PubuseAreaDTO;
 import kr.com.pkh.batch.dto.api.PubuseAreaPageDTO;
 import kr.com.pkh.batch.dto.db.AptTradeDTO;
-import kr.com.pkh.batch.dto.db.AreaTypeDTO;
-import kr.com.pkh.batch.exception.CustomException;
 import kr.com.pkh.batch.openAPI.data.service.BldRgstHubService;
 import kr.com.pkh.batch.singleton.AreaTypeScope;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class AreaTypeReader implements ItemReader<List<String>> {
+public class AreaTypeReader implements ItemReader<PubuseAreaPageDTO> {
 
     private int count =0;
     private AreaTypeDAO areaTypeStepDAO;
@@ -42,32 +41,19 @@ public class AreaTypeReader implements ItemReader<List<String>> {
         return this.count;
     }
     @Override
-    public List<String> read() {
+    public PubuseAreaPageDTO read() {
 
         log.info("[read] START");
 
         String serviceKey = this.apiKey;
 
 
-        // TEST
-        String pageNo="1";
-        String numOfRows="100";
-        String sigunguCd ="41192";      // 시군구코드(5자리) (필수) : 41192 (경기도 부천시 원미구)
-        String bjdongCd ="10800";       // 법정동코드(5자리)  (필수) : 10800 (중동)
-        String platGbCd="0";            // 토지구분 (1자리) : 0
-        String bun="1051";              // 본번 (4자리) : 1051  (10510000 설악마을아파트 지번)
-        String ji="0000";               // 지번 (4자리) : 0000
-
-        // test (제거예정)
-        List<String>  pnuList2 = new ArrayList<String>();
-
-        PubuseAreaPageDTO pubuseAreaPageDTO;
+        PubuseAreaPageDTO pubuseAreaPageDTO = null;
 
         AreaTypeScope areaTypeScope = AreaTypeScope.getInstance();
         AptTradeDTO aptTradeDTO;
 
         try{
-
 
 
             // validation in properties //
@@ -93,25 +79,30 @@ public class AreaTypeReader implements ItemReader<List<String>> {
 
                 // pnu 시퀀스 증가
                 areaTypeScope.incrementPnuSeq();
+                areaTypeScope.setAddressFlag(true);
 
 //                throws new CustomException();
-                throw new Exception("test");
+                throw new Exception("[test] 전체 xml 페이지 순환 완료");
             }
 
 
 
             // pnu 기준으로 아파트 주소 및 아파트 면적타입 조회
             // pubuseAreaPageDTO 내의 pageDTO (pageNo, numOfRows, totalCount) 로 배치 job 의 종료시점 제어
-            areaTypeScope.getPageNo();
-            areaTypeScope.getNumOfRows();
+            log.info("pageNo : {} ", areaTypeScope.getPageNo());
+            log.info("NumOfRows : {} ", areaTypeScope.getNumOfRows());
 
             aptTradeDTO = areaTypeScope.getPnuList().get(areaTypeScope.getPunSeq()-1);
 
-            aptTradeDTO.getSigunCd();
-            aptTradeDTO.getBjdCd();
-            aptTradeDTO.getPlatCd();
-            aptTradeDTO.getBunCd();
-            aptTradeDTO.getJiCd();
+            log.info("SigunCd : {} / BjdCd : {} / PlatCd : {} / BunCd : {} / JiCd : {} / pnu : {} ",
+                    aptTradeDTO.getSigunCd(),
+                    aptTradeDTO.getBjdCd(),
+                    aptTradeDTO.getPlatCd(),
+                    aptTradeDTO.getBunCd(),
+                    aptTradeDTO.getJiCd(),
+                    aptTradeDTO.getPnu()
+            );
+
 
             pubuseAreaPageDTO = bldRgstHubService.getBrExposPubuseAreaInfo(
                     serviceKey,
@@ -121,15 +112,35 @@ public class AreaTypeReader implements ItemReader<List<String>> {
                     aptTradeDTO.getBjdCd(),
                     aptTradeDTO.getPlatCd(),
                     aptTradeDTO.getBunCd(),
-                    aptTradeDTO.getJiCd());
+                    aptTradeDTO.getJiCd(),
+                    aptTradeDTO.getPnu()
+            );
 
 
+            if(pubuseAreaPageDTO.getPubuseAreaDTOList().size()==0){ // 조회되는 주소 데이터가없음
+                log.info("openAPI로 아파트 주소조회 불가 PNU : ",aptTradeDTO.getPnu());
+                throw new Exception("[test] 아파트 주소 조회 불가 ");
+            }
             areaTypeScope.incrementPageNo();
             areaTypeScope.updateTotalPage(pubuseAreaPageDTO.getPageDTO().getTotalCount(),
                     areaTypeScope.getNumOfRows() );
 
-            log.info("scope page no : "+ areaTypeScope.getPageNo());
-            log.info("scope total page : "+ areaTypeScope.getTotalPage() );
+
+            for(PubuseAreaDTO pubuseAreaDTO:pubuseAreaPageDTO.getPubuseAreaDTOList()){
+
+                log.info("아파트명: {}, pnu : {} , 구주소 : {}, 도로명주소 : {} , 관리건축대장 : {} , 전용면적 : {}, 공용면적 : {} ",
+                        pubuseAreaDTO.getBldNm(),
+                        aptTradeDTO.getPnu(),
+                        pubuseAreaDTO.getPlatPlc(),
+                        pubuseAreaDTO.getNewPlatPlc(),
+                        pubuseAreaDTO.getMgmBldrgstPk(),
+                        pubuseAreaDTO.getPrivateArea(),
+                        pubuseAreaDTO.getPublicArea()
+                );
+            }
+
+            log.info("scope page no : {} ", areaTypeScope.getPageNo()-1 );
+            log.info("scope total page : {}", areaTypeScope.getTotalPage() );
 
 
         }catch(Exception e){
@@ -137,7 +148,7 @@ public class AreaTypeReader implements ItemReader<List<String>> {
         }
 
         log.info("[read] END");
-        return pnuList2;
+        return pubuseAreaPageDTO;
     }
 
     public void initScope() throws Exception {
@@ -148,7 +159,7 @@ public class AreaTypeReader implements ItemReader<List<String>> {
         // xml page scope //
         areaTypeScope.setScopeFlag(false);
         areaTypeScope.setPageNo(1);
-        areaTypeScope.setNumOfRows(10);
+        areaTypeScope.setNumOfRows(100);
         areaTypeScope.setTotalPage(0);
 
         // pnu 리스트 scope //

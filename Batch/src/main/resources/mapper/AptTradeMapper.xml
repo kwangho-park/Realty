@@ -5,11 +5,15 @@
     <resultMap id="AptTradeMap" type="kr.com.pkh.batch.dto.db.AptTradeDTO">
         <id property="id" column="AT_ID"/>
         <result property="pnu" column="AT_PNU"/>
-        <result property="name" column="AT_NAME"/>
         <result property="tradeAmount" column="AT_TRADE_AMOUNT"/>
         <result property="tradeDate" column="AT_TRADE_DATE"/>
         <result property="insertDateTime" column="AT_INSERT_DATETIME"/>
-        <result property="address" column="AT_ADDRESS"/>
+
+        <result property="sigunCd" column="AT_SIGUN_CD"/>
+        <result property="bjdCd" column="AT_BJD_CD"/>
+        <result property="platCd" column="AT_PLAT_CD"/>
+        <result property="bunCd" column="AT_BUN_CD"/>
+        <result property="jiCd" column="AT_JI_CD"/>
     </resultMap>
 
 
