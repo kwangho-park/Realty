@@ -16,6 +16,5 @@ public class AptBuildingDTO {
     String insertDateTime = "";
     String address;
     String name;
-
-
+    String gps;
 }

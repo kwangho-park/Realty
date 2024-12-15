@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.com.pkh.batch.mapper.AptBuildingMapper">
 
+    <resultMap id="aptBuildingMap" type="kr.com.pkh.batch.dto.db.AptBuildingDTO">
+        <result property="address" column="AB_ADDRESS"/>
+        <result property="pnu" column="AB_PNU"/>
+    </resultMap>
+
     <insert id="insertAptAddress" >
         INSERT INTO
             TB_APT_BUILDING
@@ -17,4 +22,21 @@
             ,#{address}
             )
     </insert>
+    <select id="selectBuildingAddressGpsNull" resultMap="aptBuildingMap">
+        SELECT
+             AB_PNU
+            ,AB_ADDRESS
+        FROM TB_APT_BUILDING
+        WHERE AB_GPS IS NULL
+    </select>
+
+    <update id="updateAptBuildingGPS">
+        UPDATE
+            TB_APT_BUILDING
+        SET
+            AB_GPS = #{gps}
+        WHERE
+            AB_PNU = #{pnu}
+
+    </update>
 </mapper>

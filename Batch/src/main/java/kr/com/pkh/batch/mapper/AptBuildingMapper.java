@@ -11,4 +11,8 @@ import java.util.List;
 public interface AptBuildingMapper {
 
     int insertAptAddress(AptBuildingDTO aptBuildingDTO);
+
+    List<AptBuildingDTO> selectBuildingAddressGpsNull();
+
+    int updateAptBuildingGPS(AptBuildingDTO item);
 }

@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -17,6 +18,11 @@ import java.util.Map;
 @Component
 public class HTTPrequest {
 
+
+    public static JSONObject responseJSON(String serviceDomain, String path, Map<String, String> parameters) throws IOException {
+        return responseJSON(serviceDomain, path, parameters,null);
+
+    }
     /**
      * @param serviceDomain web api service domain
      * @param path          web api path
@@ -25,7 +31,7 @@ public class HTTPrequest {
      *
      * @throws IOException
      */
-    public static JSONObject responseJSON(String serviceDomain, String path, Map<String, String> parameters) throws IOException {
+    public static JSONObject responseJSON(String serviceDomain, String path, Map<String, String> parameters, Map<String,String> headerMap) throws IOException {
 
         int responseCode = 0;                 // http status code
         String responseMsg = "";              // http message
@@ -43,7 +49,7 @@ public class HTTPrequest {
             for(Map.Entry<String, String> entry : parameters.entrySet()){
                 urlBuilder.append(entry.getKey());
                 urlBuilder.append("=");
-                urlBuilder.append(entry.getValue());
+                urlBuilder.append(URLEncoder.encode(entry.getValue()));
                 urlBuilder.append("&");
             }
             urlBuilder.deleteCharAt(urlBuilder.length()-1);     // 마지막 & 제거
@@ -59,7 +65,9 @@ public class HTTPrequest {
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-
+            for(Map.Entry<String, String> headerEntry : headerMap.entrySet()){
+                connection.setRequestProperty(headerEntry.getKey(), headerEntry.getValue());
+            }
             responseCode = connection.getResponseCode();
             responseMsg = connection.getResponseMessage();
 
@@ -87,12 +95,7 @@ public class HTTPrequest {
 
 
                 obj = new JSONObject(response);
-
-
-
-
             }else{
-
                 log.info("[fail] request API : "+path);
 
             }

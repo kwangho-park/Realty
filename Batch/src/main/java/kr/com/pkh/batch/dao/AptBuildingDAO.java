@@ -19,4 +19,12 @@ public class AptBuildingDAO {
     public int insertAptAddress(AptBuildingDTO aptBuildingDTO) throws Exception {
         return aptBuildingMapper.insertAptAddress(aptBuildingDTO);
     }
+
+    public List<AptBuildingDTO> selectBuildingAddressGpsNull() throws Exception {
+        return aptBuildingMapper.selectBuildingAddressGpsNull();
+    }
+
+    public int updateAptBuildingGPS(AptBuildingDTO item) throws Exception {
+        return aptBuildingMapper.updateAptBuildingGPS(item);
+    }
 }
