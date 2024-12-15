@@ -40,7 +40,7 @@ public class RTMSDataSvcParser{
 
         try{
 
-            // http response XML 로그 출력 (for RTMSDataSvc 서비스) //
+            // http response XML 로그 출력 //
             // document 객체로 변환
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -48,12 +48,14 @@ public class RTMSDataSvcParser{
 
 
             // items 데이터 파싱 //
-            log.info("[xml element] 아파트 단지별 pnu 출력 START");
+            log.info("[xml parsing] 아파트 매매 상세 데이터 파싱 START");
 
             NodeList itemNodes = document.getElementsByTagName("item");
 
             log.info("total 'item' count : "+itemNodes.getLength());
 
+
+            // <items>
             for (int i = 0; i < itemNodes.getLength(); i++) {
 
 
@@ -76,6 +78,7 @@ public class RTMSDataSvcParser{
                 NodeList elementList = itemNodes.item(i).getChildNodes();
                 //            log.debug("total element count : "+elementList.getLength());
 
+                // <item>
                 // 건별 매매 거래 내역
                 for(int j=0;j<elementList.getLength();j++){
 
@@ -107,15 +110,15 @@ public class RTMSDataSvcParser{
                     }
 
                     // pnu 일련번호 조합
-                    if(tagName.equals("sggCd")){     // 4-5 자리
+                    if(tagName.equals("sggCd")){              // 시군구코드 (4-5 자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("umdCd")){     // 4-5 자리
+                    }else if(tagName.equals("umdCd")){        // 읍면동코드 (4-5 자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("landCd")){       // 1자리
+                    }else if(tagName.equals("landCd")){       // 대지구분 코드 (1자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("bonbun")){       // 4자리
+                    }else if(tagName.equals("bonbun")){       // 본번 코드 (4자리)
                         pnuMap.put(tagName,tagValue);
-                    }else if(tagName.equals("bubun")){       // 4자리
+                    }else if(tagName.equals("bubun")){        // 지번 코드 (4자리)
                         pnuMap.put(tagName,tagValue);
                     }
                 }
@@ -133,9 +136,15 @@ public class RTMSDataSvcParser{
                 aptTradeDTO.setTradeAmount(tradeAmount);    // 매매가격
                 aptTradeDTO.setTradeDate(tradeDate);        // 거래일자
 
+                aptTradeDTO.setSigunCd(pnuMap.get("sggCd"));
+                aptTradeDTO.setBjdCd(pnuMap.get("umdCd"));
+                aptTradeDTO.setPlatCd(pnuMap.get("landCd"));
+                aptTradeDTO.setBunCd(pnuMap.get("bonbun"));
+                aptTradeDTO.setJiCd(pnuMap.get("bubun"));
+
                 aptTradeList.add(aptTradeDTO);
 
-                log.info("apt info : id 일련번호 = "+id +" / pnu = ");
+                log.info("apt info : id 일련번호 = {} / pnu = {} ",id ,pnu);
             }
 
             tradePageDTO.setAptTradeDTOList(aptTradeList);
@@ -183,7 +192,7 @@ public class RTMSDataSvcParser{
             e.printStackTrace();
 
         }finally {
-            log.info("[xml element] 아파트 단지별 pnu 출력 END");
+            log.info("[xml parsing] 아파트 매매 상세 데이터 파싱 END");
             return tradePageDTO;
 
         }

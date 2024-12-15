@@ -1,11 +1,29 @@
-1. 조회 기준 
 
+0. 데이터 특이사항 
+- 같은 전용 면적이여도 공용면적이 다를 수 있음, 즉, 평단가도 차이가 있을 수 있음 
+
+[예시]
+PNU : 4119210800010510000
+건축물대장정보(mgmBldrgstPk) : 1097177563
+전용면적 : 49.8
+공용면적 : 4.39+15.7+0.74 = 20.83  
+
+PNU : 4119210800010510000
+건축물대장정보(mgmBldrgstPk) :  1097177377 
+전용면적 : 49.8
+공용면적 : 4.21+14.7+0.74 = 19.65 
+
+
+
+1. 조회 기준 
 - 아파트명 : 부천시 중동 설악마을아파트 (1590세대) 
 - pnu : 4119210800010510000
 - 조회된 전체 데이터수 (6360개)
 == 세대별 4개의 면적값 존재 (전용1, 공용3)
 == [중요] 아파트별로 공용면적의 수가 상이함
 - 세대의 구분값 (전용면적+공용면적) : mgmBldrgstPk (관리건축물대장)  또는 hoNm(호수명)
+
+
 
 2. 요청 url 
 http://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo=1&ji=0000&bjdongCd=10800&bun=1051&platGbCd=0&serviceKey=F8P3P63kAIgLt62qlcSKDPRIh%2FbfDJ5KzMyUw9%2FcHSZUJMk3T13KQH3HcQFPvvLODzABAe2%2BU91rYsCRrxBi4Q%3D%3D&sigunguCd=41192&numOfRows=100
@@ -20,7 +38,7 @@ http://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo
 		<items>
 			<item>
 				<rnum>1</rnum>
-				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>
+				<platPlc>경기도 부천시 원미구 중동 1051번지</platPlc>		// 주소 
 				<sigunguCd>41192</sigunguCd>		// 시군구 코드
 				<bjdongCd>10800</bjdongCd>			// 법정동
 				<platGbCd>0</platGbCd>				// 대지구분 
@@ -31,7 +49,7 @@ http://apis.data.go.kr/1613000/BldRgstHubService/getBrExposPubuseAreaInfo?pageNo
 				<regstrGbCdNm>집합</regstrGbCdNm>
 				<regstrKindCd>4</regstrKindCd>
 				<regstrKindCdNm>전유부</regstrKindCdNm>
-				<newPlatPlc>경기도 부천시 원미구 계남로 195 (중동)</newPlatPlc>
+				<newPlatPlc>경기도 부천시 원미구 계남로 195 (중동)</newPlatPlc>		// 도로명주소
 				<bldNm>설악단지</bldNm>					// 아파트명
 				<splotNm></splotNm>
 				<block></block>

@@ -14,7 +14,7 @@ public class RegionCodeDAO {
     RegionCodeMapper regionCodeMapper;
 
     // 시퀀스 기준으로 내림차순하여 전체 조회
-    public List<RegionCodeDTO> selectRegionCodeList(){
+    public List<RegionCodeDTO> selectRegionCodeList() throws Exception{
         return regionCodeMapper.selectRegionCodeList();
     }
 }

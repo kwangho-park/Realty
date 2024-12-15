@@ -11,13 +11,38 @@
         <result property="abPnu" column="AT_AB_PNU"/>
     </resultMap>
 
+    <!--미사용 -->
     <!--전용/공용면적 수집대상 대상 pnu 리스트 조회-->
-    <select id="selectTargetList" resultType="string">
-        select distinct tat.AT_PNU AS AT_PNU
-        from tb_apt_trade tat
-        inner join tb_apt_building tab
-        on tat.at_pnu = tab.ab_pnu
-    </select>
+<!--    <select id="selectTargetList" resultType="string">-->
+<!--        select distinct tat.AT_PNU-->
+<!--        from tb_apt_trade tat-->
+<!--                 left join tb_apt_building tab-->
+<!--                           on tat.at_pnu = tab.ab_pnu-->
+<!--        where tab.AB_PNU is null-->
+<!--    </select>-->
+
+    <!-- 중복되지않는 경우 아파트별 면적 인서트 -->
+    <insert id="insertAreaType" >
+        INSERT INTO TB_AREA_TYPE
+        (
+            AT_PRIVATE_AREA
+        , AT_PUBLIC_AREA
+        , AT_SUPPLY_AREA
+        , AT_AB_PNU
+        )
+        SELECT
+             #{privateArea}
+            ,#{publicArea}
+            ,#{supplyArea}
+            ,#{abPnu}
+        FROM DUAL
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM TB_AREA_TYPE
+            WHERE AT_PRIVATE_AREA = #{privateArea}
+            );
+    </insert>
+
 
 
 </mapper>

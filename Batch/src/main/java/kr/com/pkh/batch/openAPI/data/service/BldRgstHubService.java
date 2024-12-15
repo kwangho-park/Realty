@@ -1,5 +1,6 @@
 package kr.com.pkh.batch.openAPI.data.service;
 
+import kr.com.pkh.batch.dto.api.PubuseAreaPageDTO;
 import kr.com.pkh.batch.dto.api.TradePageDTO;
 import kr.com.pkh.batch.openAPI.data.parser.BldRgstHubServiceParser;
 import kr.com.pkh.batch.util.HTTPrequest;
@@ -42,6 +43,8 @@ public class BldRgstHubService {
      *
      * [중요] openAPI 테스트 결과 지역코드 (법정동코드 앞 5자리)는 구 (or 군) 단위 구분코드로 조회해야되는것으로 확인됨
      * (가능 : 부천시 원미구 41192, 불가능 : 부천시 41190)
+     * [특이사항] apt_apt_trade 에 수집된 pnu로 아파트 주소가 조회되지않는 이슈
+     * tb_apt_trade 의 pnu 에 대지구분값이 0(대지) 로설정되어야 주소가 조회되지만  1(산) 로 설정되어 아파트주소가 조회되지않는 케이스가 있어 주석처리하였음
      *
      * @param serviceKey 인증키           (필수값)
      * @param pageNo 페이지 번호
@@ -56,11 +59,13 @@ public class BldRgstHubService {
      * @throws IOException
      * @throws ParseException
      */
-    public TradePageDTO getBrExposPubuseAreaInfo(String serviceKey, String pageNo,
+    public PubuseAreaPageDTO getBrExposPubuseAreaInfo(String serviceKey, String pageNo,
                                                  String numOfRows, String sigunguCd,
                                                  String bjdongCd, String platGbCd,
-                                                 String bun, String ji){
-        TradePageDTO tradePageDTO = new TradePageDTO();
+                                                 String bun, String ji,
+                                                  String pnu
+    ){
+        PubuseAreaPageDTO pubuseAreaPageDTO = new PubuseAreaPageDTO();
         String responseXml = null;
 
         try{
@@ -75,7 +80,7 @@ public class BldRgstHubService {
                     "numOfRows", numOfRows,
                     "sigunguCd", sigunguCd,
                     "bjdongCd",bjdongCd,
-                    "platGbCd",platGbCd,
+//                    "platGbCd",platGbCd,      // tb_apt_trade 의 pnu 에 대지구분값이 1 (산) 로 설정되어 아파트주소가 조회되지않는 케이스가 있어 주석처리함
                     "bun",bun,
                     "ji",ji
 
@@ -86,7 +91,7 @@ public class BldRgstHubService {
 
             log.info("responseXml{}", responseXml);
 
-//            tradeDTO = xmlParsingToObject(responseXml);
+            pubuseAreaPageDTO = bldRgstHubServiceParser.xmlParsingToObject(responseXml, pnu);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -96,7 +101,7 @@ public class BldRgstHubService {
             e.printStackTrace();
         }
 
-        return tradePageDTO;
+        return pubuseAreaPageDTO;
 
     }
 

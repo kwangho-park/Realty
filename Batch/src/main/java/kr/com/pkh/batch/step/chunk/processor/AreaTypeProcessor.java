@@ -1,5 +1,8 @@
 package kr.com.pkh.batch.step.chunk.processor;
 
+import kr.com.pkh.batch.dto.api.PubuseAreaDTO;
+import kr.com.pkh.batch.dto.api.PubuseAreaPageDTO;
+import kr.com.pkh.batch.dto.db.AptBuildingDTO;
 import kr.com.pkh.batch.dto.db.AreaTypeDTO;
 import kr.com.pkh.batch.openAPI.data.service.BldRgstHubService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,51 +14,79 @@ import org.springframework.batch.item.ItemProcessor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * [특이사항] 아파트 단지내에 전용면적이 동일하더라도 공용면적이 다른 경우가 있음, 최초 수집된 데이터를 기준으로 공용면적을 계산함
+ */
 @Slf4j
 @Component
-public class AreaTypeProcessor implements ItemProcessor<List<String>, List<AreaTypeDTO>> {
-
-    @Value("${publicDataPotal.openApi.apiKey.encoding}")
-    private String apiKey;
-
-    @Autowired
-    BldRgstHubService bldRgstHubService;
+public class AreaTypeProcessor implements ItemProcessor<PubuseAreaPageDTO, List<AptBuildingDTO>> {
 
     @Override
-    public List<AreaTypeDTO> process(List<String> pnuList){
+    public List<AptBuildingDTO> process(PubuseAreaPageDTO pubuseAreaPageDTO){
 
-        List<AreaTypeDTO> areaTypeList = new ArrayList<>();     // 결과
+        List<AptBuildingDTO> aptBuildingList = new ArrayList<AptBuildingDTO>();
 
-        String serviceKey = this.apiKey;
-        String pageNo="1";
-        String numOfRows="100";
-        String sigunguCd ="41192";      // 시군구코드(5자리) (필수) : 41192 (경기도 부천시 원미구)
-        String bjdongCd ="10800";       // 법정동코드(5자리)  (필수) : 10800 (중동)
-        String platGbCd="0";            // 토지구분 (1자리) : 0
-        String bun="1051";              // 본번 (4자리) : 1051  (10510000 설악마을아파트 지번)
-        String ji="0000";               // 지번 (4자리) : 0000
+        List<PubuseAreaDTO> pubuseAreaList = pubuseAreaPageDTO.getPubuseAreaDTOList();
 
+        float privateArea = 0;
+        float publicArea=0;
+        float supplyArea=0;
 
         try{
             log.info("process START");
 
-            for(String test:pnuList){
-                log.info("pnu:"+test);
+            log.info("[test log] process 작업전 데이터 START");
+
+            // test log
+            for(PubuseAreaDTO pubuseAreaDTO2:pubuseAreaPageDTO.getPubuseAreaDTOList()){
+
+                log.info("아파트명: {}, 관리건축대장 : {} , 전용면적 : {}, 공용면적 : {} ",
+                        pubuseAreaDTO2.getBldNm(),
+                        pubuseAreaDTO2.getMgmBldrgstPk(),
+                        pubuseAreaDTO2.getPrivateArea(),
+                        pubuseAreaDTO2.getPublicArea()
+                );
+            }
+            log.info("[test log] process 작업전 데이터 END ");
+
+            for(int loop=0;loop<pubuseAreaList.size();loop++){
+
+                AptBuildingDTO aptBuildingDTO = new AptBuildingDTO();
+
+                privateArea=pubuseAreaList.get(loop).getPrivateArea();
+                publicArea=pubuseAreaList.get(loop).getPublicArea();
+                supplyArea=privateArea+publicArea;                      // 공급면적 연산 = 전용면적 + 공용면적
+
+                aptBuildingDTO.setPnu(pubuseAreaList.get(loop).getPnu());
+                aptBuildingDTO.setName(pubuseAreaList.get(loop).getBldNm());
+                aptBuildingDTO.setAddress(pubuseAreaList.get(loop).getPlatPlc());
+                aptBuildingDTO.setRoadAddress(pubuseAreaList.get(loop).getNewPlatPlc());
+
+                aptBuildingDTO.setPrivateArea(privateArea);
+                aptBuildingDTO.setPublicArea(publicArea);
+                aptBuildingDTO.setSupplyArea(supplyArea);
+                aptBuildingDTO.setAbPnu(pubuseAreaList.get(loop).getPnu());
+
+                // 중복된 아파트 면적 타입 필터링 // 
+                // 존재하는 경우 true
+                boolean exists = aptBuildingList.stream().anyMatch(obj -> Float.compare(obj.getPrivateArea(), aptBuildingDTO.getPrivateArea() ) == 0);
+
+
+                // aptBuildingList 에 private area 가 존재하지 않는 경우 추가
+                if(!exists){
+                    aptBuildingList.add(aptBuildingDTO);
+
+                }
             }
 
-            // [예정] BldRgstHubService openAPI 를 사용하여 전용면적, 공용면적을 수집하고 공급면적을 가공하여 areaTypeList에 저장
-            // [예정] bldRgstHubService  서비스의 parser 구현 예정
-            bldRgstHubService.getBrExposPubuseAreaInfo(
-                    serviceKey,  pageNo,
-                    numOfRows,  sigunguCd,
-                    bjdongCd, platGbCd,
-                    bun, ji);
+
+            log.info("process END");
 
         }catch(Exception e){
             e.printStackTrace();
         }
 
-        return areaTypeList;
+        return aptBuildingList;
 
 
 
