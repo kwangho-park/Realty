@@ -1,14 +1,8 @@
 package kr.com.pkh.realty.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import kr.com.pkh.realty.dto.AppInfoDTO;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service

@@ -1,24 +1,8 @@
+/*
 package kr.com.pkh.realty.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.security.MessageDigest;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.regex.Pattern;
+import jakarta.servlet.http.HttpServletRequest;
+import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,11 +12,25 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
-import org.w3c.dom.Document;
-
-import jakarta.servlet.http.HttpServletRequest;
-
+// 가비아 배포에러로 주석처리
+//		Note: Recompile with -Xlint:deprecation for details.
+//		Note: Some input files use unchecked or unsafe operations.
+//		Note: Recompile with -Xlint:unchecked for details.
 public class Util
 {
 
@@ -341,12 +339,14 @@ public class Util
 	}
 
 
-	/**
+	*/
+/**
 	 *  SHA256 단방향 암호화 + base64 함수
 	 * @param inputStr 암호화 대상 문자열
 	 * @return sha256 암호화+base64 인코딩된 문자열 (length : 88 byte)
 	 * @throws Exception
-	 */
+	 *//*
+
 	public static String getHashValue(String inputStr) throws Exception
 	{
 		byte[] byteArray = inputStr.getBytes();
@@ -412,4 +412,4 @@ public class Util
 //	}
 	
 	
-}
+}*/

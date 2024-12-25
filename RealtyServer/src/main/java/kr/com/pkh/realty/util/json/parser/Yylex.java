@@ -347,7 +347,9 @@ class Yylex {
 
 				case 1 : // '\001'
 				{
-					throw new ParseException(yychar, 0, new Character(yycharat(0)));
+
+
+//					throw new ParseException(yychar, 0, new Character(yycharat(0)));
 				}
 
 				case 8 : // '\b'

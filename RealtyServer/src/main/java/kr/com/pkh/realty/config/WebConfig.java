@@ -1,11 +1,9 @@
 package kr.com.pkh.realty.config;
 
+import kr.com.pkh.realty.interceptor.LoginCheckInterceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import kr.com.pkh.realty.interceptor.LogInterceptor;
-import kr.com.pkh.realty.interceptor.LoginCheckInterceptor;
 
 // spring boot 의 서버 설정
 // =spring 의 web.xml 설정 대체
@@ -39,5 +37,7 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns(EXCLUDEPATHPATTERNS)	// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
 		.excludePathPatterns("/error", "/session/login", "/login" , "/register"); // 인터셉터에서 제외할 패턴
 	}
+
+
 
 }

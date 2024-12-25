@@ -1,14 +1,14 @@
 package kr.com.pkh.realty.util.json.parser;
 
+import kr.com.pkh.realty.util.json.JSONArray;
+import kr.com.pkh.realty.util.json.JSONObject;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import kr.com.pkh.realty.util.json.JSONArray;
-import kr.com.pkh.realty.util.json.JSONObject;
 
 public class JSONParser {
 	public static final int S_INIT = 0;
@@ -84,12 +84,17 @@ public class JSONParser {
 						switch (this.token.type) {
 							case 0 :
 								this.status = 1;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
+
 								valueStack.addFirst(this.token.value);
 								break label65;
 							case 1 :
 								this.status = 2;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								valueStack.addFirst(this.createObjectContainer(containerFactory));
 								break label65;
 							case 2 :
@@ -98,7 +103,9 @@ public class JSONParser {
 								break label65;
 							case 3 :
 								this.status = 3;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								valueStack.addFirst(this.createArrayContainer(containerFactory));
 								break label65;
 						}
@@ -115,7 +122,9 @@ public class JSONParser {
 									key = (String) this.token.value;
 									valueStack.addFirst(key);
 									this.status = 4;
-									statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+									statusStack.addFirst(Integer.valueOf(this.status));
+
 								} else {
 									this.status = -1;
 								}
@@ -149,7 +158,9 @@ public class JSONParser {
 								parent = this.createObjectContainer(containerFactory);
 								val.add(parent);
 								this.status = 2;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								valueStack.addFirst(parent);
 								break label65;
 							case 2 :
@@ -161,7 +172,9 @@ public class JSONParser {
 								newArray = this.createArrayContainer(containerFactory);
 								val.add(newArray);
 								this.status = 3;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								valueStack.addFirst(newArray);
 								break label65;
 							case 4 :
@@ -191,7 +204,10 @@ public class JSONParser {
 								Map newObject = this.createObjectContainer(containerFactory);
 								parent.put(key, newObject);
 								this.status = 2;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
+
 								valueStack.addFirst(newObject);
 								break;
 							case 2 :
@@ -207,8 +223,10 @@ public class JSONParser {
 								newArray = this.createArrayContainer(containerFactory);
 								parent.put(key, newArray);
 								this.status = 3;
-								statusStack.addFirst(new Integer(this.status));
-								valueStack.addFirst(newArray);
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
+//								Integer.valueOf(valueStack.addFirst(newArray));
 							case 6 :
 						}
 				}
@@ -291,14 +309,18 @@ public class JSONParser {
 						switch (this.token.type) {
 							case 0 :
 								this.status = 1;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								if (!contentHandler.primitive(this.token.value)) {
 									return;
 								}
 								break label174;
 							case 1 :
 								this.status = 2;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								if (!contentHandler.startObject()) {
 									return;
 								}
@@ -309,7 +331,9 @@ public class JSONParser {
 								break label174;
 							case 3 :
 								this.status = 3;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								if (!contentHandler.startArray()) {
 									return;
 								}
@@ -332,7 +356,9 @@ public class JSONParser {
 								if (this.token.value instanceof String) {
 									String key = (String) this.token.value;
 									this.status = 4;
-									statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+									statusStack.addFirst(Integer.valueOf(this.status));
+
 									if (!contentHandler.startObjectEntry(key)) {
 										return;
 									}
@@ -370,7 +396,9 @@ public class JSONParser {
 								break label174;
 							case 1 :
 								this.status = 2;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								if (!contentHandler.startObject()) {
 									return;
 								}
@@ -381,7 +409,9 @@ public class JSONParser {
 								break label174;
 							case 3 :
 								this.status = 3;
-								statusStack.addFirst(new Integer(this.status));
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								if (!contentHandler.startArray()) {
 									return;
 								}
@@ -416,9 +446,17 @@ public class JSONParser {
 								break label174;
 							case 1 :
 								statusStack.removeFirst();
-								statusStack.addFirst(new Integer(5));
-								this.status = 2;
-								statusStack.addFirst(new Integer(this.status));
+
+
+//								statusStack.addFirst(new Integer(5));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(5));
+
+									this.status = 2;
+
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
+
 								if (!contentHandler.startObject()) {
 									return;
 								}
@@ -431,9 +469,14 @@ public class JSONParser {
 								break label174;
 							case 3 :
 								statusStack.removeFirst();
-								statusStack.addFirst(new Integer(5));
+//								statusStack.addFirst(new Integer(5));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(5));
+
 								this.status = 3;
-								statusStack.addFirst(new Integer(this.status));
+
+//								statusStack.addFirst(new Integer(this.status));	// openJDK20 -> 17 변경으로 수정
+								statusStack.addFirst(Integer.valueOf(this.status));
+
 								if (!contentHandler.startArray()) {
 									return;
 								}
