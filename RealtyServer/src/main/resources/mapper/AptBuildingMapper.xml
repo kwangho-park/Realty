@@ -9,7 +9,7 @@
         SELECT
             AB_GPS
         FROM
-            REALTY.TB_APT_BUILDING
+            TB_APT_BUILDING
         WHERE AB_GPS IS NOT NULL
         LIMIT 0, 50
     </select>

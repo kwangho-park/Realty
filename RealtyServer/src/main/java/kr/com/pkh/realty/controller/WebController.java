@@ -35,7 +35,7 @@ public class WebController extends BaseController {
 	AptBuildingService aptBuildingService;
 
 	@GetMapping("/")
-	public String homeLogin(HttpServletRequest request, Model model) {
+	public String homeLogin(HttpServletRequest request, Model model) throws Exception {
 
 		// 세션반환
 		HttpSession session = request.getSession(false);
@@ -55,7 +55,13 @@ public class WebController extends BaseController {
 			model.addAttribute("user", user);
 			model.addAttribute("app", 0);
 
-			return "/user/user";		// web view path
+			List<AptBuildingDTO> aptGpsList = aptBuildingService.getAptBuildingGpsList();
+			model.addAttribute("aptGpsList",aptGpsList);
+			ObjectMapper objectMapper = new ObjectMapper();
+			String aptGpsJson = objectMapper.writeValueAsString(aptGpsList);
+			model.addAttribute("aptGpsJson",aptGpsJson);
+
+			return "user/user";		// web view path
 		}
 
 
@@ -63,17 +69,6 @@ public class WebController extends BaseController {
     
     @GetMapping("/login")
     public String login(HttpServletRequest request, Model model) throws JsonProcessingException {
-		/*
-		 * 네이버 지도 테스트
-		 * todo: 소스코드 이동 필요
-		 * */
-
-
-		List<AptBuildingDTO> aptGpsList = aptBuildingService.getAptBuildingGpsList();
-		model.addAttribute("aptGpsList",aptGpsList);
-		ObjectMapper objectMapper = new ObjectMapper();
-		String aptGpsJson = objectMapper.writeValueAsString(aptGpsList);
-		model.addAttribute("aptGpsJson",aptGpsJson);
 
 
 		return "login/index";
