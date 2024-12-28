@@ -1,7 +1,5 @@
 package kr.com.pkh.realty.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import kr.com.pkh.realty.dto.UserInfoDTO;
 import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
@@ -12,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 

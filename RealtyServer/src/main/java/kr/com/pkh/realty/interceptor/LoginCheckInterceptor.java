@@ -1,12 +1,12 @@
 package kr.com.pkh.realty.interceptor;
 
-import jakarta.servlet.http.HttpSession;
 import kr.com.pkh.realty.util.SessionConst;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Log4j2
 public class LoginCheckInterceptor implements HandlerInterceptor{

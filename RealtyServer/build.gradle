@@ -42,11 +42,7 @@ dependencies {
     implementation 'org.jboss.logging:jboss-logging'
 
     // openjdk 20->17 사용으로 추가한 의존 라이브러리
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
-    implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
-    implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
-
+    implementation 'javax.servlet:javax.servlet-api'
 
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     compileOnly 'org.projectlombok:lombok'

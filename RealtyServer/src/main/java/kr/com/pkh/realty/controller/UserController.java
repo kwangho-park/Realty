@@ -1,16 +1,16 @@
 package kr.com.pkh.realty.controller;
 
 import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import kr.com.pkh.realty.service.UserInfoService;
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 사용자 정보관리 컨트롤러

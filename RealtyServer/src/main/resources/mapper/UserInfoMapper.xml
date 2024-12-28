@@ -14,7 +14,7 @@
         SELECT
             UI_USER_NAME
         FROM
-            REALTY.TB_USER_INFO
+            TB_USER_INFO
         WHERE
             UI_USER_ID = #{id}
     </select>
@@ -23,7 +23,7 @@
              UI_USER_NAME AS USER_NAME
             ,UI_USER_ID AS USER_ID
         FROM
-            REALTY.TB_USER_INFO
+            TB_USER_INFO
         WHERE 1=1
             AND UI_USER_ID = #{userId}
             AND UI_USER_PW = #{userPw}
@@ -31,7 +31,7 @@
 
     <insert id="insertUserInfo" parameterType="kr.com.pkh.realty.dto.UserInfoDTO">
         INSERT INTO
-            REALTY.TB_USER_INFO
+            TB_USER_INFO
             (
                  UI_USER_ID
                 , UI_USER_PW

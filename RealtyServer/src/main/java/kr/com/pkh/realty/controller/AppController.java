@@ -1,20 +1,17 @@
 package kr.com.pkh.realty.controller;
 
-import java.util.List;
-
-import kr.com.pkh.realty.dto.AppInfoDTO;
 import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.service.AppInfoService;
 import kr.com.pkh.realty.service.UserInfoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import kr.com.pkh.realty.service.AppInfoService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 어플리케이션 정보 관리 컨트롤러

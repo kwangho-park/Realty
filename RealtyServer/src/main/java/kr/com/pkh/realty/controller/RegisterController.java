@@ -1,7 +1,5 @@
 package kr.com.pkh.realty.controller;
 
-import jakarta.validation.Valid;
-import kr.com.pkh.realty.dto.RegisterDTO;
 import kr.com.pkh.realty.dto.UserInfoDTO;
 import kr.com.pkh.realty.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
 
 
 
