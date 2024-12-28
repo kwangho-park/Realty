@@ -1,6 +1,9 @@
 package kr.com.pkh.realty.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.com.pkh.realty.dto.AptBuildingDTO;
 import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.service.AptBuildingService;
 import kr.com.pkh.realty.service.AuthenticationService;
 import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
@@ -17,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 사용자 로그인/로그아웃 컨트롤러 (Session)
  */
@@ -30,6 +36,9 @@ public class AuthenticationController {
 	@Autowired
 	UserInfoService userInfoService;
 
+	@Autowired
+	AptBuildingService aptBuildingService;
+
 	@PostMapping("/login")
 	public String login(@ModelAttribute UserInfoDTO form, BindingResult bindingResult,
 						RedirectAttributes redirectAttributes, HttpServletResponse reponse, HttpServletRequest request, Model model)
@@ -37,7 +46,16 @@ public class AuthenticationController {
 
 		log.info("id: " + form.getUserId() + " / pw: " + form.getUserPw());
 		UserInfoDTO userInfoDTO = userInfoService.getUserInfo(form);
+		/*
+		 * 네이버 지도 테스트
+		 * todo: 소스코드 이동 필요
+		 * */
 
+		List<AptBuildingDTO> aptGpsList = aptBuildingService.getAptBuildingGpsList();
+		model.addAttribute("aptGpsList",aptGpsList);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String aptGpsJson = objectMapper.writeValueAsString(aptGpsList);
+		model.addAttribute("aptGpsJson",aptGpsJson);
 		if (userInfoDTO == null) {
 			model.addAttribute("msg", "로그인 실패");
 			return "login/index";
@@ -50,6 +68,7 @@ public class AuthenticationController {
 		session.setAttribute(SessionConst.LOGIN_USER, userInfoDTO);
 		log.info("login Info {} ", (UserInfoDTO) session.getAttribute(SessionConst.LOGIN_USER));
 		redirectAttributes.addFlashAttribute("msg", "로그인 성공");
+
 
 		return "redirect:/";
 	}

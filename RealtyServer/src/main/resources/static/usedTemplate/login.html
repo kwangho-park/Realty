@@ -86,6 +86,9 @@
 
         </div>
 
+        <!--kakao map test -->
+        <div id="map" style="width:500px;height:400px;">kakao map</div>
+
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -97,7 +100,149 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <!--네이버 지도 API -->
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vutw29vp6n"></script>
 
+    <script>
+
+      /*  var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.5666805, 126.9784147),
+            zoom: 10,
+            mapTypeId: naver.maps.MapTypeId.NORMAL
+        });
+
+        var rect = new naver.maps.Rectangle({
+            strokeOpacity: 0,
+            strokeWeight: 0,
+            fillOpacity: 0.2,
+            fillColor: "#f00",
+            bounds: map.getBounds(), // 지도의 bounds와 동일한 크기의 사각형을 그립니다.
+            map: map
+        });
+        console.log(map.getBounds());
+        */
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.3595704, 127.105399),
+            zoom: 10
+        });
+
+        var recognizer = new MarkerOverlappingRecognizer({
+            highlightRect: false,
+            tolerance: 5
+        });
+
+        recognizer.setMap(map);
+
+        var bounds = map.getBounds(),
+            southWest = bounds.getSW(),
+            northEast = bounds.getNE(),
+            lngSpan = northEast.lng() - southWest.lng(),
+            latSpan = northEast.lat() - southWest.lat();
+
+        function highlightMarker(marker) {
+            var icon = marker.getIcon();
+
+            if (icon.url !== MARKER_HIGHLIGHT_ICON_URL) {
+                icon.url = MARKER_HIGHLIGHT_ICON_URL;
+                marker.setIcon(icon);
+            }
+
+            marker.setZIndex(1000);
+        }
+
+        function unhighlightMarker(marker) {
+            var icon = marker.getIcon();
+
+            if (icon.url === MARKER_HIGHLIGHT_ICON_URL) {
+                icon.url = MARKER_ICON_URL;
+                marker.setIcon(icon);
+            }
+
+            marker.setZIndex(100);
+        }
+
+        for (var key in MARKER_SPRITE_POSITION) {
+            var position = new naver.maps.LatLng(
+                southWest.lat() + latSpan * Math.random(),
+                southWest.lng() + lngSpan * Math.random());
+
+            var marker = new naver.maps.Marker({
+                map: map,
+                position: position,
+                title: key,
+                icon: {
+                    url: MARKER_ICON_URL,
+                    size: new naver.maps.Size(24, 37),
+                    anchor: new naver.maps.Point(12, 37),
+                    origin: new naver.maps.Point(MARKER_SPRITE_POSITION[key][0], MARKER_SPRITE_POSITION[key][1])
+                },
+                shape: {
+                    coords: [11, 0, 9, 0, 6, 1, 4, 2, 2, 4,
+                        0, 8, 0, 12, 1, 14, 2, 16, 5, 19,
+                        5, 20, 6, 23, 8, 26, 9, 30, 9, 34,
+                        13, 34, 13, 30, 14, 26, 16, 23, 17, 20,
+                        17, 19, 20, 16, 21, 14, 22, 12, 22, 12,
+                        22, 8, 20, 4, 18, 2, 16, 1, 13, 0],
+                    type: 'poly'
+                },
+                zIndex: 100
+            });
+
+            marker.addListener('mouseover', function(e) {
+                highlightMarker(e.overlay);
+            });
+            marker.addListener('mouseout', function(e) {
+                unhighlightMarker(e.overlay);
+            });
+            marker.addListener('click', function(e) {
+                var m = e.overlay;
+
+                alert(m.title);
+            });
+
+            recognizer.add(marker);
+
+            window.MARKER = marker;
+        };
+
+        var overlapCoverMarker = null;
+
+        naver.maps.Event.addListener(recognizer, 'overlap', function(list) {
+            if (overlapCoverMarker) {
+                unhighlightMarker(overlapCoverMarker);
+            }
+
+            overlapCoverMarker = list[0].marker;
+
+            naver.maps.Event.once(overlapCoverMarker, 'mouseout', function() {
+                highlightMarker(overlapCoverMarker);
+            });
+        });
+
+        naver.maps.Event.addListener(recognizer, 'clickItem', function(e) {
+            recognizer.hide();
+
+            if (overlapCoverMarker) {
+                unhighlightMarker(overlapCoverMarker);
+
+                overlapCoverMarker = null;
+            }
+        });
+
+        map.setZoom(7);
+      let aptGpsJson = "${aptGpsJson}";
+      //setMarkers();
+      // 마커 생성 처리 함수
+      function setMarkers(lat, lng) {
+          var marker = new naver.maps.Marker({
+              position: new naver.maps.LatLng(lat, lng),
+              map: map
+          });
+      }
+
+    </script>
 </body>
+
+
 
 </html>

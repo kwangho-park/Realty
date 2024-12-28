@@ -30,12 +30,12 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/error", "/session/login", "/login" ,"/register");
 		*/
 
-
+/*
 		registry.addInterceptor(new LoginCheckInterceptor()) // LoginCheckInterceptor 등록
 //		.order(1)	// 적용할 필터 순서 설정
 		.addPathPatterns("", "/**")
 		.excludePathPatterns(EXCLUDEPATHPATTERNS)	// static 디렉토리의 하위 파일 목록은 인증 무시 (=항상 통과)
-		.excludePathPatterns("/error", "/session/login", "/login" , "/register"); // 인터셉터에서 제외할 패턴
+		.excludePathPatterns("/error", "/session/login", "/login" , "/register"); // 인터셉터에서 제외할 패턴*/
 	}
 
 

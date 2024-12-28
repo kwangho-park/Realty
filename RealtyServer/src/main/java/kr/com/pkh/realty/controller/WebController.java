@@ -1,6 +1,10 @@
 package kr.com.pkh.realty.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.com.pkh.realty.dto.AptBuildingDTO;
 import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.service.AptBuildingService;
 import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -26,6 +31,9 @@ public class WebController extends BaseController {
 	;
 	@Autowired
 	UserInfoService userInfoService;
+	@Autowired
+	AptBuildingService aptBuildingService;
+
 	@GetMapping("/")
 	public String homeLogin(HttpServletRequest request, Model model) {
 
@@ -47,15 +55,28 @@ public class WebController extends BaseController {
 			model.addAttribute("user", user);
 			model.addAttribute("app", 0);
 
-			return "user/user";		// web view path
+			return "/user/user";		// web view path
 		}
 
 
 	}
     
     @GetMapping("/login")
-    public String login() {
-        return "login/index";
+    public String login(HttpServletRequest request, Model model) throws JsonProcessingException {
+		/*
+		 * 네이버 지도 테스트
+		 * todo: 소스코드 이동 필요
+		 * */
+
+
+		List<AptBuildingDTO> aptGpsList = aptBuildingService.getAptBuildingGpsList();
+		model.addAttribute("aptGpsList",aptGpsList);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String aptGpsJson = objectMapper.writeValueAsString(aptGpsList);
+		model.addAttribute("aptGpsJson",aptGpsJson);
+
+
+		return "login/index";
     }
     
     @GetMapping("/dashboard")
