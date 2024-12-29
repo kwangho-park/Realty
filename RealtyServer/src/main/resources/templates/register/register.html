@@ -94,9 +94,11 @@
             console.log("user pw : "+userPw);
             console.log("user name : "+userName);
 
+            // 의문점 : 가비아 웹 호스팅에 배포된 realty server 는 http 로 요청하면 에러발생
+            // local pc에서는 https (tls 인증서) 설정이 되어있지 않기 때문에 https 로 요청 시 에러발생함
             $.ajax({
                 type : 'POST',
-                url : "http://"+serverIp+":"+serverPort+"/register",
+                url : "https://"+serverIp+":"+serverPort+"/register",
                 data : JSON.stringify(
                     {
                         "userId" : $('#id').val().trim(),
