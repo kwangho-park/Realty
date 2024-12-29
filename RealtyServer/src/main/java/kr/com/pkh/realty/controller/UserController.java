@@ -29,7 +29,7 @@ public class UserController {
     	
     	model.addAttribute("user", userInfo);
     	
-    	return "/user/user";
+    	return "user/user";
     }
 
 
