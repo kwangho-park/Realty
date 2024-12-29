@@ -77,9 +77,6 @@
 
 		</div>
 
-		<!--kakao map test -->
-		<div id="map" style="width:500px;height:400px;">kakao map</div>
-
 	</div>
 
 <script th:inline="javascript">
@@ -95,97 +92,11 @@
 		};
 		const map = new naver.maps.Map('map', mapOptions);
 */
-		// 지도 초기화
-		navigator.geolocation.getCurrentPosition(function(pos){
-			//혹은 하이브리드와 같은 앱의 경우 map함수에 좌표를 넣어 실행시켜주면 됨
-			console.log("aaa");
-			loadNaverMap(pos.coords.latitude, pos.coords.longitude);
 
-			let aptGpsJson = /*[[${aptGpsJson}]]*/ {};
-			console.log(aptGpsJson);
-			let gpsJsonArray = JSON.parse(aptGpsJson);
-
-			// JSON 배열 순회
-			$.each(gpsJsonArray, function (index, item) {
-				console.log("Index: " + index);
-				console.log("Name: " + item.abGps);
-				setMarkers(item.abGps.split(",")[0],item.abGps.split(",")[1], "테스트");
-			});
-
-
-		});
 
 	});
 
-
-	// 서버에서 주소 리스트 받아오기 (예시용 JSON 데이터)
-	const addressList = ["서울특별시 강남구 삼성동", "서울특별시 중구 명동", "부산광역시 해운대구"];
-
-
-	function loadNaverMap(lat, lng) {
-		map = new naver.maps.Map('map', {
-			center: new naver.maps.LatLng(lat, lng), //좌표
-			zoom: 13, //지도의 초기 줌 레벨
-			minZoom: 6, //지도의 최소 줌 레벨
-			draggable: true,
-			pinchZoom: true,
-			scrollWheel: true,
-			disableKineticPan: false, // 관성드래깅
-			scaleControl: false, // 스케일 컨트롤러
-			logoControl: true, // 로고 컨트롤러
-			logoControlOptions: {
-				position: naver.maps.Position.BOTTOM_RIGHT
-			},
-			mapDataControl: false,
-			zoomControl: true, //줌컨트롤러
-			zoomControlOptions: {
-				position: naver.maps.Position.TOP_LEFT
-			},
-			mapTypeControl: false
-		});
-	}
-
-	function setMarkers(lat, lng, content) {
-		var marker = new naver.maps.Marker({
-			position: new naver.maps.LatLng(lat, lng),
-			map: map
-		});
-	}
-	function register(){
-		alert("test");
-	}
-		/*  var map = new naver.maps.Map('map', {
-              center: new naver.maps.LatLng(37.5666805, 126.9784147),
-              zoom: 10,
-              mapTypeId: naver.maps.MapTypeId.NORMAL
-          });
-
-          var rect = new naver.maps.Rectangle({
-              strokeOpacity: 0,
-              strokeWeight: 0,
-              fillOpacity: 0.2,
-              fillColor: "#f00",
-              bounds: map.getBounds(), // 지도의 bounds와 동일한 크기의 사각형을 그립니다.
-              map: map
-          });
-          console.log(map.getBounds());
-          */
-
-	// InfoWindow 생성
-	var infoWindow = new naver.maps.InfoWindow({
-		content: `<div style="padding:10px; min-width:100px; text-align:center;">${content}</div>`
-	});
-
-	// 마커 클릭 시 InfoWindow 표시
-	naver.maps.Event.addListener(marker, "click", function() {
-		infoWindow.open(map, marker);
-	});
-
-	// 마커 외부 클릭 시 InfoWindow 닫기
-	naver.maps.Event.addListener(map, "click", function() {
-		infoWindow.close();
-	});
-
+f
 </script>
 
 </body>

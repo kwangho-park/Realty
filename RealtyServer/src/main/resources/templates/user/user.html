@@ -32,7 +32,7 @@
 								<input type="text" class="form-control" th:value="${user.userName}" readonly>
 							</div>
 							<hr>
-							
+
 							<!--<div class="form-floating">
 								<label for="floatingInputGrid">E-MAIL</label>
 								<input type="text" class="form-control" placeholder="example@example.com" readonly>
@@ -59,42 +59,89 @@
 	<!-- /.container-fluid -->
 
 	<!--kakao map test -->
-	<div id="map" style="width:500px;height:400px;">kakao map</div>
+	<div id="map" style="width:500px;height:400px;">naver map</div>
 
 	<!--CDN : kakao map sdk -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e594070f5e090971964662267b642f4&libraries=services,clusterer,drawing"></script>
+	<!--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e594070f5e090971964662267b642f4&libraries=services,clusterer,drawing"></script>-->
+	<!--네이버 지도 API -->
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vutw29vp6n"></script>
 
-	<script>
-		var geocoder = new kakao.maps.services.Geocoder();
-		let longitude , latitude;
+	<script th:inline="javascript">
+		let map;
+		let maker;
+		$(document).ready(function(){
+			console.log("aaaaaa");
+			// 지도 초기화
+			navigator.geolocation.getCurrentPosition(function(pos){
+				//혹은 하이브리드와 같은 앱의 경우 map함수에 좌표를 넣어 실행시켜주면 됨
+				loadNaverMap(pos.coords.latitude, pos.coords.longitude);
 
-		var callback = function(result, status) {
-			if (status === kakao.maps.services.Status.OK) {
-				console.log("x : 	" + result[0].x );
-				console.log("y :    " + +result[0].y );
-				longitude = result[0].x;	// 경도
-				latitude = result[0].y;		// 위도
+				let aptGpsJson = /*[[${aptGpsJson}]]*/ {};
+				console.log(aptGpsJson);
+				let gpsJsonArray = JSON.parse(aptGpsJson);
 
-				var container = document.getElementById('map');	//지도를 담을 영역의 DOM 레퍼런스
-				var options = {		 							//지도를 생성할 때 필요한 기본 옵션
-					center: new kakao.maps.LatLng(latitude, longitude),	//지도의 중심좌표.
-					level: 3	//지도의 레벨(확대, 축소 정도)
-				};
+				// JSON 배열 순회
+				$.each(gpsJsonArray, function (index, item) {
 
-				var map = new kakao.maps.Map(container, options);		// id가 'map' 인 태그에 지도 생성 및 kakao map 객체 리턴
-
-				var bounds = map.getBounds();
-
-				console.log("log: "+ bounds.toString());		// 좌측 하단(y,x), 우측 상단(y,x)
-
-			}
-		};
-		geocoder.addressSearch('다산중앙로82번길106', callback);
+					console.log("Name: " + item.abGps);
+					setMarkers(item.abGps.split(",")[0],item.abGps.split(",")[1], "테스트");
+				});
 
 
+			});
+
+		});
+
+
+		function loadNaverMap(lat, lng) {
+			map = new naver.maps.Map('map', {
+				center: new naver.maps.LatLng(lat, lng), //좌표
+				zoom: 13, //지도의 초기 줌 레벨
+				minZoom: 6, //지도의 최소 줌 레벨
+				draggable: true,
+				pinchZoom: true,
+				scrollWheel: true,
+				disableKineticPan: false, // 관성드래깅
+				scaleControl: false, // 스케일 컨트롤러
+				logoControl: true, // 로고 컨트롤러
+				logoControlOptions: {
+					position: naver.maps.Position.BOTTOM_RIGHT
+				},
+				mapDataControl: false,
+				zoomControl: true, //줌컨트롤러
+				zoomControlOptions: {
+					position: naver.maps.Position.TOP_LEFT
+				},
+				mapTypeControl: false
+			});
+		}
+
+		function setMarkers(lat, lng) {
+			marker = new naver.maps.Marker({
+				position: new naver.maps.LatLng(lat, lng),
+				map: map
+			});
+		}
+		function register(){
+			alert("test");
+		}
+		// InfoWindow 생성
+		var infoWindow = new naver.maps.InfoWindow({
+			content: `<div style="padding:10px; min-width:100px; text-align:center;">test입니다</div>`
+		});
+
+		// 마커 클릭 시 InfoWindow 표시
+		naver.maps.Event.addListener(marker, "click", function() {
+			infoWindow.open(map, marker);
+		});
+
+		// 마커 외부 클릭 시 InfoWindow 닫기
+		naver.maps.Event.addListener(map, "click", function() {
+			infoWindow.close();
+
+		});
 
 	</script>
-
 </th:block>
 
 
