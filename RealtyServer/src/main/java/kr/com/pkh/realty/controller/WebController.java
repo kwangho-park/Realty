@@ -2,8 +2,8 @@ package kr.com.pkh.realty.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.com.pkh.realty.dto.AptBuildingDTO;
-import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.dto.db.AptBuildingDTO;
+import kr.com.pkh.realty.dto.db.UserInfoDTO;
 import kr.com.pkh.realty.service.AptBuildingService;
 import kr.com.pkh.realty.service.UserInfoService;
 import kr.com.pkh.realty.util.SessionConst;
@@ -34,8 +34,10 @@ public class WebController extends BaseController {
 	@Autowired
 	AptBuildingService aptBuildingService;
 
+	// domain home path
 	@GetMapping("/")
 	public String homeLogin(HttpServletRequest request, Model model) throws Exception {
+
 
 		// 세션반환
 		HttpSession session = request.getSession(false);
@@ -61,7 +63,7 @@ public class WebController extends BaseController {
 			String aptGpsJson = objectMapper.writeValueAsString(aptGpsList);
 			model.addAttribute("aptGpsJson",aptGpsJson);
 
-			return "user/user";		// web view path
+			return "realtyMap/realtyMap";		// web view path
 		}
 
 
@@ -96,9 +98,13 @@ public class WebController extends BaseController {
     
     }
 
-    @GetMapping("/register")
-    public String register() {
-        return "register/register";
-    }
+	// 회원가입 페이지
+	@GetMapping("/register")
+	public String register(HttpServletRequest request) throws JsonProcessingException {
+
+
+		return "register/register";
+	}
+
 
 }

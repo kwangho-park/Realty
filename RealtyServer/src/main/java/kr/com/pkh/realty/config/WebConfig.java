@@ -1,8 +1,8 @@
 package kr.com.pkh.realty.config;
 
-import kr.com.pkh.realty.interceptor.LoginCheckInterceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 // spring boot 의 서버 설정
@@ -16,8 +16,14 @@ public class WebConfig implements WebMvcConfigurer{
             "/bootstrap/**", "/datatables/**", "/datatables-plugins/**", "/dreamsecurity/**",
             "/font-awsome/**", "/jquery/**", "/metisMenu/**", "/usedTemplate/**", "/favicon.ico",
     };
-    
-    
+
+	// 정적 자원 매핑 핸들러 ([homepath]/src/main/resource/ 하위에 위치한 자원 )
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// /img/** 경로로 요청 시, resources/img 폴더의 파일을 제공
+		registry.addResourceHandler("/img/**")
+				.addResourceLocations("classpath:/img/");
+	}
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 

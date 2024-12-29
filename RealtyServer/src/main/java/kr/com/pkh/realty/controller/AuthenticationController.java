@@ -1,8 +1,8 @@
 package kr.com.pkh.realty.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.com.pkh.realty.dto.AptBuildingDTO;
-import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.dto.db.AptBuildingDTO;
+import kr.com.pkh.realty.dto.db.UserInfoDTO;
 import kr.com.pkh.realty.service.AptBuildingService;
 import kr.com.pkh.realty.service.AuthenticationService;
 import kr.com.pkh.realty.service.UserInfoService;
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

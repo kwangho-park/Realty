@@ -1,75 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	  layout:decorate="~{layout/layout}">
+
 
 <th:block layout:fragment="content">
 	<div class="container-fluid">
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">USER INFORMATION</h1>
+			<h1 class="h3 mb-0 text-gray-800">Realty Map</h1>
 		</div>
 
 		<!-- Content Row -->
 		<div class="row">
 
-			<div class="col-lg-6 mb-4">
-
-				<!--User Information-->
+			<!-- Start realty map -->
+			<div class="col-lg-10 mb-4">
 				<div class="card shadow mb-4 h-100">
 					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+						<h6 class="m-0 font-weight-bold text-primary">아파트 매물 지도</h6>
 					</div>
-					<div class="card-body">
-						<div class="col-md">
-							<div class="form-floating">
-								<label for="floatingInputGrid">USER ID</label>
-								<input type="text" class="form-control" th:value="${user.userId}" readonly>
-							</div>
-							<hr>
-							<div class="form-floating">
-								<label for="floatingInputGrid">USER NAME</label>
-								<input type="text" class="form-control" th:value="${user.userName}" readonly>
-							</div>
-							<hr>
+					<div class="card-body row " >
 
-							<!--<div class="form-floating">
-								<label for="floatingInputGrid">E-MAIL</label>
-								<input type="text" class="form-control" placeholder="example@example.com" readonly>
-							</div>
-							<hr>
-							<div class="form-floating">
-								<label for="floatingInputGrid">PHONE</label>
-								<input type="text" class="form-control" placeholder="phone Number" readonly>
-							</div>
-							<hr>
-							<div class="form-floating">
-								<label for="floatingInputGrid">DESCRIPTION</label>
-								
-								<input type="text" class="form-control"
-									placeholder="DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION " disabled>
-							</div>-->
-						</div>
+						<!--naver map -->
+						<div id="map" style="width:1000px;height:400px;">naver map</div>
+
 					</div>
+
 				</div>
-			</div>
-		</div> <!--End Content Row-->
-	</div>
 
+			</div>
+		</div>
+		<!-- End realty map -->
+
+
+
+	</div> <!--End Content Row-->
+	</div>
 	<!-- /.container-fluid -->
 
-	<!--naver map test : legacy-->
-<!--	<div id="map" style="width:500px;height:400px;">naver map</div>-->
-
-	<!--CDN : kakao map sdk -->
-	<!--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e594070f5e090971964662267b642f4&libraries=services,clusterer,drawing"></script>-->
-	<!--네이버 지도 API -->
+	<!--네이버 지도 API CDN -->
 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vutw29vp6n"></script>
 
 	<script th:inline="javascript">
 		let map;
 		let maker;
-
 		$(document).ready(function(){
 			console.log("aaaaaa");
 			// 지도 초기화
@@ -141,6 +116,14 @@
 			infoWindow.close();
 
 		});
+
+	</script>
+
+</th:block>
+
+<th:block layout:fragment="test">
+
+	<script th:inline="javascript">
 
 	</script>
 </th:block>

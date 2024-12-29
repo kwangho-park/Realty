@@ -1,7 +1,7 @@
 package kr.com.pkh.realty.service;
 
 import kr.com.pkh.realty.dao.AptBuildingMapper;
-import kr.com.pkh.realty.dto.AptBuildingDTO;
+import kr.com.pkh.realty.dto.db.AptBuildingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

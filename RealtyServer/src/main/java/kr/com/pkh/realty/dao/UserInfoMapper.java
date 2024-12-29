@@ -1,7 +1,7 @@
 package kr.com.pkh.realty.dao;
 
 
-import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.dto.db.UserInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,4 +13,6 @@ public interface UserInfoMapper {
     UserInfoDTO selectUserInfo(UserInfoDTO userInfo);
 
     int insertUserInfo(UserInfoDTO userInfoDTO);
+
+    String checkUserIdExists(String userId);
 }

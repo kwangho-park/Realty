@@ -6,7 +6,7 @@
 
 
 <mapper namespace="kr.com.pkh.realty.dao.UserInfoMapper">
-    <resultMap type="kr.com.pkh.realty.dto.UserInfoDTO" id="userInfoResultMap">
+    <resultMap type="kr.com.pkh.realty.dto.db.UserInfoDTO" id="userInfoResultMap">
         <id column="USER_NAME" property="userName"/>
         <result column="USER_ID" property="userId"/>
     </resultMap>
@@ -29,7 +29,8 @@
             AND UI_USER_PW = #{userPw}
     </select>
 
-    <insert id="insertUserInfo" parameterType="kr.com.pkh.realty.dto.UserInfoDTO">
+    <!--성공 시 1 반환 , 실패 시 0 반환 (row 갯수)-->
+    <insert id="insertUserInfo" parameterType="kr.com.pkh.realty.dto.db.UserInfoDTO">
         INSERT INTO
             TB_USER_INFO
             (
@@ -42,4 +43,10 @@
               ,#{userName}
              )
     </insert>
+
+    <!-- 회원 ID 중복 체크 -->
+    <select id="checkUserIdExists" resultType="String">
+        SELECT COUNT(*) as count FROM TB_USER_INFO WHERE UI_USER_ID = #{userId}
+    </select>
+
 </mapper>

@@ -8,17 +8,17 @@
 
 		<!-- Page Heading -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">APPLICATION LIST</h1>
+			<h1 class="h3 mb-0 text-gray-800">Realty Map</h1>
 		</div>
 
 		<!-- Content Row -->
 		<div class="row">
 
-			<!-- Start application List -->
+			<!-- Start 어플리케이션 리스트 -->
 			<div class="col-lg-10 mb-4">
 				<div class="card shadow mb-4 h-100">
 					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">Application List</h6>
+						<h6 class="m-0 font-weight-bold text-primary">어플리케이션 리스트 (타임리프 개발 참고용)</h6>
 					</div>
 					<div class="card-body row " >
 						<div class="col-xl-3" th:each="app : ${paging}">
@@ -48,6 +48,7 @@
 					</div>
 
 				</div>
+				<!-- 페이징 처리 -->
 				<nav aria-label="Page navigation" th:if="${!paging.isEmpty()}">
 					<ul class="pagination justify-content-center">
 						<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
@@ -63,7 +64,7 @@
 				</nav>
 			</div>
 		</div>
-		<!-- End application List -->
+		<!-- End 어플리케이션 리스트 -->
 	</div> <!--End Content Row-->
 	</div>
 	<!-- /.container-fluid -->

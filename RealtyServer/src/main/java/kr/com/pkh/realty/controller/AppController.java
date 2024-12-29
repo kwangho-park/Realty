@@ -1,6 +1,6 @@
 package kr.com.pkh.realty.controller;
 
-import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.dto.db.UserInfoDTO;
 import kr.com.pkh.realty.service.AppInfoService;
 import kr.com.pkh.realty.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +26,7 @@ public class AppController {
 	private final AppInfoService appInfoService;
 
 
+	// legacy (타임리프 리스트 출력 참고용 )
 	@GetMapping("list")
 	public String getAppList(HttpServletRequest request, HttpServletResponse reponse, Model model,
 						@RequestParam(value = "page", defaultValue = "1") int page) throws Exception {

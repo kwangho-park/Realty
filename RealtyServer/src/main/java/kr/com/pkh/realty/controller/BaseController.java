@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 */
 
-import kr.com.pkh.realty.dto.UserInfoDTO;
+import kr.com.pkh.realty.dto.db.UserInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

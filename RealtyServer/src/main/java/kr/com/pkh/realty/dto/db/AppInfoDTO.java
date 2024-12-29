@@ -1,4 +1,4 @@
-package kr.com.pkh.realty.dto;
+package kr.com.pkh.realty.dto.db;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
